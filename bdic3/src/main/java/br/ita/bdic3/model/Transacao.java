@@ -1,58 +1,55 @@
 package br.ita.bdic3.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
-
-/**
- * The persistent class for the TRANSACAO database table.
- * 
- */
 @Entity
-@Table(name="TRANSACAO")
-@NamedQuery(name="Transacao.findAll", query="SELECT t FROM Transacao t")
+@Table(name = "TRANSACAO")
+@NamedQuery(name = "Transacao.findAll", query = "SELECT t FROM Transacao t")
 public class Transacao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="ano_validade")
+	@Column(name = "ano_validade")
 	private String anoValidade;
 
 	private String bandeira;
 
-	@Column(name="codigo_seguranca")
+	@Column(name = "codigo_seguranca")
 	private String codigoSeguranca;
 
-	@Column(name="data_hora")
+	@Column(name = "data_hora")
 	private Timestamp dataHora;
 
-	@Column(name="identificacao_receita_federal")
+	@Column(name = "identificacao_receita_federal")
 	private String identificacaoReceitaFederal;
 
 	private double latitude;
 
 	private double longitude;
 
-	@Column(name="meio_pagamento")
+	@Column(name = "meio_pagamento")
 	private String meioPagamento;
 
-	@Column(name="mes_validade")
+	@Column(name = "mes_validade")
 	private String mesValidade;
 
 	private String moeda;
 
-	@Column(name="numero_cartao")
+	@Column(name = "numero_cartao")
 	private String numeroCartao;
 
 	private int parcelas;
 
 	private String senha;
 
-	@Column(name="tipo_operacao")
+	@Column(name = "tipo_operacao")
 	private String tipoOperacao;
 
 	private double valor;
@@ -104,7 +101,8 @@ public class Transacao implements Serializable {
 		return this.identificacaoReceitaFederal;
 	}
 
-	public void setIdentificacaoReceitaFederal(String identificacaoReceitaFederal) {
+	public void setIdentificacaoReceitaFederal(
+			String identificacaoReceitaFederal) {
 		this.identificacaoReceitaFederal = identificacaoReceitaFederal;
 	}
 
@@ -186,6 +184,11 @@ public class Transacao implements Serializable {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(this.id);
 	}
 
 }
