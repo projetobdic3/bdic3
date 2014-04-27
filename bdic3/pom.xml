@@ -9,9 +9,8 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<spring.version>4.0.0.RELEASE</spring.version>
+		<spring.version>4.0.3.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
-		<jdk.version>1.6</jdk.version>
 	</properties>
 
 	<dependencies>
@@ -62,27 +61,10 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.7.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.7.4</version>
-		</dependency>
-		<!-- -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-
-
 	</dependencies>
+	
 	<build>
 		<finalName>bdic3</finalName>
 	</build>
+	
 </project>
