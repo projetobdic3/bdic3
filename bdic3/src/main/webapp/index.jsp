@@ -11,8 +11,6 @@
 <title>Efetuar Transacao</title>
 </head>
 <body>
-	<!-- Testando Fetch -->
-	<!-- Testando Fetch3 -->
 	<h1>Efetuar Transacao</h1>
 
 	<%
