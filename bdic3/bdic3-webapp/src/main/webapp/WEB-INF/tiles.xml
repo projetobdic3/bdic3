@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="base" template="/WEB-INF/jsp/layout/base.jsp">
+        <put-attribute name="title" value="page.general.title" />
+        <put-attribute name="view" value="" cascade="true" />
+        <put-attribute name="headerInclude" value="/WEB-INF/jsp/layout/fragments/headerInclude.jsp"/>
+        <put-attribute name="footerInclude" value="/WEB-INF/jsp/layout/fragments/footerInclude.jsp"/>
+        <put-attribute name="navbar" value="/WEB-INF/jsp/layout/fragments/navbar.jsp" />
+        <put-attribute name="content" value=""/>
+    </definition>
+
+    <definition name="WILDCARD:view.*" extends="base">
+        <put-attribute name="title" value="page.{1}.title" />
+        <put-attribute name="view" value="{1}" cascade="true" />
+        <put-attribute name="content" value="/WEB-INF/jsp/views/{1}.jsp" />
+    </definition>
+
+    <definition name="WILDCARD:error.*" extends="base">
+        <put-attribute name="title" value="error.general.title" />
+        <put-attribute name="content" value="/WEB-INF/jsp/errors/{1}.jsp" />
+    </definition>
+
+    <definition name="WILDCARD:template/*" template="/WEB-INF/jsp/templates/{1}.jsp" />
+
+</tiles-definitions>
