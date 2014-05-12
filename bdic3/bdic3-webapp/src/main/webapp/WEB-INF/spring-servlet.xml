@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+		
+	<mvc:annotation-driven />
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+	<!-- Scans within the base package of the application for @Components to configure as beans -->
+	<!-- @Controller, @Service, @Configuration, etc. -->
+    <context:component-scan base-package="br.com.ita.bdic3" use-default-filters="false">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper" />
+            </bean>
+        </mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+	<!-- Serve static content from / folder via /resources endpoint-->
+    <mvc:resources location="/" mapping="/resources/**"/>
+
+    <mvc:default-servlet-handler/>
+
+    <mvc:interceptors>
+        <bean class="br.com.ita.bdic3.cache.IFNoneMatchHandlerInterceptor" />
+    </mvc:interceptors>
+
+    <bean id="directViewMapping" abstract="true" class="org.springframework.web.servlet.mvc.ParameterizableViewController" />
+    <bean name="/home" parent="directViewMapping" p:viewName="view.home" />
+    <bean name="/about" parent="directViewMapping" p:viewName="view.about" />
+    <bean name="/login" parent="directViewMapping" p:viewName="view.login" />
+    <bean name="/contact" parent="directViewMapping" p:viewName="view.contact" />
+
+    <bean name="/error/404" parent="directViewMapping" p:viewName="error.404" />
+    <bean name="/error/*" parent="directViewMapping" p:viewName="error.general" />
+
+    <bean id="messageSource" class="br.com.ita.bdic3.util.ReloadableMessageSource">
+        <property name="cacheSeconds" value="5"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="fallbackToSystemLocale" value="false"/>
+        <property name="useCodeAsDefaultMessage" value="true" />
+        <property name="parentMessageSource" ref="applicationMessageSource" />
+        <property name="basenames">
+            <list>
+                <value>classpath:errors</value>
+                <value>classpath:messages</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en"/>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="0">
+        <!--<property name="viewNames" value="view.*,template.*,error.*" />-->
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    </bean>
+
+    <bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="completeAutoload" value="true" />
+    </bean>
+
+    <bean name="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000"/>
+    </bean>
+
+</beans>
