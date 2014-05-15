@@ -83,7 +83,7 @@
 		mid_validadeano INT(11) NULL,
 		mid_diafatura INT(11) NULL,
 		mid_validademes INT(11) NULL,
-		mid_valormaximo FLOAT(10,2) NULL,
+		mid_valormaximo DECIMAL(10,2) NULL,
 		mid_codigoseguranca VARCHAR(4) NULL DEFAULT NULL,
 		PRIMARY KEY (mid_id , cli_id),
 		INDEX idx_MID_CLIENTE (cli_id ASC),
@@ -112,7 +112,7 @@
 	DROP TABLE IF EXISTS NAVEGADOR;
 
 	CREATE TABLE IF NOT EXISTS NAVEGADOR (
-		nav_id INT NOT NULL PRIMARY KEY,
+		nav_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		nav_nome VARCHAR(45) NOT NULL,
 		nav_versao VARCHAR(45) NOT NULL
 	)  ENGINE=InnoDB;
@@ -256,7 +256,7 @@
 	CREATE TABLE IF NOT EXISTS PRODUTO (
 		prd_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		prd_description VARCHAR(250) NOT NULL,
-		prd_price FLOAT(10 , 2 ) NOT NULL
+		prd_price DECIMAL(10 , 2 ) NOT NULL
 	)  ENGINE=InnoDB;
 
 
@@ -314,7 +314,7 @@
 	  etb_id INT NOT NULL,
 	  mep_id INT NOT NULL,
 	  cli_id INT NOT NULL,
-	  ett_datahora VARCHAR(45) NOT NULL,
+	  ett_datahora DATETIME NOT NULL,
 	  ett_statuso VARCHAR(10) NULL,
 	  ett_detalhe_historico VARCHAR(255) NULL COMMENT 'pode armazenar o código do comprovante',
 	  PRIMARY KEY (tra_id , etb_id , mep_id , cli_id),
