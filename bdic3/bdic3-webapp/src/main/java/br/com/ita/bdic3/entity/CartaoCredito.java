@@ -19,16 +19,16 @@ public class CartaoCredito {
 	private Long id;
 	
 	@Column(name = "cdc_numero")
-	private Long numero;
+	private String numero;
 	
 	@Column(name = "cdc_codigo")
-	private Integer codigo;
+	private String codigo;
 	
 	@Column(name = "cdc_val_mes")
-	private Integer validadeMes;
+	private String validadeMes;
 	
 	@Column(name = "cdc_val_ano")
-	private Integer validadeAno;
+	private String validadeAno;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "cdc_bandeira")
@@ -42,35 +42,35 @@ public class CartaoCredito {
 		this.id = id;
 	}
 
-	public Long getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Long numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
-	public Integer getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
-	public Integer getValidadeMes() {
+	public String getValidadeMes() {
 		return validadeMes;
 	}
 
-	public void setValidadeMes(Integer validadeMes) {
+	public void setValidadeMes(String validadeMes) {
 		this.validadeMes = validadeMes;
 	}
 
-	public Integer getValidadeAno() {
+	public String getValidadeAno() {
 		return validadeAno;
 	}
 
-	public void setValidadeAno(Integer validadeAno) {
+	public void setValidadeAno(String validadeAno) {
 		this.validadeAno = validadeAno;
 	}
 
@@ -81,4 +81,5 @@ public class CartaoCredito {
 	public void setBandeira(BandeiraCartao bandeira) {
 		this.bandeira = bandeira;
 	}
+
 }
