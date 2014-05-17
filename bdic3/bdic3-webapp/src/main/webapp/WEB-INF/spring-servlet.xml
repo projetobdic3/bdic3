@@ -16,7 +16,7 @@
 
 	<!-- Scans within the base package of the application for @Components to configure as beans -->
 	<!-- @Controller, @Service, @Configuration, etc. -->
-    <context:component-scan base-package="br.com.ita.bdic3" use-default-filters="false">
+    <context:component-scan base-package="br.ita.bdic3" use-default-filters="false">
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
 
@@ -38,7 +38,7 @@
     <mvc:default-servlet-handler/>
 
     <mvc:interceptors>
-        <bean class="br.com.ita.bdic3.cache.IFNoneMatchHandlerInterceptor" />
+        <bean class="br.ita.bdic3.cache.IFNoneMatchHandlerInterceptor" />
     </mvc:interceptors>
 
     <bean id="directViewMapping" abstract="true" class="org.springframework.web.servlet.mvc.ParameterizableViewController" />
@@ -46,11 +46,12 @@
     <bean name="/about" parent="directViewMapping" p:viewName="view.about" />
     <bean name="/login" parent="directViewMapping" p:viewName="view.login" />
     <bean name="/contact" parent="directViewMapping" p:viewName="view.contact" />
+    <bean name="/product" parent="directViewMapping" p:viewName="view.product" />
 
     <bean name="/error/404" parent="directViewMapping" p:viewName="error.404" />
     <bean name="/error/*" parent="directViewMapping" p:viewName="error.general" />
 
-    <bean id="messageSource" class="br.com.ita.bdic3.util.ReloadableMessageSource">
+    <bean id="messageSource" class="br.ita.bdic3.util.ReloadableMessageSource">
         <property name="cacheSeconds" value="5"/>
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="fallbackToSystemLocale" value="false"/>
