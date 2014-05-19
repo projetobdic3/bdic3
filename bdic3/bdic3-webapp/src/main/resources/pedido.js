@@ -1,4 +1,4 @@
- {
+pedido = {
 	"cliente" : {
 		"id" : 1
 	},
