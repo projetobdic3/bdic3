@@ -1,4 +1,4 @@
-package br.ita.bdic3.controller.api;
+package br.com.ita.bdic3.controller.api;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.ita.bdic3.entity.Transacao;
-import br.ita.bdic3.exception.APIException;
-import br.ita.bdic3.service.TransacaoService;
+import br.com.ita.bdic3.entity.Transacao;
+import br.com.ita.bdic3.exception.APIException;
+import br.com.ita.bdic3.service.TransacaoService;
 
 @Controller
 @RequestMapping("/api/transacoes")

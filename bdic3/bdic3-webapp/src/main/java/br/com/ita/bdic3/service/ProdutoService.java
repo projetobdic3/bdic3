@@ -1,12 +1,12 @@
-package br.ita.bdic3.service;
+package br.com.ita.bdic3.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.ita.bdic3.dao.ProdutoDao;
-import br.ita.bdic3.entity.Produto;
+import br.com.ita.bdic3.dao.ProdutoDao;
+import br.com.ita.bdic3.entity.Produto;
 
 @Component
 public class ProdutoService {

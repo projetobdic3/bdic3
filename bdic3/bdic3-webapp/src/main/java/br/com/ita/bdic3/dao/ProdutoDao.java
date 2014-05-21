@@ -1,8 +1,8 @@
-package br.ita.bdic3.dao;
+package br.com.ita.bdic3.dao;
 
 import org.springframework.stereotype.Repository;
 
-import br.ita.bdic3.entity.Produto;
+import br.com.ita.bdic3.entity.Produto;
 
 /**
  * @author Paulo Vitor Faria Fortes Rezende

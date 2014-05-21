@@ -1,4 +1,4 @@
-package br.ita.bdic3.controller.api;
+package br.com.ita.bdic3.controller.api;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.ita.bdic3.controller.GenericController;
-import br.ita.bdic3.entity.Pedido;
-import br.ita.bdic3.exception.APIException;
-import br.ita.bdic3.service.PedidoService;
+import br.com.ita.bdic3.entity.Pedido;
+import br.com.ita.bdic3.exception.APIException;
+import br.com.ita.bdic3.service.PedidoService;
 
 @Controller
 @RequestMapping("/api/pedidos")
@@ -43,6 +42,7 @@ public class PedidoController extends GenericController<Pedido> {
 	public @ResponseBody String create(@RequestBody String pedidoJSON) throws APIException, JsonParseException, JsonMappingException, IOException {
 		
 		Pedido pedido = convertStringJsonToObject(pedidoJSON);
+		
 		pedidoService.save(pedido);
 		
 		return pedido.toString();
@@ -52,6 +52,7 @@ public class PedidoController extends GenericController<Pedido> {
 	public @ResponseBody String update(String pedidoJSON) throws APIException, JsonParseException, JsonMappingException, IOException {
 		
 		Pedido pedido = convertStringJsonToObject(pedidoJSON);
+		
 		pedidoService.update(pedido);
 		
 		return "";
@@ -59,8 +60,9 @@ public class PedidoController extends GenericController<Pedido> {
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody String delete(@PathVariable Long id) throws APIException {
-		pedidoService.delete(id);
 		
 		return "";
 	}
+	
+	
 }

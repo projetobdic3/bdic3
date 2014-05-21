@@ -17,7 +17,7 @@
 	<context:spring-configured />
 	<context:annotation-config />
 
-	<context:component-scan base-package="br.ita.bdic3">
+	<context:component-scan base-package="br.com.ita.bdic3">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller"
 			type="annotation" />
 	</context:component-scan>
@@ -30,7 +30,7 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
-	<bean id="applicationMessageSource" class="br.ita.bdic3.util.ReloadableMessageSource">
+	<bean id="applicationMessageSource" class="br.com.ita.bdic3.util.ReloadableMessageSource">
 		<property name="cacheSeconds" value="5" />
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="fallbackToSystemLocale" value="false" />
@@ -53,7 +53,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
-				<value>br.ita.bdic3.entity</value>
+				<value>br.com.ita.bdic3.entity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -78,7 +78,7 @@
 		<property name="customEditors">
 			<map>
 				<entry key="java.io.Reader"
-					value="br.ita.bdic3.util.ServletContextResourceReaderPropertyEditor" />
+					value="br.com.ita.bdic3.util.ServletContextResourceReaderPropertyEditor" />
 			</map>
 		</property>
 	</bean>

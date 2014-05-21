@@ -14,16 +14,18 @@
 	<table class="table">
 	    <thead>
 	    	<th>Nome</th>
-	    	<th>Valor</th>
+	    	<th>Preço</th>
 	    </thead>
 	    <c:forEach var="produto" items="${produtos}">
-			<tr>
+			<tr onclick="window.location.href='/bdic3/product/${produto.id}'">
 	    		<td>${produto.nome}</td>
 	    		<td>${produto.precoNormal}</td>
 	    	</tr>    
 	    </c:forEach>
 	</table>
-	<ul class="pager">
-	 	<li><a href="#">Next</a></li>
-	</ul>
+	<c:if test="${produtos.size() > 15}">
+		<ul class="pager">
+	 		<li><a href="#">Next</a></li>
+		</ul>
+	</c:if>
 </c:if>

@@ -1,4 +1,4 @@
-package br.com.ita.bdic3.controller;
+package br.com.ita.bdic3.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
