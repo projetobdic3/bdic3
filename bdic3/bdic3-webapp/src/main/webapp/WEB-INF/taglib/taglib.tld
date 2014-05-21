@@ -5,11 +5,11 @@
         version="2.1">
 
     <tlib-version>1.0</tlib-version>
-    <short-name>tobacco</short-name>
+    <short-name>bdic3</short-name>
 
     <tag>
         <name>json</name>
-        <tag-class>br.ita.bdic3.tags.JSONTag</tag-class>
+        <tag-class>br.com.ita.bdic3.tags.JSONTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>val</name>
@@ -18,7 +18,7 @@
 
     <function>
         <name>minifiedJS</name>
-        <function-class>br.ita.bdic3.util.Utils</function-class>
+        <function-class>br.com.ita.bdic3.util.Utils</function-class>
         <function-signature>java.lang.String minifiedJS(java.lang.String)</function-signature>
     </function>
 
