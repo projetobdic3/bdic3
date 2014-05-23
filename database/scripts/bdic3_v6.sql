@@ -5,7 +5,7 @@
 	-- -----------------------------------------------------
 	-- Table'bdic3'.'localidade'
 	-- -----------------------------------------------------
-	DROP TABLE IF EXISTS clientelocalidade;
+	DROP TABLE IF EXISTS localidade;
 
 	CREATE TABLE IF NOT EXISTS localidade (
 		loc_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -85,7 +85,7 @@
 		mid_validademes INT(11) NULL,
 		mid_valormaximo FLOAT(10,2) NULL,
 		mid_codigoseguranca VARCHAR(4) NULL DEFAULT NULL,
-        mid_valorlim FLOAT(10,2) NULL,
+                mid_valorlim FLOAT(10,2) NULL,
 		PRIMARY KEY (mid_id , cli_id),
 		INDEX idx_MID_cliente (cli_id ASC),
 		CONSTRAINT fk_midia_cliente FOREIGN KEY (cli_id)
@@ -228,25 +228,6 @@
 			REFERENCES transacao (tra_id)
 			ON DELETE NO ACTION ON UPDATE NO ACTION
 	)  ENGINE=InnoDB;
-
-
-	-- -----------------------------------------------------
-	-- Table `bdic3`.`transacao_incomum`
-	-- -----------------------------------------------------
-	DROP TABLE IF EXISTS transacao_incomum;
-
-	CREATE TABLE IF NOT EXISTS transacao_incomum (
-	  tra_id INT NOT NULL PRIMARY KEY,
-	  inc_tipo VARCHAR(45) NOT NULL,
-	  inc_forma_deteccao VARCHAR(45) NOT NULL,
-	  inc_data_deteccao VARCHAR(45) NOT NULL,
-	  inc_confirmacao_cliente CHAR(1) NOT NULL,
-	  inc_descricao VARCHAR(250) NULL,
-	  INDEX fk_transacao_incomum_transacao1_idx (tra_id ASC),
-	  CONSTRAINT fk_transacao_incomum_transacao1
-		FOREIGN KEY (tra_id) REFERENCES transacao (tra_id)
-		ON DELETE NO ACTION ON UPDATE NO ACTION
-	) ENGINE = InnoDB;
 
 
 	-- ----------------------------------------------------- 
