@@ -5,11 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MEIO_PAGAMENTO_ ESTABELECIMENTO")
+@Table(name = "meio_pagamento_ estabelecimento")
 public class MeioPagamentoEstabelecimento {
 	
 	@Id

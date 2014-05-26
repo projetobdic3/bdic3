@@ -2,19 +2,17 @@ package br.com.ita.bdic3.entity;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PEDIDO_HAS_PRODUTO")
+@Table(name="pedido_has_produto")
 public class PedidoHasProduto {
 	
 	@Id
