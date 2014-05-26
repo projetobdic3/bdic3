@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -18,7 +17,7 @@ import br.com.ita.bdic3.enums.StatusTransacao;
 import br.com.ita.bdic3.enums.TransacaoTipo;
 
 @Entity
-@Table(name = "TRANSACAO")
+@Table(name = "transacao")
 @NamedQuery(name = "Transacao.findAll", query = "SELECT t FROM Transacao t")
 public class Transacao implements Serializable {
 	
