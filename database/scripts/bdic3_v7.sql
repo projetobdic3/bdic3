@@ -238,7 +238,7 @@
 	CREATE TABLE IF NOT EXISTS produto (
 	   prod_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   	   prod_nome VARCHAR(45),
-       prod_preco_normal DOUBLE,
+       prod_preco_normal DOUBLE
     )  ENGINE = InnoDB;
 
 
@@ -270,7 +270,7 @@
 	  	cdc_codigo VARCHAR(45),
 	  	cdc_val_mes VARCHAR(2),
 	  	cdc_val_ano VARCHAR(4),
-	  	cdc_bandeira VARCHAR(45),
+	  	cdc_bandeira VARCHAR(45)
 	)  	ENGINE = InnoDB;
 
 
@@ -408,6 +408,3 @@
 		REFERENCES cliente (cli_id)
 		ON DELETE NO ACTION ON UPDATE NO ACTION
 	) ENGINE = InnoDB
-
-
-
