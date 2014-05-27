@@ -7,11 +7,13 @@ import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DateTimeTest {
 
 	@Test
+	@Ignore
 	public void testConverterStringEmData() {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 
@@ -22,6 +24,7 @@ public class DateTimeTest {
 	}
 
 	@Test
+	@Ignore
 	public void testConverterStringEmTempo() {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm:ss");
 
@@ -32,6 +35,7 @@ public class DateTimeTest {
 	}
 
 	@Test
+	@Ignore
 	public void testConverterStringEmDateTime() {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
 

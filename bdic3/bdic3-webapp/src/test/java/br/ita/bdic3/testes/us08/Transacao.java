@@ -63,7 +63,7 @@ public class Transacao {
 
 	@Override
 	public String toString() {
-		return cli_id + "\t" + getTra_data_hora() + "\t" + loc_latitude + "\t"
+		return cli_id + ", " + getTra_data_hora() + ", " + loc_latitude + ", "
 				+ loc_longitude;
 	}
 
