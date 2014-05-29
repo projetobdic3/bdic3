@@ -9,4 +9,15 @@
 <%@ taglib prefix="util" tagdir="/WEB-INF/tags/util" %>
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld" %>
 
-<util:js value="/resources/js/pages/home.js" />
+<form:form action="/bdic3/pedido" method="post" modelAttribute="pedido">
+<%-- <form action="/bdic3/pedido" method="post"> --%>
+    <div class="form-group">
+        <label for="inputEmail">Quantidade</label>
+        <form:input type="text" path="name" />
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Número Cartão</label>
+        <form:input type="text" path="name" />
+    </div>
+    <button type="submit" class="btn btn-primary">Comprar</button>
+</form:form>
