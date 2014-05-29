@@ -1,5 +1,6 @@
 package br.com.ita.bdic3.entity;
 
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass

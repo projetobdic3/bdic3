@@ -23,7 +23,6 @@
     <http pattern="/home" security="none"/>
     <http pattern="/about" security="none"/>
     <http pattern="/contact" security="none"/>
-    <http pattern="/product" security="none"/> 
     
     <http pattern="/api" security="none"/>
     <http pattern="/api/*" security="none"/>

@@ -29,7 +29,7 @@ This is the dynamic remake of http://getbootstrap.com/components/#navbar
     <%-- Collect the nav links, forms, and other content for toggling --%>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-            <c:forEach var="item" items="home,about,product">
+            <c:forEach var="item" items="home,about">
                 <spring:message code="navbar.${item}.title" var="itemTitle"/>
                 <c:choose>
                     <c:when test="${item eq selectedView}">
@@ -41,18 +41,28 @@ This is the dynamic remake of http://getbootstrap.com/components/#navbar
                 </c:choose>
             </c:forEach>
         </ul>
-        
-        <sec:authorize access="isAuthenticated()">
-        	<ul class="nav navbar-nav navbar-right">
-           		<spring:message var="itemTitle" code="navbar.logout.title"/>
-				<li><a href="<spring:url value="/logout" />">${itemTitle}</a></li>
-       		</ul>
-		</sec:authorize>	
-        <sec:authorize access="isAnonymous()">
-        	<ul class="nav navbar-nav navbar-right">
-	           	<spring:message var="itemTitle" code="navbar.login.title"/>
-				<li><a href="<spring:url value="/login" />">${itemTitle}</a></li>
-	        </ul>
-	    </sec:authorize>
+       	<sec:authorize var="loggedIn" access="isAuthenticated()" /><%-- 
+        <ul class="nav navbar-nav navbar-right">
+        	<c:choose>
+				<c:when test="${loggedIn}">
+	                <spring:message var="itemTitle" code="navbar.logout.title"/>
+	                <li><a href="<spring:url value="/j_spring_security_logout" />">${itemTitle}</a></li>
+        		</c:when>
+        		<c:otherwise>
+        			<spring:message var="itemTitle" code="navbar.login.title"/>
+        			<li class="active"><a href="<spring:url value="/login" />">${itemTitle}</a></li>
+        		</c:otherwise>        		
+        	</c:choose> --%>
+            <%-- <c:forEach var="item" items="login">
+                <c:choose>
+                    <c:when test="${item eq selectedView}">
+                        <li class="active"><a href="<spring:url value="/${item}" />">${itemTitle}</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="<spring:url value="/${item}" />">${itemTitle}</a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach> --%>
+        <!-- </ul> -->
     </div> <%-- /.navbar-collapse --%>
 </nav>

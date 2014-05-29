@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import br.com.ita.bdic3.enums.Sexo;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "CLIENTE")
 public class Cliente implements Serializable{
 	
 	private static final long serialVersionUID = -6199970951870939653L;

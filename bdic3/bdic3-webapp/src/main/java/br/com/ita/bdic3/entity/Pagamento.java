@@ -3,20 +3,16 @@ package br.com.ita.bdic3.entity;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pagamento")
+@Table(name = "PAGAMENTO")
 public class Pagamento {
 	
 	@Id
@@ -25,7 +21,6 @@ public class Pagamento {
 	private Long id;
 	
 	@Column(name = "pag_forma_pagamento")
-	@Enumerated(EnumType.STRING)
 	private FormaPagamento formaPagamento;
 	
 	@Column(name = "pag_parcelas")
@@ -37,17 +32,14 @@ public class Pagamento {
 	@Column(name = "pag_valor_pagamento")
 	private BigDecimal valorPagamento;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "loc_id")
-	private Localidade localidade;
+//	@OneToOne(mappedBy = "loc_id")
+//	private Localidade localidade;
 	
-	@OneToOne
-	@JoinColumn(name = "ped_id", updatable = false, insertable = false)
-	private Pedido pedido;
+//	@Column(name = "cdc_id")
+//	private Cliente cliente;
 	
-	@OneToOne
-	@JoinColumn(name = "cdc_id")
-	private CartaoCredito cartaoCredito;
+//	@Column(name = "ped_id")
+//	private Pedido pedido;
 
 	public Long getId() {
 		return id;
@@ -87,29 +79,5 @@ public class Pagamento {
 
 	public void setValorPagamento(BigDecimal valorPagamento) {
 		this.valorPagamento = valorPagamento;
-	}
-
-	public Localidade getLocalidade() {
-		return localidade;
-	}
-
-	public void setLocalidade(Localidade localidade) {
-		this.localidade = localidade;
-	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
-	public CartaoCredito getCartaoCredito() {
-		return cartaoCredito;
-	}
-
-	public void setCartaoCredito(CartaoCredito cartaoCredito) {
-		this.cartaoCredito = cartaoCredito;
 	}
 }

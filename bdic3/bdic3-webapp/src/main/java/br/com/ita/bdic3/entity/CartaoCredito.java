@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cartao_credito")
+@Table(name = "CARTAO_CREDITO")
 public class CartaoCredito {
 	
 	@Id
@@ -19,16 +19,16 @@ public class CartaoCredito {
 	private Long id;
 	
 	@Column(name = "cdc_numero")
-	private String numero;
+	private Long numero;
 	
 	@Column(name = "cdc_codigo")
-	private String codigo;
+	private Integer codigo;
 	
 	@Column(name = "cdc_val_mes")
-	private String validadeMes;
+	private Integer validadeMes;
 	
 	@Column(name = "cdc_val_ano")
-	private String validadeAno;
+	private Integer validadeAno;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "cdc_bandeira")
@@ -42,35 +42,35 @@ public class CartaoCredito {
 		this.id = id;
 	}
 
-	public String getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 
-	public String getCodigo() {
+	public Integer getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
-	public String getValidadeMes() {
+	public Integer getValidadeMes() {
 		return validadeMes;
 	}
 
-	public void setValidadeMes(String validadeMes) {
+	public void setValidadeMes(Integer validadeMes) {
 		this.validadeMes = validadeMes;
 	}
 
-	public String getValidadeAno() {
+	public Integer getValidadeAno() {
 		return validadeAno;
 	}
 
-	public void setValidadeAno(String validadeAno) {
+	public void setValidadeAno(Integer validadeAno) {
 		this.validadeAno = validadeAno;
 	}
 
@@ -81,5 +81,4 @@ public class CartaoCredito {
 	public void setBandeira(BandeiraCartao bandeira) {
 		this.bandeira = bandeira;
 	}
-
 }

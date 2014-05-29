@@ -1,11 +1,11 @@
 package br.com.ita.bdic3.exception;
 
-public class MensagemRetornoAPI {
+public class APIJsonParserException {
 
 	private String codigo; 
 	private String mensagem;
 
-	public MensagemRetornoAPI(String codigo, String mensagem) {
+	public APIJsonParserException(String codigo, String mensagem) {
 		super();
 		this.codigo = codigo;
 		this.mensagem = mensagem;

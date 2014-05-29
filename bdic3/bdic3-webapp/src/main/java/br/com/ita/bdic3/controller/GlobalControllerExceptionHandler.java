@@ -1,4 +1,4 @@
-package br.com.ita.bdic3.controller.api;
+package br.com.ita.bdic3.controller;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import br.com.ita.bdic3.exception.APIException;
-import br.com.ita.bdic3.exception.MensagemRetornoAPI;
+import br.com.ita.bdic3.exception.APIJsonParserException;
 
 @ControllerAdvice
 @EnableWebMvc
@@ -20,8 +20,8 @@ class GlobalControllerExceptionHandler {
     
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(APIException.class)
-	public @ResponseBody MensagemRetornoAPI handleBadRequest(Exception ex) {
-	    return new MensagemRetornoAPI(HttpStatus.BAD_REQUEST.toString(), ex.getMessage());
+	public @ResponseBody APIException handleBadRequest(Exception ex) {
+	    return new APIException(HttpStatus.BAD_REQUEST.toString(), ex.getMessage());
 	} 
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -32,7 +32,7 @@ class GlobalControllerExceptionHandler {
  
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({JsonParseException.class, JsonMappingException.class, IOException.class})
-	public @ResponseBody MensagemRetornoAPI handleJsonParserException(Exception ex) {
-		return new MensagemRetornoAPI(HttpStatus.BAD_REQUEST.toString(), ex.getMessage());
+	public @ResponseBody APIJsonParserException handleJsonParserException(Exception ex) {
+		return new APIJsonParserException(HttpStatus.BAD_REQUEST.toString(), ex.getMessage());
 	}
 }
