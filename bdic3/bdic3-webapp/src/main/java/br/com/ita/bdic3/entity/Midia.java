@@ -4,50 +4,52 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MIDIA")
+@Table(name = "midia")
 public class Midia {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "mid_id")
-	private  Long id;
-	
+	private Long id;
+
+	@Enumerated(EnumType.STRING)
 	@Column(name = "mid_name")
-	private  String nome;
-	
+	private BandeiraCartao nome;
+
 	@Column(name = "mid_description")
 	private String descricao;
-	
+
 	@Column(name = "mid_number")
 	private String numero;
-	
+
 	@Column(name = "mid_diafatura")
 	private Integer diaFatura;
-	
+
 	@Column(name = "mid_validademes")
 	private Integer validadeMes;
-	
+
 	@Column(name = "mid_validadeano")
 	private Integer validadeAno;
-	
+
 	@Column(name = "mid_valormaximo")
-	private BigDecimal  valorMaximo;
-	
+	private BigDecimal valorMaximo;
+
 	@Column(name = "mid_codigoseguranca")
 	private String codigoSeguranca;
 
-//	@OneToOne(mappedBy = "odc_id")
-//	private  OperadoraCartao operadoraCartao;
-	
-//	@OneToOne(mappedBy = "cli_id")
-//	private  Cliente cliente;
+	// @OneToOne(mappedBy = "odc_id")
+	// private OperadoraCartao operadoraCartao;
+
+	// @OneToOne(mappedBy = "cli_id")
+	// private Cliente cliente;
 
 	public Long getId() {
 		return id;
@@ -57,11 +59,11 @@ public class Midia {
 		this.id = id;
 	}
 
-	public String getNome() {
+	public BandeiraCartao getBandeira() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setBandeira(BandeiraCartao nome) {
 		this.nome = nome;
 	}
 

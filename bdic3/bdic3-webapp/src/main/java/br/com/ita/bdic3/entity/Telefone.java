@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import br.com.ita.bdic3.enums.TelefoneTipo;
 
 @Entity
-@Table(name = "Telefone")
+@Table(name = "telefone")
 public class Telefone {
 	
 	@Id
