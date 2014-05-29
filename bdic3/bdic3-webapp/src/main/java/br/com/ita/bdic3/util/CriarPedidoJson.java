@@ -9,15 +9,8 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import br.com.ita.bdic3.entity.BandeiraCartao;
-import br.com.ita.bdic3.entity.CartaoCredito;
-import br.com.ita.bdic3.entity.Cliente;
-import br.com.ita.bdic3.entity.FormaPagamento;
-import br.com.ita.bdic3.entity.Localidade;
-import br.com.ita.bdic3.entity.Pagamento;
-import br.com.ita.bdic3.entity.Pedido;
-import br.com.ita.bdic3.entity.PedidoHasProduto;
-import br.com.ita.bdic3.entity.Produto;
+import br.com.ita.bdic3.entity.*;
+
 
 public class CriarPedidoJson {
 	
@@ -37,13 +30,13 @@ public class CriarPedidoJson {
 		//pagamento.setPedido(pedido);
 		pedido.setPagamento(pagamento);
 		
-		CartaoCredito cartaoCredito = new CartaoCredito();
+		Midia cartaoCredito = new Midia();
 		cartaoCredito.setId(1l);
-		pagamento.setCartaoCredito(cartaoCredito);
+		pagamento.setMidia(cartaoCredito);
 		
 		Localidade localidade = new Localidade();
-		localidade.setLatitude(new Double("4321421.0432"));
-		localidade.setLongitude(new Double("-2314321421.0432"));
+		localidade.setLatitude(new Float("4321421.0432"));
+		localidade.setLongitude(new Float("-2314321421.0432"));
 		pagamento.setLocalidade(localidade );
 		
 		ArrayList<PedidoHasProduto> produtos = new ArrayList<PedidoHasProduto>();

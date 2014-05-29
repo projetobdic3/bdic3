@@ -1,4 +1,4 @@
-package br.com.ita.bdic3.controller;
+package br.com.ita.bdic3.controller.api;
 
 import java.io.IOException;
 

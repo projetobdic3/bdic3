@@ -1,4 +1,4 @@
-package br.com.ita.bdic3.controller;
+package br.com.ita.bdic3.controller.api;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,4 +63,6 @@ public class PedidoController extends GenericController<Pedido> {
 		
 		return "";
 	}
+	
+	
 }
