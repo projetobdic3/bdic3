@@ -1,4 +1,4 @@
-package br.ita.bdic3.testes.us08;
+package br.com.ita.bdic3.testes.us08;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.ita.bdic3.dao.PedidoDao;
 import br.com.ita.bdic3.entity.Pedido;
+import br.com.ita.bdic3.vo.PedidoVO;
 
 @Component
 public class PedidoService {
@@ -36,5 +37,9 @@ public class PedidoService {
 	
 	public Pedido findById(Long id) {
 		return pedidoDao.findById(id);
+	}
+
+	public void efetuarCompra(PedidoVO pedido) {
+		
 	}
 }
