@@ -15,8 +15,8 @@ public class PedidoService {
 	@Autowired
 	private PedidoDao pedidoDao;
 	
-	public void save(Pedido pedido) {
-		pedidoDao.save(pedido);
+	public void save(Pedido Pedido) {
+		pedidoDao.save(Pedido);
 	}
 	
 	public void update(Pedido Pedido) {

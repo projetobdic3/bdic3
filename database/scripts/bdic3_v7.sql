@@ -9,13 +9,13 @@
 
 	CREATE TABLE IF NOT EXISTS localidade (
 		loc_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		loc_latitude FLOAT NOT NULL,
-		loc_longitude FLOAT NOT NULL,
-		loc_endereco VARCHAR(250) NOT NULL,
-		loc_cidade VARCHAR(250) NOT NULL,
-		loc_estado VARCHAR(3) NOT NULL,
-		loc_pais VARCHAR(3) NOT NULL,
-		loc_cep VARCHAR(25) NOT NULL
+		loc_latitude FLOAT NULL,
+		loc_longitude FLOAT NULL,
+		loc_endereco VARCHAR(250) NULL,
+		loc_cidade VARCHAR(250) NULL,
+		loc_estado VARCHAR(3) NULL,
+		loc_pais VARCHAR(3) NULL,
+		loc_cep VARCHAR(25) NULL
 	)  ENGINE=InnoDB;
 
 
@@ -26,17 +26,17 @@
 
 	CREATE TABLE IF NOT EXISTS cliente (
 		cli_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		cli_nome VARCHAR(250) NOT NULL,
-		cli_primeironome VARCHAR(45) NOT NULL,
-		cli_ultimonome VARCHAR(45) NOT NULL,
-		cli_telefone VARCHAR(45) NOT NULL,
-		cli_celular VARCHAR(45) NOT NULL,
-		cli_cpf VARCHAR(45) NOT NULL,
-		cli_email VARCHAR(45) NOT NULL,
-		loc_id INT(11) NOT NULL,
-		cli_rg VARCHAR(45) NOT NULL,
-		cli_biometria VARCHAR(45) NOT NULL,
-		cli_token VARCHAR(45) NOT NULL,
+		cli_nome VARCHAR(250) NULL,
+		cli_primeironome VARCHAR(45) NULL,
+		cli_ultimonome VARCHAR(45) NULL,
+		cli_telefone VARCHAR(45) NULL,
+		cli_celular VARCHAR(45) NULL,
+		cli_cpf VARCHAR(45) NULL,
+		cli_email VARCHAR(45) NULL,
+		loc_id INT(11) NULL,
+		cli_rg VARCHAR(45) NULL,
+		cli_biometria VARCHAR(45) NULL,
+		cli_token VARCHAR(45) NULL,
 		cli_upper_limit FLOAT(10,2) NULL,
 		cli_senha VARCHAR(45) NULL,
 		cli_datanascimento VARCHAR(15) NULL,
@@ -55,9 +55,9 @@
 
 	CREATE TABLE IF NOT EXISTS estabelecimento (
 		etb_id INT(11) NOT NULL AUTO_INCREMENT,
-		etb_tipo VARCHAR(200) NOT NULL,
-		etb_nome VARCHAR(200) NOT NULL,
-		loc_id INT(11) NOT NULL,
+		etb_tipo VARCHAR(200) NULL,
+		etb_nome VARCHAR(200) NULL,
+		loc_id INT(11) NULL,
 		etb_email VARCHAR(255) NULL,
 		etb_senha VARCHAR(45) NULL,
 		etb_cnpj VARCHAR(14) NULL,
@@ -76,10 +76,10 @@
 
 	CREATE TABLE IF NOT EXISTS midia (
 		mid_id INT NOT NULL AUTO_INCREMENT,
-		mid_name VARCHAR(250) NOT NULL,
-		mid_description VARCHAR(250) NOT NULL,
-		mid_number VARCHAR(45) NOT NULL,
-		mid_bandeira VARCHAR(80) NOT NULL,
+		mid_name VARCHAR(250) NULL,
+		mid_description VARCHAR(250) NULL,
+		mid_number VARCHAR(45) NULL,
+		mid_bandeira VARCHAR(80) NULL,
 		cli_id INT(11) NULL,
 		mid_validadeano INT(11) NULL,
 		mid_diafatura INT(11) NULL,
@@ -102,7 +102,7 @@
 
 	CREATE TABLE IF NOT EXISTS sistema_operacional (
 		sis_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		sis_nome VARCHAR(45) NOT NULL,
+		sis_nome VARCHAR(45) NULL,
 		sis_versao VARCHAR(45) NULL,
 		sis_movel VARCHAR(45) NULL
 	)  ENGINE=InnoDB;
@@ -115,8 +115,8 @@
 
 	CREATE TABLE IF NOT EXISTS navegador (
 		nav_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		nav_nome VARCHAR(45) NOT NULL,
-		nav_versao VARCHAR(45) NOT NULL
+		nav_nome VARCHAR(45) NULL,
+		nav_versao VARCHAR(45) NULL
 	)  ENGINE=InnoDB;
 
 
@@ -129,9 +129,9 @@
 		ses_id INT NOT NULL AUTO_INCREMENT,
 		ses_data VARCHAR(45) NULL,
 		ses_hora VARCHAR(45) NULL,
-		cli_id INT NOT NULL,
-		sis_id INT NOT NULL,
-		nav_id INT NOT NULL,
+		cli_id INT NULL,
+		sis_id INT NULL,
+		nav_id INT NULL,
 		PRIMARY KEY (ses_id , cli_id , sis_id , nav_id),
 		INDEX idx_sessao_cliente1 (cli_id ASC),
 		INDEX idx_sessao_sistema_operacional1 (sis_id ASC),
@@ -152,7 +152,7 @@
 	-- -----------------------------------------------------
 	-- Table `bdic3`.`etapa_meio_pagamento`
 	-- -----------------------------------------------------
-	DROP TABLE IF EXISTS meio_pagamento;
+	DROP TABLE IF EXISTS etapa_meio_pagamento;
 
 	CREATE TABLE IF NOT EXISTS meio_pagamento (
 	  mep_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -168,14 +168,14 @@
 
 	CREATE TABLE IF NOT EXISTS transacao (
 		tra_id INT NOT NULL AUTO_INCREMENT,
-		tra_tipo VARCHAR(50) NOT NULL,
-		tra_total FLOAT NOT NULL,
-		tra_data_hora VARCHAR(50) NOT NULL,
-		etb_id INT(11) NOT NULL,
-		cli_id INT(11) NOT NULL,
-		mid_id INT(11) NOT NULL,
-		loc_id INT(11) NOT NULL COMMENT 'tambem conhecido como tra_geolocalizacao',
-		ses_id INT(11) NOT NULL,
+		tra_tipo VARCHAR(50) NULL,
+		tra_total FLOAT NULL,
+		tra_data_hora VARCHAR(50) NULL,
+		etb_id INT(11) NULL,
+		cli_id INT(11) NULL,
+		mid_id INT(11) NULL,
+		loc_id INT(11) NULL COMMENT 'tambem conhecido como tra_geolocalizacao',
+		ses_id INT(11) NULL,
 		tra_descricao_pagamento VARCHAR(200) NULL DEFAULT NULL,
 		tra_validade VARCHAR(45) NULL DEFAULT NULL,
 		tra_url_pagamento VARCHAR(150) NULL DEFAULT NULL,
@@ -218,11 +218,11 @@
 
 	CREATE TABLE IF NOT EXISTS fraude (
 		fra_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		fra_nome VARCHAR(250) NOT NULL,
-		fra_tipo VARCHAR(100) NOT NULL,    
-		fra_forma_deteccao VARCHAR(45) NOT NULL,
-		fra_data_deteccao VARCHAR(45) NOT NULL,
-		tra_id INT NOT NULL,
+		fra_nome VARCHAR(250) NULL,
+		fra_tipo VARCHAR(100) NULL,    
+		fra_forma_deteccao VARCHAR(45) NULL,
+		fra_data_deteccao VARCHAR(45) NULL,
+		tra_id INT NULL,
 		INDEX idx_FRA_transacao (tra_id ASC),
 		CONSTRAINT fk_FRA_transacao FOREIGN KEY (tra_id)
 			REFERENCES transacao (tra_id)
@@ -236,9 +236,9 @@
 	DROP TABLE IF EXISTS produto;
 
 	CREATE TABLE IF NOT EXISTS produto (
-	   prod_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  	   prod_nome VARCHAR(45),
-       prod_preco_normal DOUBLE
+	   prd_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  	   prd_nome VARCHAR(45),
+       prd_preco_normal FLOAT (10,2)
     )  ENGINE = InnoDB;
 
 
@@ -249,8 +249,8 @@
 
     CREATE TABLE IF NOT EXISTS pedido (
   		ped_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	  	ped_dt TIMESTAMP ,
-	  	cli_id INT,
+	  	ped_dt VARCHAR(50) NULL,
+	  	cli_id INT NULL,
 	  	INDEX FK_PEDIDO_CLIENTE (cli_id ASC),
 	  	CONSTRAINT FK_PEDIDO_CLIENTE
 	    	FOREIGN KEY (cli_id)
@@ -260,32 +260,17 @@
 	) 	ENGINE = InnoDB;
 
 	-- -----------------------------------------------------
-	-- Table `bdic3db`.`CARTAO_CREDITO`
-	-- -----------------------------------------------------
-	DROP TABLE IF EXISTS cartao_credito;
-
-	CREATE TABLE IF NOT EXISTS cartao_credito (
-	  	cdc_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	  	cdc_numero VARCHAR(45),
-	  	cdc_codigo VARCHAR(45),
-	  	cdc_val_mes VARCHAR(2),
-	  	cdc_val_ano VARCHAR(4),
-	  	cdc_bandeira VARCHAR(45)
-	)  	ENGINE = InnoDB;
-
-
-	-- -----------------------------------------------------
 	-- Table `bdic3db`.`PEDIDO_HAS_PRODUTO`
 	-- -----------------------------------------------------
 	DROP TABLE IF EXISTS pedido_has_produto;
 
 	CREATE TABLE IF NOT EXISTS pedido_has_produto (
 	  	ped_id INT,
-	  	prod_id INT,
+	  	prd_id INT,
 	 	ped_has_prod_qtd INT(11),
 	  	ped_has_prod_preco_unit_reg DOUBLE,
-	  	PRIMARY KEY (ped_id, prod_id),
-	  	INDEX FK_PEDIDO_HAS_PRODUTO_PRODUTO (prod_id ASC),
+	  	PRIMARY KEY (ped_id, prd_id),
+	  	INDEX FK_PEDIDO_HAS_PRODUTO_PRODUTO (prd_id ASC),
 	  	INDEX FK_PEDIDO_HAS_PRODUTO_PEDIDO (ped_id ASC),
 	  	CONSTRAINT FK_PEDIDO_HAS_PRODUTO_PEDIDO
 	    	FOREIGN KEY (ped_id)
@@ -293,15 +278,15 @@
 	    	ON DELETE NO ACTION
 	    	ON UPDATE NO ACTION,
 	  	CONSTRAINT FK_PEDIDO_HAS_PRODUTO_PRODUTO
-		    FOREIGN KEY (prod_id)
-		    REFERENCES produto (prod_id)
+		    FOREIGN KEY (prd_id)
+		    REFERENCES produto (prd_id)
 		    ON DELETE NO ACTION
 		    ON UPDATE NO ACTION
 	)  	ENGINE = InnoDB;
 
 
 	-- -----------------------------------------------------
-	-- Table `bdic3db`.`PAGAMENTO`
+	-- Table `bdic3db`.`pagamento`
 	-- -----------------------------------------------------
 	DROP TABLE IF EXISTS pagamento;
 
@@ -309,27 +294,27 @@
 	  pag_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	  pag_forma_pagamento VARCHAR(45) NULL,
 	  pag_parcelas INT(11) NULL,
-	  pag_dt TIMESTAMP NULL,
-	  pag_valor_pagamento DOUBLE NULL,
-	  loc_id INT NULL,
-	  cdc_id INT NULL,
-	  ped_id INT NOT NULL,
+	  pag_dt VARCHAR(50) NULL,
+	  pag_valor_pagamento FLOAT(10,2) NULL,
+	  ped_id INT NULL,
+      loc_id INT NULL,
+	  mid_id INT NULL,
 	  INDEX FK_PAGAMENTO_PEDIDO (ped_id ASC),
-	  INDEX FK_PAGAMENTO_LOCALIZACAO (loc_id ASC),
-	  INDEX FK_PAGAMENTO_CARTAO_CREDITO (cdc_id ASC),
+	  INDEX FK_PAGAMENTO_LOCALIDADE (loc_id ASC),
+	  INDEX FK_PAGAMENTO_MIDIA (mid_id ASC),
 	  CONSTRAINT FK_PAGAMENTO_PEDIDO
 	    FOREIGN KEY (ped_id)
 	    REFERENCES pedido (ped_id)
 	    ON DELETE NO ACTION
 	    ON UPDATE NO ACTION,
-	  CONSTRAINT FK_PAGAMENTO_LOCALIZACAO
+	  CONSTRAINT FK_PAGAMENTO_LOCALIDADE
 	    FOREIGN KEY (loc_id)
-	    REFERENCES localizacao (loc_id)
+	    REFERENCES localidade (loc_id)
 	    ON DELETE NO ACTION
 	    ON UPDATE NO ACTION,
-	  CONSTRAINT FK_PAGAMENTO_CARTAO_CREDITO
-	    FOREIGN KEY (cdc_id)
-	    REFERENCES cartao_credito (cdc_id)
+	  CONSTRAINT FK_PAGAMENTO_MIDIA
+	    FOREIGN KEY (mid_id)
+	    REFERENCES midia (mid_id)
 	    ON DELETE NO ACTION
 	    ON UPDATE NO ACTION
 	)  ENGINE = InnoDB;
@@ -341,8 +326,8 @@
 
 	CREATE TABLE IF NOT EXISTS transacao_produto (
 		trp_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		prd_id INT NOT NULL,
-		tra_id INT NOT NULL,
+		prd_id INT NULL,
+		tra_id INT NULL,
 		INDEX fk_transacao_produto_transacao1_idx (tra_id ASC),
 		INDEX fk_transacao_produto_produto1_idx (prd_id ASC),
 		CONSTRAINT fk_transacao_produto_transacao1
@@ -365,8 +350,8 @@
 
 	CREATE TABLE IF NOT EXISTS meio_pagamento_estabelecimento (
 		etb_id INT NOT NULL AUTO_INCREMENT,
-		mep_id INT NOT NULL,
-		mpe_token VARCHAR(60) NOT NULL,
+		mep_id INT NULL,
+		mpe_token VARCHAR(60) NULL,
 		PRIMARY KEY (etb_id , mep_id),
 		INDEX idx_meio_pagamento_ETB_meio_pagamento1 (mep_id ASC),
 		CONSTRAINT fk_meio_pagamento_ETB_estabelecimento1 FOREIGN KEY (etb_id)
@@ -384,11 +369,11 @@
 	DROP TABLE IF EXISTS etapa_transacao;
 
 	CREATE TABLE IF NOT EXISTS etapa_transacao (
-	  tra_id INT NOT NULL,
-	  etb_id INT NOT NULL,
-	  mep_id INT NOT NULL,
-	  cli_id INT NOT NULL,
-	  ett_datahora VARCHAR(15) NOT NULL,
+	  tra_id INT NULL,
+	  etb_id INT NULL,
+	  mep_id INT NULL,
+	  cli_id INT NULL,
+	  ett_datahora VARCHAR(15) NULL,
 	  ett_statuso VARCHAR(10) NULL,
 	  ett_detalhe_historico VARCHAR(255) NULL COMMENT 'pode armazenar o código do comprovante',
 	  PRIMARY KEY (tra_id , etb_id , mep_id , cli_id),

@@ -46,8 +46,8 @@ public class Pagamento {
 	private Pedido pedido;
 	
 	@OneToOne
-	@JoinColumn(name = "cdc_id")
-	private CartaoCredito cartaoCredito;
+	@JoinColumn(name = "mid_id")
+	private Midia midia;
 
 	public Long getId() {
 		return id;
@@ -105,11 +105,11 @@ public class Pagamento {
 		this.pedido = pedido;
 	}
 
-	public CartaoCredito getCartaoCredito() {
-		return cartaoCredito;
+	public Midia getMidia() {
+		return midia;
 	}
 
-	public void setCartaoCredito(CartaoCredito cartaoCredito) {
-		this.cartaoCredito = cartaoCredito;
+	public void setMidia(Midia midia) {
+		this.midia = midia;
 	}
 }
