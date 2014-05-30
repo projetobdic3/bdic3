@@ -18,8 +18,7 @@ public class CriarPedidoJson {
 		Pedido pedido = new Pedido();
 		pedido.setData(Calendar.getInstance());
 		
-		Cliente cliente = new Cliente();
-		cliente.setId(1l);;
+		Cliente cliente = new Cliente(1L);
 		pedido.setCliente(cliente);
 		
 		Pagamento pagamento = new Pagamento();
@@ -34,22 +33,20 @@ public class CriarPedidoJson {
 		cartaoCredito.setId(1l);
 		pagamento.setMidia(cartaoCredito);
 		
-		Localidade localidade = new Localidade();
-		localidade.setLatitude(new Float("4321421.0432"));
-		localidade.setLongitude(new Float("-2314321421.0432"));
+		Localidade localidade = new Localidade(new Float("4321421.0432"), new Float("-2314321421.0432"));
 		pagamento.setLocalidade(localidade );
 		
 		ArrayList<PedidoHasProduto> produtos = new ArrayList<PedidoHasProduto>();
-		Produto produto = new Produto();
-		produto.setId(1l);
+		
+		Produto produto = new Produto(1L);
 		
 		PedidoHasProduto pedidoHasProduto = new PedidoHasProduto();
 		pedidoHasProduto.setProduto(produto);
 		pedidoHasProduto.setQuantidade(10);
 		pedidoHasProduto.setPreco(new BigDecimal("12.30"));
 		produtos.add(pedidoHasProduto);
-		pedido.setProdutos(produtos);
 		
+		pedido.setProdutos(produtos);
 		
 		ObjectMapper ow = new ObjectMapper();
 		String json = ow.writeValueAsString(pedido);

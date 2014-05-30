@@ -5,7 +5,7 @@
         version="2.1">
 
     <tlib-version>1.0</tlib-version>
-    <short-name>bdic3</short-name>
+    <short-name>tobacco</short-name>
 
     <tag>
         <name>json</name>

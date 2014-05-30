@@ -16,7 +16,7 @@ pedido = {
 			"longitude" : -2.3143214210432E9
 		},
 		"formaPagamento" : "CARTAO_CREDITO",
-		"cartaoCredito" : {
+		"midia" : {
 			"id" : 1
 		},
 		"valorPagamento" : 123.00,

@@ -11,11 +11,11 @@
 		loc_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		loc_latitude FLOAT NULL,
 		loc_longitude FLOAT NULL,
-		loc_endereco VARCHAR(250) NULL,
-		loc_cidade VARCHAR(250) NULL,
-		loc_estado VARCHAR(3) NULL,
-		loc_pais VARCHAR(3) NULL,
-		loc_cep VARCHAR(25) NULL
+		loc_endereco VARCHAR(250),
+		loc_cidade VARCHAR(250),
+		loc_estado VARCHAR(3),
+		loc_pais VARCHAR(3),
+		loc_cep VARCHAR(25)
 	)  ENGINE=InnoDB;
 
 
@@ -265,11 +265,12 @@
 	DROP TABLE IF EXISTS pedido_has_produto;
 
 	CREATE TABLE IF NOT EXISTS pedido_has_produto (
+		ped_has_prod_id INT NOT NULL AUTO_INCREMENT,
 	  	ped_id INT,
 	  	prd_id INT,
 	 	ped_has_prod_qtd INT(11),
 	  	ped_has_prod_preco_unit_reg DOUBLE,
-	  	PRIMARY KEY (ped_id, prd_id),
+	  	PRIMARY KEY (ped_has_prod_id),
 	  	INDEX FK_PEDIDO_HAS_PRODUTO_PRODUTO (prd_id ASC),
 	  	INDEX FK_PEDIDO_HAS_PRODUTO_PEDIDO (ped_id ASC),
 	  	CONSTRAINT FK_PEDIDO_HAS_PRODUTO_PEDIDO

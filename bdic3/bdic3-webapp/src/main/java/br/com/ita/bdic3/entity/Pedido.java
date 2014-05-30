@@ -1,5 +1,6 @@
 package br.com.ita.bdic3.entity;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -80,11 +81,16 @@ public class Pedido {
 		this.pagamento = pagamento;
 	}
 
-	@Override
-	public String toString() {
-		return "Pedido=[id="+ id
-				+ ", data=" + data.toString()
-//				+ "cliente=" + cliente.getNome()
-				+ "]";
+	public BigDecimal getValorTotal() {
+		BigDecimal valorTotal = BigDecimal.ZERO;
+		List<PedidoHasProduto> produtos = getProdutos();
+		
+		for (PedidoHasProduto produto : produtos) {
+			valorTotal = valorTotal.add(
+							produto.getPreco().multiply(
+								new BigDecimal(produto.getQuantidade()))); 
+		}
+		
+		return valorTotal;
 	}
 }
