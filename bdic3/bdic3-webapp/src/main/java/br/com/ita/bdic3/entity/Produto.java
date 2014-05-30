@@ -23,6 +23,14 @@ public class Produto {
 	
 	@Column(name = "prod_preco_normal")
 	private BigDecimal precoNormal;
+	
+	public Produto() {
+		super();
+	}
+
+	public Produto(Long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

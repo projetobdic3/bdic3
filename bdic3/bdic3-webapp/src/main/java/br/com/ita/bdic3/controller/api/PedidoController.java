@@ -6,6 +6,7 @@ import java.util.List;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.ita.bdic3.entity.Pedido;
 import br.com.ita.bdic3.exception.APIException;
+import br.com.ita.bdic3.exception.MensagemRetornoAPI;
 import br.com.ita.bdic3.service.PedidoService;
 
 @Controller
@@ -39,29 +41,27 @@ public class PedidoController extends GenericController<Pedido> {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, headers = {"Content-type=application/json"})
-	public @ResponseBody String create(@RequestBody String pedidoJSON) throws APIException, JsonParseException, JsonMappingException, IOException {
+	public @ResponseBody MensagemRetornoAPI create(@RequestBody String pedidoJSON) 
+			throws APIException, JsonParseException, JsonMappingException, IOException {
 		
 		Pedido pedido = convertStringJsonToObject(pedidoJSON);
-		
-		pedidoService.save(pedido);
-		
-		return pedido.toString();
+		pedidoService.salvarPedido(pedido);
+		return new MensagemRetornoAPI(HttpStatus.OK.toString(), "Pedido efetuado com sucesso");
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-	public @ResponseBody String update(String pedidoJSON) throws APIException, JsonParseException, JsonMappingException, IOException {
+	public @ResponseBody MensagemRetornoAPI update(String pedidoJSON) 
+			throws APIException, JsonParseException, JsonMappingException, IOException {
 		
 		Pedido pedido = convertStringJsonToObject(pedidoJSON);
-		
 		pedidoService.update(pedido);
-		
-		return "";
+		return new MensagemRetornoAPI(HttpStatus.OK.toString(), "Pedido atualizado com sucesso");
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody String delete(@PathVariable Long id) throws APIException {
-		
-		return "";
+	public @ResponseBody MensagemRetornoAPI delete(@PathVariable Long id) throws APIException {
+		pedidoService.delete(id);
+		return new MensagemRetornoAPI(HttpStatus.OK.toString(), "Pedido deletado com sucesso");
 	}
 	
 	

@@ -17,7 +17,7 @@ public class PedidoHasProduto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ped_has_prod__id")
+	@Column(name = "ped_has_prod_id")
 	private Long id;
 	
 	@OneToOne
@@ -25,13 +25,13 @@ public class PedidoHasProduto {
 	private Pedido pedido;
 	
 	@OneToOne
-	@JoinColumn(name="prod_id", insertable=true , updatable=true)
+	@JoinColumn(name="prd_id", insertable=true , updatable=true)
 	private Produto produto;
 	
 	@Column(name="ped_has_prod_qtd")
 	private Integer quantidade;
 	
-	@Column(name="ped_has_prod_preco_init_reg")
+	@Column(name="ped_has_prod_preco_unit_reg")
 	private BigDecimal preco;
 
 	
