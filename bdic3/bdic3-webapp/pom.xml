@@ -579,7 +579,7 @@
 			<artifactId>hadoop-common</artifactId>
 			<scope>system</scope>
 			<version>2.0.0</version>
-			<systemPath>/usr/lib/hadoop/hadoop-common-2.0.0-cdh4.4.0.jar</systemPath>
+			<systemPath>/usr/lib/hadoop/hadoop-common-2.0.0-cdh4.6.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>hadoop-core1</groupId>
@@ -607,28 +607,28 @@
 			<artifactId>hive-exec</artifactId>
 			<scope>system</scope>
 			<version>0.10.0</version>
-			<systemPath>/usr/lib/hive/lib/hive-exec-0.10.0-cdh4.4.0.jar</systemPath>
+			<systemPath>/usr/lib/hive/lib/hive-exec-0.10.0-cdh4.6.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>hive-jdbc</groupId>
 			<artifactId>hive-jdbc</artifactId>
 			<scope>system</scope>
 			<version>0.10.0</version>
-			<systemPath>/usr/lib/hive/lib/hive-jdbc-0.10.0-cdh4.4.0.jar</systemPath>
+			<systemPath>/usr/lib/hive/lib/hive-jdbc-0.10.0-cdh4.6.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>hive-metastore</groupId>
 			<artifactId>hive-metastore</artifactId>
 			<scope>system</scope>
 			<version>0.10.0</version>
-			<systemPath>/usr/lib/hive/lib/hive-metastore-0.10.0-cdh4.4.0.jar</systemPath>
+			<systemPath>/usr/lib/hive/lib/hive-metastore-0.10.0-cdh4.6.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>hive-service</groupId>
 			<artifactId>hive-service</artifactId>
 			<scope>system</scope>
 			<version>0.10.0</version>
-			<systemPath>/usr/lib/hive/lib/hive-service-0.10.0-cdh4.4.0.jar</systemPath>
+			<systemPath>/usr/lib/hive/lib/hive-service-0.10.0-cdh4.6.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>jdo2-api</groupId>
