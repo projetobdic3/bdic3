@@ -1,6 +1,10 @@
 package br.com.ita.bdic3.controller.api;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import org.codehaus.jackson.JsonParseException;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.ita.bdic3.entity.Pedido;
 import br.com.ita.bdic3.exception.APIException;
+import br.com.ita.bdic3.factory.ConnectionFactoryHive;
 import br.com.ita.bdic3.service.PedidoService;
 
 @Controller

@@ -1,4 +1,4 @@
-package br.ita.bdic3.testes.us08;
+/*package br.ita.bdic3.testes.us08;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +12,9 @@ import org.joda.time.Hours;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import br.com.ita.bdic3.factory.ConnectionFactoryHive;
+
+//hive --service hiveserver
 public class ConexaoHiveTest {
 
 	private List<Transacao> transacoesSuspeitas = new ArrayList<Transacao>();
@@ -27,14 +30,9 @@ public class ConexaoHiveTest {
 	@Test
 	//@Ignore
 	public void testConectar() throws SQLException {
-		try {
-			Class.forName("org.apache.hadoop.hive.jdbc.HiveDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		
 
-		Connection con = DriverManager.getConnection(
-				"jdbc:hive://localhost:10000/bdic3", "", "");
+		Connection con = new ConnectionFactoryHive().getConnectio();
 
 		Statement stmt = con.createStatement();
 		stmt.executeQuery("use bdic3");
@@ -92,4 +90,4 @@ public class ConexaoHiveTest {
 		System.out.println(countSuspeitas);
 	}
 
-}
+}*/
