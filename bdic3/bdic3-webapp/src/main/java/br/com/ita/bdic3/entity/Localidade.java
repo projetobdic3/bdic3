@@ -37,6 +37,15 @@ public class Localidade {
 	@Column(name= "loc_cep")
 	private String cep;
 
+	public Localidade() {
+		super();
+	}
+
+	public Localidade(Float lat, Float lng) {
+		this.latitude = lat;
+		this.longitude = lng;
+	}
+
 	public Long getId() {
 		return id;
 	}

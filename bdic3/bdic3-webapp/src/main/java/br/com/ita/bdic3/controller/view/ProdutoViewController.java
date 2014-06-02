@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.ita.bdic3.entity.Pedido;
 import br.com.ita.bdic3.entity.Produto;
 import br.com.ita.bdic3.service.PedidoService;
 import br.com.ita.bdic3.service.ProdutoService;
+import br.com.ita.bdic3.vo.PedidoVO;
 
 @Controller
 @RequestMapping("/product")
@@ -39,13 +39,14 @@ public class ProdutoViewController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String products(@PathVariable("id") String id, Model model) {
 		Produto produto = produtoService.findById(Long.parseLong(id));
+		model.addAttribute("pedidoVO", new PedidoVO());
 		model.addAttribute("produto", produto);
         return VIEW_COMPRA;
 	}
 	
 	@RequestMapping(value = "/comprar", method = RequestMethod.POST)
-	public String comprar(@ModelAttribute("pedido") Pedido pedido) {
-		pedidoService.save(pedido);
+	public String comprar(@ModelAttribute("pedidoVO") PedidoVO pedidoVO) {
+		pedidoService.efetuarCompra(pedidoVO);
         return VIEW_SUCESSO;
 	}
 
