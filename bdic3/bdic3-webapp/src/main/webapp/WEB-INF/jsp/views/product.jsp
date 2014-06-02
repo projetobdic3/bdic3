@@ -17,7 +17,11 @@
 		<c:forEach var="produto" items="${produtos}">
 		<div class="col-sm-6 col-md-4">
 			<div class="thumbnail">
-				<img data-src="produto.png" alt="Imagem Ilustrativa">
+				<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
+					<rect width="300" height="200" fill="#eee"></rect>
+					<text text-anchor="middle" x="150" y="100" style="fill:#aaa;font-weight:bold;font-size:19px;
+						font-family:Arial,Helvetica,sans-serif;dominant-baseline:central">300x200</text>
+				</svg>
 				<div class="caption">
 					<h3>${produto.nome}</h3>
 					<p>${produto.precoNormal}</p>

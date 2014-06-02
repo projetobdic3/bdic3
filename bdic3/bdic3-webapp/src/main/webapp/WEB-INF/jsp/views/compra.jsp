@@ -9,10 +9,23 @@
 <%@ taglib prefix="util" tagdir="/WEB-INF/tags/util" %>
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld" %>
 
-<form:form id="pedidoForm" action="/bdic3/pedido/comprar" modelAttribute="pedidoVO" method="POST">
+<form:form id="pedidoForm" action="/bdic3/product/comprar" modelAttribute="pedidoVO" method="POST">
+	<form:hidden path="idProduto" value="${idProduto}" />
+	<form:hidden path="idCliente" value="1" />
+	<form:hidden path="latitude" value="123" />
+	<form:hidden path="longitude" value="321" />
+	<form:hidden path="formaPagamento" value="CARTAO_CREDITO" />
+	
     <div class="form-group">
-        <label for="inputEmail">Quantidade</label>
-        <form:input type="text" path="quantidade" />
+        <label for="quantidade">Quantidade:</label>
+        <form:input type="text" path="quantidade" width="30px" maxlength="3" />
+    </div>
+    <div class="form-group">
+        <label for="numeroCartao">Número Cartão:</label>
+        <form:input type="text" path="numeroCartao" />
+        </br>
+        <label for="quantidadeParcelas">Parcelas:</label>
+        <form:input type="text" path="quantidadeParcelas" maxlength="2" />
     </div>
     <button type="submit" class="btn btn-primary">Confirmar</button>
 </form:form>
