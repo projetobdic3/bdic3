@@ -37,15 +37,14 @@ public class ProdutoViewController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String products(@PathVariable("id") String id, Model model) {
-		Produto produto = produtoService.findById(Long.parseLong(id));
+	public String products(@PathVariable("id") String idProduto, Model model) {
+		model.addAttribute("idProduto", Long.parseLong(idProduto));
 		model.addAttribute("pedidoVO", new PedidoVO());
-		model.addAttribute("produto", produto);
         return VIEW_COMPRA;
 	}
 	
 	@RequestMapping(value = "/comprar", method = RequestMethod.POST)
-	public String comprar(@ModelAttribute("pedidoVO") PedidoVO pedidoVO) {
+	public String comprar(@ModelAttribute("pedidoVO") PedidoVO pedidoVO) throws Exception {
 		pedidoService.efetuarCompra(pedidoVO);
         return VIEW_SUCESSO;
 	}

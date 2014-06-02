@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -45,11 +47,13 @@ public class Midia {
 	@Column(name = "mid_codigoseguranca")
 	private String codigoSeguranca;
 
+	@OneToOne
+	@JoinColumn(name="cli_id", insertable = false, updatable = false)
+	private Cliente cliente;
+
 	// @OneToOne(mappedBy = "odc_id")
 	// private OperadoraCartao operadoraCartao;
 
-	// @OneToOne(mappedBy = "cli_id")
-	// private Cliente cliente;
 
 	public Long getId() {
 		return id;
@@ -123,4 +127,20 @@ public class Midia {
 		this.codigoSeguranca = codigoSeguranca;
 	}
 
+	public BandeiraCartao getNome() {
+		return nome;
+	}
+
+	public void setNome(BandeiraCartao nome) {
+		this.nome = nome;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
 }

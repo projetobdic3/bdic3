@@ -81,4 +81,5 @@ public class GenericDao<PK extends Serializable, T> {
 	public void setSessionFactory(SessionFactory session) {
 		this.sessionFactory = session;
 	}
+	
 }

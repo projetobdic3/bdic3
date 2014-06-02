@@ -58,13 +58,12 @@ public class PedidoService {
 		return pedidoDao.findById(id);
 	}
 
-	public void efetuarCompra(PedidoVO pedidoVO) throws APIException {
+	public void efetuarCompra(PedidoVO pedidoVO) throws Exception {
 		Pedido pedido = converterVo(pedidoVO);
-		validarPedido(pedido);
-		pedidoDao.save(pedido);
+		salvarPedido(pedido);
 	}
 
-	private Pedido converterVo(PedidoVO pedidoVO) {
+	private Pedido converterVo(PedidoVO pedidoVO) throws Exception {
 		
 		Calendar dataAtual = Calendar.getInstance();
 		
@@ -75,6 +74,7 @@ public class PedidoService {
 		List<PedidoHasProduto> produtos = new ArrayList<PedidoHasProduto>();
 		
 		PedidoHasProduto produtoHas = new PedidoHasProduto();
+		produtoHas.setPedido(pedido);
 		produtoHas.setProduto(produto);
 		produtoHas.setPreco(produto.getPrecoNormal());
 		produtoHas.setQuantidade(pedidoVO.getQuantidade());
@@ -88,9 +88,14 @@ public class PedidoService {
 		pagamento.setLocalidade(new Localidade(pedidoVO.getLatitude(), pedidoVO.getLongitude()));
 		pagamento.setParcelas(pedidoVO.getQuantidadeParcelas());
 		pagamento.setValorPagamento(pedido.getValorTotal());
-//TODO		pagamento.setMidia(new Midia());
 		
-		pedidoVO.getNumeroCartao();
+		Midia midia = midiaDao.findByClienteENumero(cliente.getId(), pedidoVO.getNumeroCartao());
+		
+		if (midia == null) {
+			throw new Exception("Cartão de Crédito não encontrado");
+		}
+				
+		pagamento.setMidia(midia);
 		
 		pedido.setCliente(cliente);
 		pedido.setData(dataAtual);

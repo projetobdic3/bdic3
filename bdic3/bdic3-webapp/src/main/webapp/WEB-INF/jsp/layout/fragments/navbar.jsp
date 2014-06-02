@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="util" tagdir="/WEB-INF/tags/util" %>
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld" %>
 
@@ -42,13 +42,17 @@ This is the dynamic remake of http://getbootstrap.com/components/#navbar
             </c:forEach>
         </ul>
         
-        <sec:authorize access="isAuthenticated()">
+        <c:set var="autenticado" value="${false}"/>
+        
+        <sec:authorize access="hasAnyRole('USER')">
+        	<c:set var="autenticado" value="${true}"/>
         	<ul class="nav navbar-nav navbar-right">
            		<spring:message var="itemTitle" code="navbar.logout.title"/>
 				<li><a href="<spring:url value="/logout" />">${itemTitle}</a></li>
        		</ul>
-		</sec:authorize>	
-        <sec:authorize access="isAnonymous()">
+		</sec:authorize>
+		
+		<sec:authorize access="isAnonymous()">
         	<ul class="nav navbar-nav navbar-right">
 	           	<spring:message var="itemTitle" code="navbar.login.title"/>
 				<li><a href="<spring:url value="/login" />">${itemTitle}</a></li>

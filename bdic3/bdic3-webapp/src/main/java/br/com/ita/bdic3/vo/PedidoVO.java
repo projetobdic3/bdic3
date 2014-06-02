@@ -7,7 +7,7 @@ public class PedidoVO {
 	private String numeroCartao;
 	private Long idCliente;
 	private Integer quantidadeParcelas;
-	private String FormaPagamento;
+	private String formaPagamento;
 	private Float latitude;
 	private Float longitude;
 	
@@ -52,11 +52,11 @@ public class PedidoVO {
 	}
 
 	public String getFormaPagamento() {
-		return FormaPagamento;
+		return formaPagamento;
 	}
 
 	public void setFormaPagamento(String formaPagamento) {
-		FormaPagamento = formaPagamento;
+		this.formaPagamento = formaPagamento;
 	}
 
 	public Float getLatitude() {
