@@ -34,6 +34,8 @@
 
 	<!-- Serve static content from / folder via /resources endpoint-->
     <mvc:resources location="/" mapping="/resources/**"/>
+    
+    
 
     <mvc:default-servlet-handler/>
 
@@ -51,6 +53,10 @@
     
     <bean name="/contestacao" parent="directViewMapping" p:viewName="view.contestacao" />
     <bean name="/contestacao/fraude" parent="directViewMapping" p:viewName="view.contestacao-fraude" />
+    
+    <bean name="/mapa/mapa-hist" parent="directViewMapping" p:viewName="view.mapa-hist.index.html" />
+    
+    
 
     <bean name="/error/404" parent="directViewMapping" p:viewName="error.404" />
     <bean name="/error/*" parent="directViewMapping" p:viewName="error.general" />
