@@ -26,7 +26,9 @@ public class PesquisaHiveTestDao {
 			Statement stmt = con.createStatement();
 			stmt.executeQuery("use bdic3");
 
-			ResultSet rs = stmt.executeQuery("show tables;");
+			ResultSet rs = stmt.executeQuery("show tables");
+			
+			con.close();
 
 
 		}
