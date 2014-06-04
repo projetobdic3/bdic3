@@ -1,127 +1,139 @@
-<!DOCTYPE HTML>
-<html> 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>
-</title>
-<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css">
-<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.9/js/esri/css/esri.css" />
-<link rel="stylesheet" type="text/css" href="css/layout.css">
-<link rel="stylesheet" type="text/css" href="css/chromepopup.css">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>BDIC3 - Fraudes em tempo real</title>
 
- <script type="text/javascript">
-  var path_location = location.pathname.replace(/\/[^/]+$/, '');
-  var dojoConfig = {
-    parseOnLoad: true,
-    packages:[
-      {
-        name:"esriTemplate",
-        location: path_location
-      },
-      {
-        name:"utilities",
-        location: path_location + "/javascript" 
-      },
-      {
-       name: "templateConfig",
-        location: path_location 
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+
+    <style>
+      #info {
+        top: 20px;
+        color: #444;
+        height: auto;
+        font-family: arial;
+        right: 20px;
+        margin: 5px;
+        padding: 10px;
+        position: absolute;
+        width: 115px;
+        z-index: 40;
+        border: solid 2px #666;
+        border-radius: 4px;
+        background-color: #fff;
       }
-    ]
-  };
-</script>
-<script type="text/javascript" src="//js.arcgis.com/3.9/">    
-</script>
+      html, body, #mapDiv {
+        padding:0;
+        margin:0;
+        height:100%;
+      }
+      button {
+        display: block;
+      }
+    </style>
 
-<script type="text/javascript">
-dojo.require("esri.layout");
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+      var map, tb;
 
-</script>
-
-<script type="text/javascript" src="javascript/layout.js">
-</script>
-<script type="text/javascript">      
-  dojo.require("utilities.app");
-  dojo.require("dojo.on");
-  dojo.require("templateConfig.commonConfig");
-
-function init(){
-
-
-var defaults = {
-  //The ID for the map from ArcGIS.com
-  webmap : "69a8784dd9aa4dc28b64970d5e245cae",
-  //Enter a title, if no title is specified, the webmap's title is used.
-  title : "BDIC3 - Mapa em Tempo Real das Fraudes",
-  //Enter a subtitle, if not specified the ArcGIS.com web map's summary is used
-  subtitle : "",
-  //specify a proxy url if needed
-  proxyurl:"",
- //Modify this to point to your sharing service URL if you are using the portal
-  sharingurl : document.location.protocol + "//www.arcgis.com",
-  //add default template options. This includes the bing key, sharing url, proxy url, 
-  //and any service urls (geometry, geocode, print) 
-  //that may be needed by the template.
-  bingmapskey: commonConfig.bingMapsKey,
-  helperServices:commonConfig.helperServices    
-};
-  var supportsLocalization = true;
-  var app = new utilities.App(defaults, supportsLocalization);
-  dojo.on(app, "ready", function(config){
-    initMap(config);
-  });
+      require([
+        "esri/map",
+        "esri/symbols/SimpleMarkerSymbol", 
+        "esri/geometry/Point",
+        "esri/SpatialReference",
+        "esri/graphic", 
+        "esri/InfoTemplate",
+        "esri/Color", "dojo/dom", "dojo/on", "dojo/domReady!"
+      ], function(
+        Map, 
+        SimpleMarkerSymbol,  
+        Point,
+        SpatialReference,
+        Graphic, 
+        InfoTemplate,
+        Color, dom, on
+      ) {
+        map = new Map("mapDiv", {
+          basemap: "hybrid",
+          center: [-50, -15],
+          zoom: 3
+        });
+        map.on("load", init);
 
 
-}
-//show map on load 
-dojo.addOnLoad(init);
-</script>
-</head>
+        var markerSymbol = new SimpleMarkerSymbol().setStyle(
+        	    SimpleMarkerSymbol.STYLE_CIRCLE).setColor(
+        	    new Color([255,0,0,0.5]));
 
-<body class="tundra">
-<div id="mainWindow" data-dojo-type="dijit.layout.BorderContainer"  data-dojo-props='design:"headline",gutters:false' style="width:100%; height:100%;">
 
-<!-- Header Section-->
-<div id="header" data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"top"'>
-  <div id="title">
-  </div>
-  <div id="subtitle">
-  </div>
-<div id="header_flourish"></div>
+        function init() {         
+          // event delegation so a click handler is not
+          // needed for each individual button
+          on(dom.byId("info"), "click", function(evt) {
+            if ( evt.target.id === "info" ) {
+              return;
+            }
+            inserirFraudeAleatoria();
+          });
+        }
+        
+        function inserirFraudeAleatoria(){
+        	
+        	var latidude = getRandomArbitrary(-23, -5);
+        	var longitude = getRandomArbitrary(-55, -40);
+        	
+        	var attributes = { 
+        	  Latitude: latidude,
+         	  Longitude: longitude,
+   		      Nome: "Manoel Pereira de Mello", 
+   		      Tipo_Fraude: "ESTELIONATO", 
+   		      Deteccao: "DENUNCIA",
+   		      Data_Deteccao: "18/06/2014",
+   		      Tipo_Transacao: "E-COMMERCE",
+   		      Valor: "7227.79"
+   		    };
+			
+        	inserirFraudeMapa(attributes);
+        }              
+        
+        function getRandomArbitrary(min, max) {
+        	  return Math.random() * (max - min) + min;
+        }
+        
+		function inserirFraudeMapa(attributes){
+        	
+        	var point = new Point([attributes.Longitude,attributes.Latitude],new SpatialReference({ wkid:4326 }));
 
-</div>
+        	var infoTemplate = new InfoTemplate("Fraude", "<tr>Nome: <td>${Nome}</td></tr><br><tr>Tipo Fraude: <td>${Tipo_Fraude}</td></tr><br><tr>Detecção: <td>${Deteccao}</td></tr><br><tr>Data Detecção:<td>${Data_Deteccao}</td></tr><br><tr>Tipo Transacao: <td>${Tipo_Transacao}</td></tr><br><tr>Valor: <td>${Valor}</td></tr>");
+ 		      
+   		    var graphic = new Graphic(point, markerSymbol, attributes, infoTemplate);
+   		    map.graphics.add(graphic);
 
-<!--Sidebar Section-->
-<div data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props='region:"left",gutters:false'>
-  <div id="leftPaneContent" dojotype="dijit.layout.BorderContainer" design="headline"
-  style="width:100%; height:100%;">
-   <!--Sidebar Header-->
-    <div id="leftPaneHeader" data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"top"'>
-      <span id='legendHeader'></span>
+   		 	map.infoWindow.hide();
+			map.centerAndZoom(point, 8);
+			
+			map.infoWindow.setContent(graphic.getContent());
+			map.infoWindow.show(point);
+
+
+        }
+
+
+      });
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id="info">
+      <button id="Point">Inserir Fraude Aleatória</button>
     </div>
-    <!--Sidebar Content-->
-    <div id="leftPaneBody" data-dojo-type="dijit.layout.StackContainer" data-dojo-props='region:"center"'>
-      <div id="panel1" class="panel_content" data-dojo-type="dijit.layout.ContentPane">
-        <div id="legendDiv">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Map Section -->
-<div id="map" data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"center"' dir="ltr">
-</div>
+    <div id="mapDiv"></div>
 
-<!-- Footer Section-->
-<div id="footer" data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"bottom"'>
-   <span id="timeSliderLabel">
-  </span>
-  <div id="timeSliderDiv">
-  </div>
-</div>
-
-</div>
-</body>
-
+  </body>
 </html>

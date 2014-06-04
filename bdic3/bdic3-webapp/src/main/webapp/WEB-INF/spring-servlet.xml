@@ -33,9 +33,7 @@
     </mvc:annotation-driven>
 
 	<!-- Serve static content from / folder via /resources endpoint-->
-    <mvc:resources location="/" mapping="/resources/**"/>
-    
-    
+    <mvc:resources location="/" mapping="/resources/**"/>   
 
     <mvc:default-servlet-handler/>
 
