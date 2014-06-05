@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.ita.bdic3.exception.APIException;
-import br.com.ita.bdic3.hive.dao.PesquisaHiveTestDao;
+import br.com.ita.bdic3.hive.dao.AnaliseFraudesDao;
 
 
 @Controller
@@ -18,15 +18,15 @@ import br.com.ita.bdic3.hive.dao.PesquisaHiveTestDao;
 public class PesquisaHiveController {
 	
 	@Autowired
-	private PesquisaHiveTestDao pesquisaHiveTestDao;
+	private AnaliseFraudesDao pesquisaHiveTestDao;
 	
 	@RequestMapping(value = "/pesquisar/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody String pesquisar(@PathVariable Long id) throws APIException {
-		try {
-			pesquisaHiveTestDao.testConectar();
+		/*try {
+			//pesquisaHiveTestDao.testConectar();
 		} catch (SQLException e) {
 			return "erro";
-		}
+		}*/
 		return "ok";
 	}
 

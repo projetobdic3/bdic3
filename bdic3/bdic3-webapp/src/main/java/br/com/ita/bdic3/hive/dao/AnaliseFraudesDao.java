@@ -1,56 +1,56 @@
-/*package br.ita.bdic3.testes.us08;
+package br.com.ita.bdic3.hive.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.joda.time.Hours;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.ita.bdic3.factory.ConnectionFactoryHive;
+import br.com.ita.bdic3.util.Haversine;
+import br.com.ita.bdic3.vo.SuspeitaFraudeVO;
+import br.com.ita.bdic3.util.Boxsplot;
 
-//hive --service hiveserver
-public class ConexaoHiveTest {
+@Component
+public class AnaliseFraudesDao {
 
-	private List<Transacao> transacoesSuspeitas = new ArrayList<Transacao>();
+	@Autowired
+	private ConnectionFactoryHive connectionFactoryHive;
 
-	static String sql = "SELECT c.cli_id, t.tra_data_hora, l.loc_latitude, l.loc_longitude "
-			+ "FROM transacao2 t "
+	private List<SuspeitaFraudeVO> transacoesSuspeitas = new ArrayList<SuspeitaFraudeVO>();
+	
+	static String sqlLocalizacao = "SELECT c.cli_id, t.tra_data_hora, l.loc_latitude, l.loc_longitude "
+			+ "FROM transacao t "
 			+ "INNER JOIN localidade l ON t.loc_id = l.loc_id "
 			+ "INNER JOIN cliente c ON t.cli_id = c.cli_id "
-			+ "ORDER BY c.cli_id ASC, t.tra_data_hora DESC " + " LIMIT 100000";
+			+ "ORDER BY c.cli_id ASC, t.tra_data_hora DESC ";
 
 	static Integer kmPorHoraAceitavel = 1000;
 
-	@Test
-	//@Ignore
-	public void testConectar() throws SQLException {
-		
 
-		Connection con = new ConnectionFactoryHive().getConnectio();
+	public void fraudeLocalizacao() throws SQLException {
 
-		Statement stmt = con.createStatement();
-		stmt.executeQuery("use bdic3");
+		ResultSet rs = getResultSet(sqlLocalizacao);
 
-		ResultSet rs = stmt.executeQuery(sql);
-
-		Transacao atual = null;
-		Transacao proxima = null;
+		SuspeitaFraudeVO atual = null;
+		SuspeitaFraudeVO proxima = null;
 
 		if (rs.next()) {
-			atual = new Transacao(rs);
+			atual = new SuspeitaFraudeVO(rs);
 		}
 
-		int count = 0;
-		int countSuspeitas = 0;
+		int transacao = 0;
+		int transacaoSuspeita = 0;
 		while (rs.next()) {
-			count++;
-			proxima = new Transacao(rs);
+			transacao++;
+			proxima = new SuspeitaFraudeVO(rs);
 
 			// pula para a proxima iteracao,
 			// caso as transacoes sejam referentes a clientes distintos
@@ -80,14 +80,26 @@ public class ConexaoHiveTest {
 
 			// adiciona a uma lista, todos os registros que podem ser uma fraude
 			if (suspeita) {
-				countSuspeitas++;
+				transacaoSuspeita++;
 				transacoesSuspeitas.add(atual);
 			}
 
 			atual = proxima;
 		}
-		System.out.println(count);
-		System.out.println(countSuspeitas);
+		System.out.println(transacao);
+		System.out.println(transacaoSuspeita);
 	}
 
-}*/
+	private ResultSet getResultSet(String sql) throws SQLException {
+		@SuppressWarnings("static-access")
+		Statement stmt = connectionFactoryHive.getConnection();
+
+		ResultSet rs = stmt.executeQuery(sql);
+		return rs;
+	}
+
+	public List<SuspeitaFraudeVO> getTransacoesSuspeitas() {
+		return transacoesSuspeitas;
+	}
+
+}
