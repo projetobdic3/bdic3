@@ -40,15 +40,14 @@ public class ContestacaoDao {
 		try {
 			Statement stmt = con.getConnection().createStatement();
 
-			// bug na query e nos campos do rs
 			String sql = "SELECT * " 
 						+ "FROM transacao "
-						+ "INNER JOIN cliente c "
-						+ "ON c.cli_id = transacao.cli_id"
-						+ "WHERE tra_data > '" + contestacaoVO.getDataInicial() + "' " 
-						+ "OR tra_data < '" + contestacaoVO.getDataFinal() + "' " 
-						+ "AND tra_total > " + contestacaoVO.getValorInicial() + " " 
-						+ "OR tra_total < " + contestacaoVO.getValorFinal() + " "
+						+ "INNER JOIN cliente "
+						+ "ON (cliente.cli_id = transacao.cli_id) "
+						+ "WHERE transacao.tra_data > '" + contestacaoVO.getDataInicial() + "' " 
+						+ "OR transacao.tra_data < '" + contestacaoVO.getDataFinal() + "' " 
+						+ "AND transacao.tra_total > " + contestacaoVO.getValorInicial() + " " 
+						+ "OR transacao.tra_total < " + contestacaoVO.getValorFinal() + " "
 						+ "LIMIT 1000";
 			 
 			ResultSet rs = stmt.executeQuery(sql);
@@ -56,10 +55,10 @@ public class ContestacaoDao {
 			while(rs.next()) {
 				ContestacaoVO contestacao = new ContestacaoVO();
 				
-				contestacao.setNomeCliente(rs.getString("c.cli_nome"));
-				contestacao.setCpfCliente(rs.getString("c.cli_cpf"));
-				contestacao.setValorTransacao(rs.getDouble("transacao.tra_total"));
-				contestacao.setDataTransacao(rs.getString("transacao.tra_data"));
+				contestacao.setNomeCliente(rs.getString("cli_nome"));
+				contestacao.setCpfCliente(rs.getString("cli_cpf"));
+				contestacao.setValorTransacao(rs.getDouble("tra_total"));
+				contestacao.setDataTransacao(rs.getString("tra_data"));
 				
 				contestacoes.add(contestacao);
 			} 

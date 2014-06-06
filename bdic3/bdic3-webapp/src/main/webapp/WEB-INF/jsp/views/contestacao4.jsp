@@ -19,7 +19,7 @@
 	<h3>${mensagemErro}</h3>
 </c:if>
 
-<table>
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<td>CPF</td>
@@ -30,10 +30,12 @@
 	</thead>
 	<tbody>
 		<c:forEach var="contestacao" items="${contestacoes}">
-			<tr>${contestacao.cpfCliente}</tr>
-			<tr>${contestacao.nomeCliente}</tr>
-			<tr>${contestacao.valorTransacao}</tr>
-			<tr>${contestacao.dataTransacao}</tr>
+			<tr>
+				<td>${contestacao.cpfCliente}</td>
+				<td>${contestacao.nomeCliente}</td>
+				<td>${contestacao.valorTransacao}</td>
+				<td>${contestacao.dataTransacao}</td>
+			</tr>
 		</c:forEach>
 	</tbody>
 </table>
