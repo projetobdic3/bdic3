@@ -1,4 +1,4 @@
-package br.com.ita.bdic3.testes.us08;
+package br.com.ita.bdic3.util;
 
 public class Haversine {
 

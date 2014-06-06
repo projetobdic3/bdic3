@@ -1,4 +1,4 @@
-package br.ita.bdic3.testes.us08;
+package br.com.ita.bdic3.vo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class Transacao {
+public class SuspeitaFraudeVO {
 
 	private Integer cli_id;
 	private Double loc_latitude;
@@ -17,11 +17,11 @@ public class Transacao {
 	private DateTimeFormatter formatador = DateTimeFormat
 			.forPattern("yyyy-MM-dd HH:mm:ss.0");
 
-	public Transacao() {
+	public SuspeitaFraudeVO() {
 
 	}
 
-	public Transacao(ResultSet rs) throws SQLException {
+	public SuspeitaFraudeVO(ResultSet rs) throws SQLException {
 		setCli_id(rs.getInt("cli_id"));
 		setTra_data_hora(formatador
 				.parseDateTime(rs.getString("tra_data_hora")));
@@ -63,7 +63,7 @@ public class Transacao {
 
 	@Override
 	public String toString() {
-		return cli_id + "\t" + getTra_data_hora() + "\t" + loc_latitude + "\t"
+		return cli_id + ", " + getTra_data_hora() + ", " + loc_latitude + ", "
 				+ loc_longitude;
 	}
 
