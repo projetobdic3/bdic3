@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.joda.time.DateTime;
+
 import br.com.ita.bdic3.enums.StatusTransacao;
 import br.com.ita.bdic3.enums.TransacaoTipo;
 
@@ -34,8 +36,8 @@ public class Transacao implements Serializable {
 	@Column(name = "tra_total")
 	private BigDecimal total;
 	
-	@Column(name = "tra_data")
-	private Calendar data;
+	@Column(name = "tra_data_hora")
+	private DateTime data_hora;
 	
 	@Column(name = "tra_descricao_pagamento")
 	private String descricaoPagamento;
@@ -51,6 +53,7 @@ public class Transacao implements Serializable {
 	
 	@Column(name = "tra_quantidadeparcela")
 	private int quantidadeParcelas;
+	
 	
 //	@ManyToOne
 //	private Cliente cliente;
@@ -94,14 +97,6 @@ public class Transacao implements Serializable {
 		this.total = total;
 	}
 
-	public Calendar getData() {
-		return data;
-	}
-
-	public void setData(Calendar data) {
-		this.data = data;
-	}
-
 	public String getDescricaoPagamento() {
 		return descricaoPagamento;
 	}
@@ -141,6 +136,15 @@ public class Transacao implements Serializable {
 	public void setQuantidadeParcelas(int quantidadeParcelas) {
 		this.quantidadeParcelas = quantidadeParcelas;
 	}
+	
+	public DateTime getTra_data_hora() {
+		return data_hora;
+	}
+
+	public void setTra_data_hora(DateTime data_hora) {
+		this.data_hora = data_hora;
+	}
+	
 /*
 	public Cliente getCliente() {
 		return cliente;

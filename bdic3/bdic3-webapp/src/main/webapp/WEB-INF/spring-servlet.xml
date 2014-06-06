@@ -54,6 +54,10 @@
     <bean name="/contestacao3" parent="directViewMapping" p:viewName="view.contestacao3" />
     <bean name="/contestacao4" parent="directViewMapping" p:viewName="view.contestacao4" />
 
+    
+    <bean name="/hive/form" parent="directViewMapping" p:viewName="view.pesquisaHive" />
+    <bean name="/mapa/mapa-hist" parent="directViewMapping" p:viewName="view.mapa-hist.index.html" />
+
     <bean name="/error/404" parent="directViewMapping" p:viewName="error.404" />
     <bean name="/error/*" parent="directViewMapping" p:viewName="error.general" />
 
