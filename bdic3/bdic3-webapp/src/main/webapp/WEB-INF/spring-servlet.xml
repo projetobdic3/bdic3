@@ -52,6 +52,8 @@
     <bean name="/contestacao" parent="directViewMapping" p:viewName="view.contestacao" />
     <bean name="/contestacao/fraude" parent="directViewMapping" p:viewName="view.contestacao-fraude" />
     
+    <bean name="/hive/form" parent="directViewMapping" p:viewName="view.pesquisaHive" />
+    
     <bean name="/mapa/mapa-hist" parent="directViewMapping" p:viewName="view.mapa-hist.index.html" />
     
     

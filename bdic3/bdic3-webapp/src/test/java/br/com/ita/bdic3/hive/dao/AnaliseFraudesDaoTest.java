@@ -1,7 +1,5 @@
 package br.com.ita.bdic3.hive.dao;
 
-import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,9 +14,8 @@ public class AnaliseFraudesDaoTest {
 	@Test
 	@Ignore
 	public void test() throws SQLException {
-		AnaliseFraudesDao a = new AnaliseFraudesDao();
-		a.fraudeLocalizacao();
-		List<SuspeitaFraudeVO> transacoesSuspeitas = a.getTransacoesSuspeitas();
+		AnaliseFraudesDao analiseFraudesDao = new AnaliseFraudesDao();
+		List<SuspeitaFraudeVO> transacoesSuspeitas = analiseFraudesDao.fraudeLocalizacao();;
 		System.out.println(transacoesSuspeitas.toString());
 	}
 

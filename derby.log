@@ -1,0 +1,6 @@
+----------------------------------------------------------------
+2014-06-05 01:59:38.340 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance a816c00e-0146-69c0-bcd1-0000036018a0
+on database directory /home/cloudera/git/bdic3-1/metastore_db  
+
+Database Class Loader started - derby.database.classpath=''

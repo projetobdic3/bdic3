@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.joda.time.Hours;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,15 +14,12 @@ import org.springframework.stereotype.Component;
 import br.com.ita.bdic3.factory.ConnectionFactoryHive;
 import br.com.ita.bdic3.util.Haversine;
 import br.com.ita.bdic3.vo.SuspeitaFraudeVO;
-import br.com.ita.bdic3.util.Boxsplot;
 
 @Component
 public class AnaliseFraudesDao {
 
 	@Autowired
 	private ConnectionFactoryHive connectionFactoryHive;
-
-	private List<SuspeitaFraudeVO> transacoesSuspeitas = new ArrayList<SuspeitaFraudeVO>();
 	
 	static String sqlLocalizacao = "SELECT c.cli_id, t.tra_data_hora, l.loc_latitude, l.loc_longitude "
 			+ "FROM transacao t "
@@ -35,9 +30,12 @@ public class AnaliseFraudesDao {
 	static Integer kmPorHoraAceitavel = 1000;
 
 
-	public void fraudeLocalizacao() throws SQLException {
-
-		ResultSet rs = getResultSet(sqlLocalizacao);
+	public List<SuspeitaFraudeVO> fraudeLocalizacao() {
+		List<SuspeitaFraudeVO> transacoesSuspeitas = new ArrayList<SuspeitaFraudeVO>();
+		Connection connection = connectionFactoryHive.getConnection();
+		
+		try{
+		ResultSet rs = getResultSet(sqlLocalizacao, connection);
 
 		SuspeitaFraudeVO atual = null;
 		SuspeitaFraudeVO proxima = null;
@@ -88,18 +86,23 @@ public class AnaliseFraudesDao {
 		}
 		System.out.println(transacao);
 		System.out.println(transacaoSuspeita);
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return transacoesSuspeitas;
 	}
 
-	private ResultSet getResultSet(String sql) throws SQLException {
-		@SuppressWarnings("static-access")
-		Statement stmt = connectionFactoryHive.getConnection();
+	private ResultSet getResultSet(String sql, Connection con) throws SQLException {
+		Statement stmt = con.createStatement();
 
 		ResultSet rs = stmt.executeQuery(sql);
 		return rs;
-	}
-
-	public List<SuspeitaFraudeVO> getTransacoesSuspeitas() {
-		return transacoesSuspeitas;
 	}
 
 }
