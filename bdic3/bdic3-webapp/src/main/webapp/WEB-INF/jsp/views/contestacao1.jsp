@@ -13,13 +13,13 @@
 
 <%-- Emppty dust.js template --%>
 
-<h1>Contestacao</h1>
+<h1>Contestacao - 1a Etapa</h1>
 
 <c:if test="${not empty mensagemErro}">
 	<h3>${mensagemErro}</h3>
 </c:if>
 
-<form:form id="validacaoForm" action="/bdic3/contestacao/validar-cliente" modelAttribute="contestacaoVO" method="POST">
+<form:form id="validacaoForm" action="/bdic3/contestacao/contestacao2" modelAttribute="contestacaoVO" method="POST">
 	<label for="nomeCliente">Nome do Cliente</label>
 	<form:input path="nomeCliente" />
 	<br>

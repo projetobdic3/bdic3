@@ -49,8 +49,10 @@
     <bean name="/product" parent="directViewMapping" p:viewName="view.product" />
     <bean name="/compra" parent="directViewMapping" p:viewName="view.compra" />
     
-    <bean name="/contestacao" parent="directViewMapping" p:viewName="view.contestacao" />
-    <bean name="/contestacao/fraude" parent="directViewMapping" p:viewName="view.contestacao-fraude" />
+    <bean name="/contestacao1" parent="directViewMapping" p:viewName="view.contestacao1" />
+    <bean name="/contestacao2" parent="directViewMapping" p:viewName="view.contestacao2" />
+    <bean name="/contestacao3" parent="directViewMapping" p:viewName="view.contestacao3" />
+    <bean name="/contestacao4" parent="directViewMapping" p:viewName="view.contestacao4" />
 
     <bean name="/error/404" parent="directViewMapping" p:viewName="error.404" />
     <bean name="/error/*" parent="directViewMapping" p:viewName="error.general" />
