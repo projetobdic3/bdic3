@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import br.com.ita.bdic3.enums.StatusTransacao;
 import br.com.ita.bdic3.enums.TransacaoTipo;
 
 @Entity
@@ -29,6 +28,7 @@ public class Transacao implements Serializable {
 	private Long id;
 	
 	@Enumerated
+	@Column(name = "tra_tipo")
 	private TransacaoTipo transacaoTipo;
 	
 	@Column(name = "tra_total")
@@ -37,38 +37,8 @@ public class Transacao implements Serializable {
 	@Column(name = "tra_data")
 	private Calendar data;
 	
-	@Column(name = "tra_descricao_pagamento")
-	private String descricaoPagamento;
-	
-	@Column(name = "tra_validade")
-	private Calendar validade;
-	
-	@Column(name = "tra_url_pagamento")
-	private String urlPagamento;
-	
-	@Enumerated
-	private StatusTransacao status;
-	
-	@Column(name = "tra_quantidadeparcela")
-	private int quantidadeParcelas;
-	
-//	@ManyToOne
-//	private Cliente cliente;
-	
-//	@ManyToOne
-//	private Localidade localidade;
-	
-//	@ManyToOne
-//	private Estabelecimento estabelecimento;
-	
-//	@ManyToOne
-//	private Midia midia;
-	
-//	@ManyToOne
-//	private Sessao sessao;
-	
-//	@ManyToOne
-//	private MeioPagamento meioPagamento;
+	@Column(name = "tra_hora")
+	private Calendar hora;
 
 	public Long getId() {
 		return id;
@@ -102,91 +72,11 @@ public class Transacao implements Serializable {
 		this.data = data;
 	}
 
-	public String getDescricaoPagamento() {
-		return descricaoPagamento;
+	public Calendar getHora() {
+		return hora;
 	}
 
-	public void setDescricaoPagamento(String descricaoPagamento) {
-		this.descricaoPagamento = descricaoPagamento;
+	public void setHora(Calendar hora) {
+		this.hora = hora;
 	}
-
-	public Calendar getValidade() {
-		return validade;
-	}
-
-	public void setValidade(Calendar validade) {
-		this.validade = validade;
-	}
-
-	public String getUrlPagamento() {
-		return urlPagamento;
-	}
-
-	public void setUrlPagamento(String urlPagamento) {
-		this.urlPagamento = urlPagamento;
-	}
-
-	public StatusTransacao getStatus() {
-		return status;
-	}
-
-	public void setStatus(StatusTransacao status) {
-		this.status = status;
-	}
-
-	public int getQuantidadeParcelas() {
-		return quantidadeParcelas;
-	}
-
-	public void setQuantidadeParcelas(int quantidadeParcelas) {
-		this.quantidadeParcelas = quantidadeParcelas;
-	}
-/*
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public Localidade getLocalidade() {
-		return localidade;
-	}
-
-	public void setLocalidade(Localidade localidade) {
-		this.localidade = localidade;
-	}
-
-	public Estabelecimento getEstabelecimento() {
-		return estabelecimento;
-	}
-
-	public void setEstabelecimento(Estabelecimento estabelecimento) {
-		this.estabelecimento = estabelecimento;
-	}
-
-	public Midia getMidia() {
-		return midia;
-	}
-
-	public void setMidia(Midia midia) {
-		this.midia = midia;
-	}
-
-	public Sessao getSessao() {
-		return sessao;
-	}
-
-	public void setSessao(Sessao sessao) {
-		this.sessao = sessao;
-	}
-
-	public MeioPagamento getMeioPagamento() {
-		return meioPagamento;
-	}
-
-	public void setMeioPagamento(MeioPagamento meioPagamento) {
-		this.meioPagamento = meioPagamento;
-	}*/
 }

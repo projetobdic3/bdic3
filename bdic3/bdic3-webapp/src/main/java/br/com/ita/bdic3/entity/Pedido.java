@@ -37,6 +37,10 @@ public class Pedido {
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy= "pedido")
 	private Pagamento pagamento;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn
+	private Transacao transacao;
 
 	public Long getId() {
 		return id;
@@ -79,6 +83,14 @@ public class Pedido {
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+
+	public Transacao getTransacao() {
+		return transacao;
+	}
+
+	public void setTransacao(Transacao transacao) {
+		this.transacao = transacao;
 	}
 
 	public BigDecimal getValorTotal() {

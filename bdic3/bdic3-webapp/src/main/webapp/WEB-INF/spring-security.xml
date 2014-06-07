@@ -20,10 +20,10 @@
 
     <http pattern="/error/**" security="none"/>
 
-    <!-- <http pattern="/home" security="none"/>
+    <http pattern="/home" security="none"/>
     <http pattern="/about" security="none"/>
     <http pattern="/contact" security="none"/>
-    <http pattern="/product" security="none"/> --> 
+    <http pattern="/product" security="none"/> 
     
     <http pattern="/api" security="none"/>
     <http pattern="/api/*" security="none"/>
@@ -31,10 +31,6 @@
 
     <http pattern="/**" use-expressions="true">
         <intercept-url pattern="/login" access="isAnonymous()" />
-        <intercept-url pattern="/home" access="isAnonymous()"/>
-    	<intercept-url pattern="/about" access="isAnonymous()"/>
-    	<intercept-url pattern="/contact" access="isAnonymous()"/>
-    	<intercept-url pattern="/product" access="isAnonymous()"/>
         <intercept-url pattern="/**" access="isAuthenticated()" />
 
         <form-login login-page="/login" authentication-failure-url="/login" default-target-url="/home" />
@@ -48,8 +44,7 @@
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="admin" password="admin" authorities="USER, ADMIN"/>
-                <user name="cliente" password="cliente" authorities="USER, CLIENTE"/>
+                <user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>

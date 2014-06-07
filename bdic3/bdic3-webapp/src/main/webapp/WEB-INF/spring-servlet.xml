@@ -48,6 +48,7 @@
     <bean name="/contact" parent="directViewMapping" p:viewName="view.contact" />
     <bean name="/product" parent="directViewMapping" p:viewName="view.product" />
     <bean name="/compra" parent="directViewMapping" p:viewName="view.compra" />
+    <bean name="/transacoes" parent="directViewMapping" p:viewName="view.transacoes" />
 
     <bean name="/error/404" parent="directViewMapping" p:viewName="error.404" />
     <bean name="/error/*" parent="directViewMapping" p:viewName="error.general" />
