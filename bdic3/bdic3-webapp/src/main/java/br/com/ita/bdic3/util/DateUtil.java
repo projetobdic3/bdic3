@@ -11,7 +11,7 @@ import org.joda.time.format.DateTimeFormatter;
 public class DateUtil {
 
 	public static final SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
-	public static final SimpleDateFormat FORMATO_DATA_BANCAO = new SimpleDateFormat("yyyy-MM-dd");
+	public static final SimpleDateFormat FORMATO_DATA_BANCAO = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	
 	public static String dateToHive(String data){

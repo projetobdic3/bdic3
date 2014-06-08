@@ -1,6 +1,7 @@
 package br.com.ita.bdic3.controller.view;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -37,18 +38,31 @@ public class PesquisaHiveController {
 		model.addAttribute("localidades", localidades);
 		return VIEW_FORM;
 	}
-//	@Async
 	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
 	public String pesquisarFraudes(Model model, PesquisaHiveVO pesquisaHiveVO){
 		try{
 			List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
 			model.addAttribute("suspeitaFraude", suspeitasFraudes);
 		}catch(Exception e){
-			model.addAttribute("pesquisaHive", pesquisaHiveVO); 
-			model.addAttribute("mensagemErro", "Dados Invalidos!");
+			model.addAttribute("pesquisaHive", pesquisaHiveVO);
+			model.addAttribute("localidades", pesquisaHiveDao.buscarLocalidades());
+			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
 			return VIEW_FORM;
 		}
 		return VIEW_RESULTADO;
 	}
+//	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
+//	public String pesquisarFraudesSlow(Model model, PesquisaHiveVO pesquisaHiveVO){
+//		try{
+//			 Future<List<SuspeitaFraudeVO>> suspeitasFraudes = analiseFraudesService.buscarSuspeitasDeFraudesSlow(pesquisaHiveVO);
+//			model.addAttribute("suspeitaFraude", suspeitasFraudes);
+//		}catch(Exception e){
+//			model.addAttribute("pesquisaHive", pesquisaHiveVO);
+//			model.addAttribute("localidades", pesquisaHiveDao.buscarLocalidades());
+//			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
+//			return VIEW_FORM;
+//		}
+//		return VIEW_RESULTADO;
+//	}
 
 }
