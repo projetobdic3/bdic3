@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.joda.time.DateTime;
+
+import br.com.ita.bdic3.enums.StatusTransacao;
 import br.com.ita.bdic3.enums.TransacaoTipo;
 
 @Entity
@@ -34,12 +37,24 @@ public class Transacao implements Serializable {
 	@Column(name = "tra_total")
 	private BigDecimal total;
 	
-	@Column(name = "tra_data")
-	private Calendar data;
+	@Column(name = "tra_data_hora")
+	private DateTime data_hora;
 	
-	@Column(name = "tra_hora")
-	private Calendar hora;
-
+	@Column(name = "tra_descricao_pagamento")
+	private String descricaoPagamento;
+	
+	@Column(name = "tra_validade")
+	private Calendar validade;
+	
+	@Column(name = "tra_url_pagamento")
+	private String urlPagamento;
+	
+	@Enumerated
+	private StatusTransacao status;
+	
+	@Column(name = "tra_quantidadeparcela")
+	private int quantidadeParcelas;
+	
 	public Long getId() {
 		return id;
 	}
@@ -63,20 +78,44 @@ public class Transacao implements Serializable {
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
-
-	public Calendar getData() {
-		return data;
+	
+	public String getDescricaoPagamento() {
+		return descricaoPagamento;
 	}
 
-	public void setData(Calendar data) {
-		this.data = data;
+	public void setDescricaoPagamento(String descricaoPagamento) {
+		this.descricaoPagamento = descricaoPagamento;
 	}
 
-	public Calendar getHora() {
-		return hora;
+	public Calendar getValidade() {
+		return validade;
 	}
 
-	public void setHora(Calendar hora) {
-		this.hora = hora;
+	public void setValidade(Calendar validade) {
+		this.validade = validade;
+	}
+
+	public String getUrlPagamento() {
+		return urlPagamento;
+	}
+
+	public void setUrlPagamento(String urlPagamento) {
+		this.urlPagamento = urlPagamento;
+	}
+
+	public StatusTransacao getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusTransacao status) {
+		this.status = status;
+	}
+
+	public void setQuantidadeParcelas(int quantidadeParcelas) {
+		this.quantidadeParcelas = quantidadeParcelas;
+	}
+	
+	public DateTime getTra_data_hora() {
+		return data_hora;
 	}
 }

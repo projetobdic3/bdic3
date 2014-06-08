@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>BDIC3 - Fraudes em tempo real</title>
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+
+    <style>
+      #info {
+        top: 20px;
+        color: #444;
+        height: auto;
+        font-family: arial;
+        right: 20px;
+        margin: 5px;
+        padding: 10px;
+        position: absolute;
+        width: 115px;
+        z-index: 40;
+        border: solid 2px #666;
+        border-radius: 4px;
+        background-color: #fff;
+      }
+      html, body, #mapDiv {
+        padding:0;
+        margin:0;
+        height:100%;
+      }
+      button {
+        display: block;
+      }
+    </style>
+
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+      var map, tb;
+
+      require([
+        "esri/map",
+        "esri/symbols/SimpleMarkerSymbol", 
+        "esri/geometry/Point",
+        "esri/SpatialReference",
+        "esri/graphic", 
+        "esri/InfoTemplate",
+        "esri/Color", "dojo/dom", "dojo/on", "dojo/domReady!"
+      ], function(
+        Map, 
+        SimpleMarkerSymbol,  
+        Point,
+        SpatialReference,
+        Graphic, 
+        InfoTemplate,
+        Color, dom, on
+      ) {
+        map = new Map("mapDiv", {
+          basemap: "hybrid",
+          center: [-50, -15],
+          zoom: 3
+        });
+        map.on("load", init);
+
+
+        var markerSymbol = new SimpleMarkerSymbol().setStyle(
+        	    SimpleMarkerSymbol.STYLE_CIRCLE).setColor(
+        	    new Color([255,0,0,0.5]));
+
+
+        function init() {         
+          // event delegation so a click handler is not
+          // needed for each individual button
+          on(dom.byId("info"), "click", function(evt) {
+            if ( evt.target.id === "info" ) {
+              return;
+            }
+            inserirFraudeAleatoria();
+          });
+        }
+        
+        function inserirFraudeAleatoria(){
+        	
+        	var latidude = getRandomArbitrary(-23, -5);
+        	var longitude = getRandomArbitrary(-55, -40);
+        	
+        	var attributes = { 
+        	  Latitude: latidude,
+         	  Longitude: longitude,
+   		      Nome: "Manoel Pereira de Mello", 
+   		      Tipo_Fraude: "ESTELIONATO", 
+   		      Deteccao: "DENUNCIA",
+   		      Data_Deteccao: "18/06/2014",
+   		      Tipo_Transacao: "E-COMMERCE",
+   		      Valor: "7227.79"
+   		    };
+			
+        	inserirFraudeMapa(attributes);
+        }              
+        
+        function getRandomArbitrary(min, max) {
+        	  return Math.random() * (max - min) + min;
+        }
+        
+		function inserirFraudeMapa(attributes){
+        	
+        	var point = new Point([attributes.Longitude,attributes.Latitude],new SpatialReference({ wkid:4326 }));
+
+        	var infoTemplate = new InfoTemplate("Fraude", "<tr>Nome: <td>${Nome}</td></tr><br><tr>Tipo Fraude: <td>${Tipo_Fraude}</td></tr><br><tr>Detecção: <td>${Deteccao}</td></tr><br><tr>Data Detecção:<td>${Data_Deteccao}</td></tr><br><tr>Tipo Transacao: <td>${Tipo_Transacao}</td></tr><br><tr>Valor: <td>${Valor}</td></tr>");
+ 		      
+   		    var graphic = new Graphic(point, markerSymbol, attributes, infoTemplate);
+   		    map.graphics.add(graphic);
+
+   		 	map.infoWindow.hide();
+			map.centerAndZoom(point, 8);
+			
+			map.infoWindow.setContent(graphic.getContent());
+			map.infoWindow.show(point);
+
+
+        }
+
+
+      });
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id="info">
+      <button id="Point">Inserir Fraude Aleatória</button>
+    </div>
+
+    <div id="mapDiv"></div>
+
+  </body>
+</html>
