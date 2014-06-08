@@ -1,6 +1,7 @@
 package br.com.ita.bdic3.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,9 +28,6 @@ public class Cliente implements Serializable{
 	@Column(name = "cli_nome")
 	private String nome;
 	
-//	@Column(name = "cli_documento")
-//	private String documento;
-	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "cli_sexo")
 	private Sexo sexo;
@@ -37,36 +35,14 @@ public class Cliente implements Serializable{
 	@Column(name = "cli_dt_nasc")
 	private String datanascimento;
 	
-//	@Column(name = "cli_rg")
-//	private String rg;
-	
-//	@Column(name = "cli_renda")
-//	private String renda;
-	
-//	@Column(name = "cli_biometria")
-//	private String biometria;
-	
-//	@Column(name = "cli_token")
-//	private String token;
-	
-//	@OneToMany(mappedBy = "cli_id", cascade = CascadeType.ALL)
-//	private List<EnderecoCliente> enderecos;
-	
-//	@OneToMany(mappedBy = "cli_id", cascade = CascadeType.ALL)
-//	private List<Telefone> telefones;
-
-//	@OneToOne(mappedBy = "id")
-//	private Usuario usuario;
-	
+	@Column(name = "cli_upper_limit")
+	private BigDecimal upperLimit;
 
 	public Cliente(Long id) {
 		this.id = id;
 	}
 
-	public Cliente() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public Cliente() { }
 
 	public Long getId() {
 		return id;
@@ -98,5 +74,13 @@ public class Cliente implements Serializable{
 
 	public void setDatanascimento(String datanascimento) {
 		this.datanascimento = datanascimento;
+	}
+
+	public BigDecimal getUpperLimit() {
+		return upperLimit;
+	}
+
+	public void setUpperLimit(BigDecimal upperLimit) {
+		this.upperLimit = upperLimit;
 	}
 }

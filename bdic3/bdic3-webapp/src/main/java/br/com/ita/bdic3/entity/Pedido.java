@@ -39,7 +39,7 @@ public class Pedido {
 	private Pagamento pagamento;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn
+	@JoinColumn(name = "tra_id")
 	private Transacao transacao;
 
 	public Long getId() {

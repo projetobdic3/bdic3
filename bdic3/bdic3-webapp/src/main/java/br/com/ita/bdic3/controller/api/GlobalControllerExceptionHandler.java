@@ -21,7 +21,7 @@ class GlobalControllerExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(APIException.class)
 	public @ResponseBody MensagemRetornoAPI handleBadRequest(Exception ex) {
-	    return new MensagemRetornoAPI(HttpStatus.BAD_REQUEST.toString(), ex.getMessage());
+	    return new MensagemRetornoAPI(HttpStatus.BAD_REQUEST.toString(), ex.getLocalizedMessage());
 	} 
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
