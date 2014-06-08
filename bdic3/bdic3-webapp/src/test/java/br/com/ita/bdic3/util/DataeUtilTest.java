@@ -14,8 +14,8 @@ public class DataeUtilTest {
 	}
 	@Test
 	public void deveRetornarDataNoFormatoString(){
-		DateTime dataDateTime = new DateTime(2013,02,12,01,01); 
-		assertEquals("12/02/2013",DateUtil.stringToDateTime(dataDateTime));
+		DateTime dataDateTime = new DateTime(2013,02,12,01,32,59); 
+		assertEquals("12/02/2013 01:32:59",DateUtil.datateTimeToString(dataDateTime));
 	}
 
 }

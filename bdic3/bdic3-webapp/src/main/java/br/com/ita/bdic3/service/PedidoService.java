@@ -125,8 +125,8 @@ public class PedidoService {
 	
 	private Transacao criarTransacao(Pedido pedido) {
 		Transacao transacao = new Transacao();
-		transacao.setData(pedido.getData());
-		transacao.setHora(pedido.getData());
+//		transacao.setData(pedido.getData());
+//		transacao.setHora(pedido.getData());
 		transacao.setTotal(pedido.getValorTotal());
 		transacao.setTransacaoTipo(TransacaoTipo.COMPRA);
 		return transacao;

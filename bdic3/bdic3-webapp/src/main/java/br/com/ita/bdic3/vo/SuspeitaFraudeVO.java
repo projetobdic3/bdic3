@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import br.com.ita.bdic3.util.DateUtil;
+
 public class SuspeitaFraudeVO {
 
 	private Integer cli_id;
@@ -80,6 +82,12 @@ public class SuspeitaFraudeVO {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+	public String getData(){
+		if(tra_data_hora != null){
+			return DateUtil.datateTimeToString(tra_data_hora);
+		}
+		return null;
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 package br.com.ita.bdic3.hive.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,55 +92,38 @@ public class AnaliseFraudesDao {
 	}
 
 	private ResultSet getResultSet(Connection con, PesquisaHiveVO pesquisaHiveVO) throws SQLException {
-		PreparedStatement  stmt = con.prepareStatement("use bdic3");
-		stmt.execute();
-		stmt = con.prepareStatement(getSql(pesquisaHiveVO));
-		int i=1;
-		if(pesquisaHiveVO.hasValorInicial()){
-			stmt.setDouble(i++, pesquisaHiveVO.getValorInicialConvertido());
-		}
-		if(pesquisaHiveVO.hasValorFinal()){
-			stmt.setDouble(i++, pesquisaHiveVO.getValorFinalConvertido());
-		}
-		if(pesquisaHiveVO.hasDataInical()){
-			stmt.setString(i++, pesquisaHiveVO.getDataIncialConvertida());
-		}
-		if(pesquisaHiveVO.hasDataFinal()){
-			stmt.setString(i++, pesquisaHiveVO.getDataFinalConvertida());
-		}
-		if(pesquisaHiveVO.hasLocalidade()){
-			stmt.setString(i++, pesquisaHiveVO.getLocalidade());
-		}
-		ResultSet rs = stmt.executeQuery();
+		Statement  stmt = con.createStatement();
+		stmt.executeQuery("use bdic3");
+		ResultSet rs = stmt.executeQuery(getSql(pesquisaHiveVO));
 		return rs;
 	}
 	
 	private String getSql(PesquisaHiveVO pesquisaHiveVO){
 		String sqlLocalizacao = "SELECT c.cli_id, t.tra_data_hora, l.loc_latitude, l.loc_longitude, l.loc_cidade, t.tra_total "
 				+ "FROM transacao t "
-				+ "INNER JOIN localidade l ON t.loc_id = l.loc_id "
-				+ "INNER JOIN cliente c ON t.cli_id = c.cli_id ";
+				+ "INNER JOIN localidade l ON (t.loc_id = l.loc_id) "
+				+ "INNER JOIN cliente c ON (t.cli_id = c.cli_id) ";
 				
 		String separador = " WHERE ";
 		
 		if(pesquisaHiveVO.hasValorInicial()){
-			sqlLocalizacao += separador + "t.tra_data_hora >= ?";
+			sqlLocalizacao += separador + "t.tra_total >= '" + pesquisaHiveVO.getValorInicialConvertido() + "'";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasValorFinal()){
-			sqlLocalizacao += separador + "t.tra_data_hora <= ?";
+			sqlLocalizacao += separador + "t.tra_total <= '" + pesquisaHiveVO.getValorFinalConvertido() + "'";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasDataInical()){
-			sqlLocalizacao += separador + "t.tra_data_hora >=  ? ";
+			sqlLocalizacao += separador + "t.tra_data_hora >=  '" + pesquisaHiveVO.getDataIncialConvertida() + "'";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasDataFinal()){
-			sqlLocalizacao += separador + "t.tra_data_hora <= ?";
+			sqlLocalizacao += separador + "t.tra_data_hora <= '" + pesquisaHiveVO.getDataFinalConvertida() + "'";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasLocalidade()){
-			sqlLocalizacao += separador + "l.loc_cidade = ?";
+			sqlLocalizacao += separador + "l.loc_cidade = '" + pesquisaHiveVO.getLocalidade() + "'";
 		}
 		sqlLocalizacao += " ORDER BY c.cli_id ASC, t.tra_data_hora DESC";
 		return sqlLocalizacao;

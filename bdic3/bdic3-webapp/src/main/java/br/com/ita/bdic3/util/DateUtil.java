@@ -30,8 +30,8 @@ public class DateUtil {
 				throw new IllegalArgumentException( e );
 		}
 	}
-	public static String stringToDateTime(DateTime data){
-		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+	public static String datateTimeToString(DateTime data){
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
 		return formatter.print(data.getMillis());
 	}
 }

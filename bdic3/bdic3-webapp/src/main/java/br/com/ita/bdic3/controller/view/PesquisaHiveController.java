@@ -1,10 +1,9 @@
 package br.com.ita.bdic3.controller.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,20 +37,11 @@ public class PesquisaHiveController {
 		model.addAttribute("localidades", localidades);
 		return VIEW_FORM;
 	}
+	@Async
 	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
 	public String pesquisarFraudes(Model model, PesquisaHiveVO pesquisaHiveVO){
 		try{
-			List<SuspeitaFraudeVO> suspeitasFraudes = new ArrayList<SuspeitaFraudeVO>(); //analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
-			for (int i = 0; i < 5; i++) {
-				SuspeitaFraudeVO s = new SuspeitaFraudeVO();
-				s.setCli_id(i);
-				s.setLoc_latitude(new Double(i));
-				s.setLoc_longitude(new Double(i));
-				s.setLocalidade("localidade"+i);
-				s.setTra_data_hora(new DateTime());
-				s.setValor(new Double(i*100));
-				suspeitasFraudes.add(s);
-			}
+			List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
 			model.addAttribute("suspeitaFraude", suspeitasFraudes);
 		}catch(Exception e){
 			model.addAttribute("pesquisaHive", pesquisaHiveVO);

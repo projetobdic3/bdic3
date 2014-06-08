@@ -39,7 +39,7 @@
 		  <td>${suspeitaFraude.cli_id}</td>
 		  <td>${suspeitaFraude.loc_latitude}</td>
 		  <td>${suspeitaFraude.loc_longitude}</td>
-		  <td>${suspeitaFraude.tra_data_hora}"</td>
+		  <td>${suspeitaFraude.data}"</td>
 		  <td>${suspeitaFraude.valor}</td>
 		  <td>${suspeitaFraude.localidade}</td>
 		</tr>
