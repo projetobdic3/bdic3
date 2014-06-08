@@ -13,4 +13,29 @@
 
 <%-- Emppty dust.js template --%>
 
-<h1>Contestacao Fraude</h1>
+<h1>Contestacao - 4a Etapa</h1>
+
+<c:if test="${not empty mensagemErro}">
+	<h3>${mensagemErro}</h3>
+</c:if>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>CPF</td>
+			<td>Nome</td>
+			<td>Valor</td>
+			<td>Data</td>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="contestacao" items="${contestacoes}">
+			<tr>
+				<td>${contestacao.cpfCliente}</td>
+				<td>${contestacao.nomeCliente}</td>
+				<td>${contestacao.valorTransacao}</td>
+				<td>${contestacao.dataTransacao}</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>

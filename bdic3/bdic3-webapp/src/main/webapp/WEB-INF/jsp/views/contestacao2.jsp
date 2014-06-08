@@ -13,18 +13,24 @@
 
 <%-- Emppty dust.js template --%>
 
-<h1>Contestacao</h1>
+<h1>Contestacao - 2a Etapa</h1>
 
 <c:if test="${not empty mensagemErro}">
 	<h3>${mensagemErro}</h3>
 </c:if>
 
-<form:form id="validacaoForm" action="/bdic3/contestacao/validar-cliente" modelAttribute="contestacaoVO" method="POST">
-	<label for="nomeCliente">Nome do Cliente</label>
-	<form:input path="nomeCliente" />
+<form:form id="validacaoForm" action="/bdic3/contestacao/contestacao3" modelAttribute="contestacaoVO" method="POST">
+	Nome do Cliente: ${contestacaoVO.nomeCliente}
+	<form:hidden path="nomeCliente" value="${contestacaoVO.nomeCliente}" />
 	<br>
-	<label for="cpfCliente">CPF do Cliente</label>
-	<form:input path="cpfCliente" />
+	CPF do Cliente: ${contestacaoVO.cpfCliente}
+	<form:hidden path="cpfCliente" value="${contestacaoVO.cpfCliente}" />
 	<br>
-	<button type="submit" class="btn btn-primary">Validar Cliente</button>
+	<label for="valorTransacao">Valor da Transacao</label>
+	<form:input path="valorTransacao" />
+	<br>
+	<label for="dataTransacao">Data da Transacao</label>
+	<form:input path="dataTransacao" />
+	<br>
+	<button type="submit" class="btn btn-primary">Validar Transacao</button>
 </form:form>

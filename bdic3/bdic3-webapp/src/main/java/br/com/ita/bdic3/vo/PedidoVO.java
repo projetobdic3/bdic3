@@ -8,8 +8,10 @@ public class PedidoVO {
 	private Long idCliente;
 	private Integer quantidadeParcelas;
 	private String formaPagamento;
-	private Float latitude;
-	private Float longitude;
+	/*private Float latitude;
+	private Float longitude;*/
+//	private EstadoVO estado;
+	private String cidade;
 	
 	public Long getIdProduto() {
 		return idProduto;
@@ -59,19 +61,36 @@ public class PedidoVO {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public Float getLatitude() {
-		return latitude;
+//	public Float getLatitude() {
+//		return latitude;
+//	}
+//
+//	public void setLatitude(Float latitude) {
+//		this.latitude = latitude;
+//	}
+//
+//	public Float getLongitude() {
+//		return longitude;
+//	}
+//
+//	public void setLongitude(Float longitude) {
+//		this.longitude = longitude;
+//	}
+//
+//	public EstadoVO getEstado() {
+//		return estado;
+//	}
+//
+//	public void setEstado(EstadoVO estado) {
+//		this.estado = estado;
+//	}
+
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setLatitude(Float latitude) {
-		this.latitude = latitude;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
-
-	public Float getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(Float longitude) {
-		this.longitude = longitude;
-	}
+	
 }
