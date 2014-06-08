@@ -13,6 +13,8 @@ public class SuspeitaFraudeVO {
 	private Double loc_latitude;
 	private Double loc_longitude;
 	private DateTime tra_data_hora;
+	private String localidade;
+	private Double valor;
 
 	private DateTimeFormatter formatador = DateTimeFormat
 			.forPattern("yyyy-MM-dd HH:mm:ss.0");
@@ -27,6 +29,9 @@ public class SuspeitaFraudeVO {
 				.parseDateTime(rs.getString("tra_data_hora")));
 		setLoc_latitude(Double.parseDouble(rs.getString("loc_latitude")));
 		setLoc_longitude(Double.parseDouble(rs.getString("loc_longitude")));
+		setLocalidade(rs.getString("loc_cidade"));
+		setValor(Double.parseDouble(rs.getString("tra_total")));
+		
 	}
 
 	public Integer getCli_id() {
@@ -59,6 +64,22 @@ public class SuspeitaFraudeVO {
 
 	public void setTra_data_hora(DateTime tra_datetime) {
 		this.tra_data_hora = tra_datetime;
+	}
+
+	public String getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
+	}
+
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 
 	@Override
