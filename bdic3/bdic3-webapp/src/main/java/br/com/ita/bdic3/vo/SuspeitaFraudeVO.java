@@ -7,12 +7,16 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import br.com.ita.bdic3.util.DateUtil;
+
 public class SuspeitaFraudeVO {
 
 	private Integer cli_id;
 	private Double loc_latitude;
 	private Double loc_longitude;
 	private DateTime tra_data_hora;
+	private String localidade;
+	private Double valor;
 
 	private DateTimeFormatter formatador = DateTimeFormat
 			.forPattern("yyyy-MM-dd HH:mm:ss.0");
@@ -27,6 +31,9 @@ public class SuspeitaFraudeVO {
 				.parseDateTime(rs.getString("tra_data_hora")));
 		setLoc_latitude(Double.parseDouble(rs.getString("loc_latitude")));
 		setLoc_longitude(Double.parseDouble(rs.getString("loc_longitude")));
+		setLocalidade(rs.getString("loc_cidade"));
+		setValor(Double.parseDouble(rs.getString("tra_total")));
+		
 	}
 
 	public Integer getCli_id() {
@@ -59,6 +66,28 @@ public class SuspeitaFraudeVO {
 
 	public void setTra_data_hora(DateTime tra_datetime) {
 		this.tra_data_hora = tra_datetime;
+	}
+
+	public String getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
+	}
+
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+	public String getData(){ 
+		if(tra_data_hora != null){
+			return DateUtil.datateTimeToString(tra_data_hora);
+		}
+		return null;
 	}
 
 	@Override

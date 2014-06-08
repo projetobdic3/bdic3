@@ -10,7 +10,42 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="util" tagdir="/WEB-INF/tags/util"%>
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:forEach items="${suspeitaFraude}" var="suspeitaFraude">
 
-</c:forEach>
+
+<c:if test="${empty suspeitaFraude}">
+	<h2>Nenhum resultado encontrado!</h2>
+</c:if>
+<c:if test="${not empty suspeitaFraude}">
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Possiveis Fraudes</div>
+  <!-- Table -->
+  <table class="table">
+  <thead>
+  	<tr>
+	  	<th>id</th>
+	  	<th>Latitude</th>
+	  	<th>Longitude</th>
+	  	<th>Data</th>
+	  	<th>Valor</th>
+	  	<th>Cidade</th>
+  	</tr>
+  </thead>
+  <tbody>
+  <c:forEach var="suspeitaFraude" items="${suspeitaFraude}">
+	  <tr>
+		  <td>${suspeitaFraude.cli_id}</td>
+		  <td>${suspeitaFraude.loc_latitude}</td>
+		  <td>${suspeitaFraude.loc_longitude}</td>
+		  <td>${suspeitaFraude.data}"</td>
+		  <td>${suspeitaFraude.valor}</td>
+		  <td>${suspeitaFraude.localidade}</td>
+		</tr>
+	</c:forEach>
+  </tbody>
+  </table>
+</div>
+</c:if>
+

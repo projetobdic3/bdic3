@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,7 @@ public class PesquisaHiveDao {
 	private ConnectionFactoryHive connectionFactoryHive;
 
 		public List<String> buscarLocalidades(){
-			List<String> localidades = new ArrayList<String>();
+			SortedSet<String> localidades = new TreeSet<String>();
 			
 			Connection con = connectionFactoryHive.getConnection();
 
@@ -42,7 +44,7 @@ public class PesquisaHiveDao {
 				}
 			}
 		
-			return localidades;
+			return new ArrayList<String>(localidades);
 		}
 
 }
