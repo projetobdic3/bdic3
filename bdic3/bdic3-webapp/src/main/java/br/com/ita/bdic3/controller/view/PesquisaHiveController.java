@@ -37,14 +37,14 @@ public class PesquisaHiveController {
 		model.addAttribute("localidades", localidades);
 		return VIEW_FORM;
 	}
-	@Async
+//	@Async
 	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
 	public String pesquisarFraudes(Model model, PesquisaHiveVO pesquisaHiveVO){
 		try{
 			List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
 			model.addAttribute("suspeitaFraude", suspeitasFraudes);
 		}catch(Exception e){
-			model.addAttribute("pesquisaHive", pesquisaHiveVO);
+			model.addAttribute("pesquisaHive", pesquisaHiveVO); 
 			model.addAttribute("mensagemErro", "Dados Invalidos!");
 			return VIEW_FORM;
 		}

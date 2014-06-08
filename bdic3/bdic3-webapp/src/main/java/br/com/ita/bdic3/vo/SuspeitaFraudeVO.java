@@ -83,7 +83,7 @@ public class SuspeitaFraudeVO {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public String getData(){
+	public String getData(){ 
 		if(tra_data_hora != null){
 			return DateUtil.datateTimeToString(tra_data_hora);
 		}

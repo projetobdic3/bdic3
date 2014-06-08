@@ -92,7 +92,7 @@ public class PesquisaHiveVO {
 		}
 		return false;
 	}
-	public boolean hasLocalidade(){
+	public boolean hasLocalidade(){ 
 		if(StringUtils.isNotBlank(localidade)){
 			return true;
 		}

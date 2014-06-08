@@ -93,7 +93,7 @@ public class AnaliseFraudesDao {
 
 	private ResultSet getResultSet(Connection con, PesquisaHiveVO pesquisaHiveVO) throws SQLException {
 		Statement  stmt = con.createStatement();
-		stmt.executeQuery("use bdic3");
+		stmt.executeQuery("use bdic3"); 
 		ResultSet rs = stmt.executeQuery(getSql(pesquisaHiveVO));
 		return rs;
 	}
