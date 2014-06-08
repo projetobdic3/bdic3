@@ -115,11 +115,11 @@ public class AnaliseFraudesDao {
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasDataInical()){
-			sqlLocalizacao += separador + "t.tra_data_hora >=  '" + pesquisaHiveVO.getDataIncialConvertida() + "'";
+			sqlLocalizacao += separador + "t.tra_data_hora >=  unix_timestamp('" + pesquisaHiveVO.getDataIncialConvertida() + "')";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasDataFinal()){
-			sqlLocalizacao += separador + "t.tra_data_hora <= '" + pesquisaHiveVO.getDataFinalConvertida() + "'";
+			sqlLocalizacao += separador + "t.tra_data_hora <= unix_timestamp('" + pesquisaHiveVO.getDataFinalConvertida() + "')";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasLocalidade()){
