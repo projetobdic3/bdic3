@@ -18,7 +18,7 @@
 <c:if test="${not empty mensagemErro}">
 	<h3>${mensagemErro}</h3>
 </c:if>
-<form:form id="validacaoForm" action="/bdic3/hive/pesquisar" modelAttribute="pesquisaHive" method="POST">
+<form:form id="validacaoForm" action="/bdic3/hive/p" modelAttribute="pesquisaHive" method="POST">
   <div class="form-group">
     <label for="valorInicial">Valor de</label>
     <form:input path="valorInicial" cssClass="form-control"  placeholder="Entre com o valor  R$" />
@@ -38,5 +38,11 @@
 	</form:select> 
   </div>
  
-  <button type="submit" class="btn btn-primary">Enviar</button> 
+  <button type="button" class="btn btn-primary" onclick="envia();">Enviar</button> 
 </form:form>
+<script>
+function envia(){
+	$.ajax({type:'POST', url: '/bdic3/hive/pesquisar', data: $('#validacaoForm').serialize()});
+	alert("Solicitacao enviada com sucesso");
+}
+</script>

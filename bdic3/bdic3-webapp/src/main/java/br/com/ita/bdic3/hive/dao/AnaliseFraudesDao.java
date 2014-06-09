@@ -11,10 +11,10 @@ import org.joda.time.Hours;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
 import br.com.ita.bdic3.factory.ConnectionFactoryHive;
 import br.com.ita.bdic3.util.Haversine;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
-import br.com.ita.bdic3.vo.SuspeitaFraudeVO;
 
 @Component
 public class AnaliseFraudesDao {
@@ -61,7 +61,7 @@ public class AnaliseFraudesDao {
 
 			// calcula o periodo de horas entre duas transacoes
 			Integer horasEntreTransacoes = Hours.hoursBetween(
-					proxima.getTra_data_hora(), atual.getTra_data_hora())
+					proxima.getTra_data_hora_DateTime(), atual.getTra_data_hora_DateTime())
 					.getHours();
 
 			// verifica se uma transacao e uma suspeita de fraude
