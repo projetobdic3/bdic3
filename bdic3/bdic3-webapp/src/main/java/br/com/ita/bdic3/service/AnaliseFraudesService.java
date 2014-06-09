@@ -1,5 +1,6 @@
 package br.com.ita.bdic3.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -31,11 +32,16 @@ public class AnaliseFraudesService {
 	AtomicBoolean working = new AtomicBoolean(false);
 	
 	public List<SuspeitaFraudeVO> buscarSuspeitasDeFraudes(PesquisaHiveVO pesquisaHiveVO){
-		List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesDao.fraudeLocalizacao(pesquisaHiveVO);
-		RelatorioFraude relatorioFraude =  new RelatorioFraude();
-		relatorioFraude.setSuspeitasFraudes(suspeitasFraudes);
-		Long id = relatorioFraudeDao.save(relatorioFraude);
-		mail.sendMail("fab.ajm@gmail.com", "Análise de Fraude", "Código do relatorio: "+id);
+		List<SuspeitaFraudeVO> suspeitasFraudes = new ArrayList<SuspeitaFraudeVO>();
+		try{
+			suspeitasFraudes = analiseFraudesDao.fraudeLocalizacao(pesquisaHiveVO);
+			RelatorioFraude relatorioFraude =  new RelatorioFraude();
+			relatorioFraude.setSuspeitasFraudes(suspeitasFraudes);
+			Long id = relatorioFraudeDao.save(relatorioFraude);
+			mail.sendMail("fab.ajm@gmail.com", "Análise de Fraude", "Código do relatorio: "+id);
+		}catch(Exception e){
+			mail.sendMail("fab.ajm@gmail.com", "Análise de Fraude ERRO", "Erro ao gerar relatorio" + e.getMessage() );
+		}
 		
 		return suspeitasFraudes;
 	}

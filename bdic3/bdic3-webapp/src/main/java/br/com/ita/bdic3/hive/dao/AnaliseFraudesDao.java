@@ -31,6 +31,12 @@ public class AnaliseFraudesDao {
 		try{
 		ResultSet rs = getResultSet(connection, pesquisaHiveVO);
 		
+		if(pesquisaHiveVO.hasLocalidade()){
+			while (rs.next()) {
+				transacoesSuspeitas.add(new SuspeitaFraudeVO(rs));
+			}
+			return transacoesSuspeitas;
+		}
 
 		SuspeitaFraudeVO atual = null;
 		SuspeitaFraudeVO proxima = null;
@@ -67,9 +73,9 @@ public class AnaliseFraudesDao {
 			// verifica se uma transacao e uma suspeita de fraude
 			Boolean suspeita = horasEntreTransacoes * kmPorHoraAceitavel < distanciaEntreCoordenadas;
 
-			System.out.println(atual + ", " + proxima + ", "
-					+ distanciaEntreCoordenadas + ", " + horasEntreTransacoes
-					+ ", " + suspeita);
+//			System.out.println(atual + ", " + proxima + ", "
+//					+ distanciaEntreCoordenadas + ", " + horasEntreTransacoes
+//					+ ", " + suspeita);
 
 			// adiciona a uma lista, todos os registros que podem ser uma fraude
 			if (suspeita) {
