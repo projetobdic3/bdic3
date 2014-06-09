@@ -13,7 +13,7 @@ public class DataeUtilTest {
 	
 	@Test
 	public void deveRetornarDataNoFormatoHive(){
-		assertEquals("2013-02-12",DateUtil.dateToHive("12/02/2013"));
+		assertEquals("2013-02-12 00:00:00",DateUtil.dateToHive("12/02/2013"));
 	}
 	@Test
 	public void deveRetornarDataNoFormatoString(){
@@ -25,7 +25,7 @@ public class DataeUtilTest {
 		Calendar dataDateTime = new GregorianCalendar(2013,02,12,01,32,59); 
 		String calendarToString = DateUtil.calendarToString(dataDateTime);
 		System.out.println(calendarToString);
-		assertEquals("12/02/2013 01:32:59",calendarToString);
+		assertEquals("12/03/2013",calendarToString);
 	}
 
 }
