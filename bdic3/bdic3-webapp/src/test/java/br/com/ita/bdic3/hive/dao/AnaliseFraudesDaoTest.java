@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
 import br.com.ita.bdic3.factory.ConnectionFactoryHive;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
-import br.com.ita.bdic3.vo.SuspeitaFraudeVO;
 
 public class AnaliseFraudesDaoTest {
 	

@@ -9,36 +9,47 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
+import br.com.ita.bdic3.dao.RelatorioFraudeDao;
+import br.com.ita.bdic3.entity.RelatorioFraude;
+import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
 import br.com.ita.bdic3.hive.dao.AnaliseFraudesDao;
+import br.com.ita.bdic3.util.Mail;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
-import br.com.ita.bdic3.vo.SuspeitaFraudeVO;
 
 @Service
 public class AnaliseFraudesService {
 	
 	@Autowired
 	private AnaliseFraudesDao analiseFraudesDao;
-//	private List<SuspeitaFraudeVO>  fraudeVOs;
-//	AtomicBoolean working = new AtomicBoolean(false);
+	
+	@Autowired
+	private RelatorioFraudeDao relatorioFraudeDao;
+	
+	@Autowired
+	private Mail mail;
+	private List<SuspeitaFraudeVO>  fraudeVOs;
+	AtomicBoolean working = new AtomicBoolean(false);
 	
 	public List<SuspeitaFraudeVO> buscarSuspeitasDeFraudes(PesquisaHiveVO pesquisaHiveVO){
-		
 		List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesDao.fraudeLocalizacao(pesquisaHiveVO);
+		RelatorioFraude relatorioFraude =  new RelatorioFraude();
+		relatorioFraude.setSuspeitasFraudes(suspeitasFraudes);
+		Long id = relatorioFraudeDao.save(relatorioFraude);
+		mail.sendMail("fab.ajm@gmail.com", "Análise de Fraude", "Código do relatorio: "+id);
 		
 		return suspeitasFraudes;
 	}
-//	@Async
-//	public Future<List<SuspeitaFraudeVO>> buscarSuspeitasDeFraudesSlow(PesquisaHiveVO pesquisaHiveVO){
-//		if(working.compareAndSet(false, true)) {
-//			fraudeVOs = analiseFraudesDao.fraudeLocalizacao(pesquisaHiveVO);
-//		
-//			working.set(false);
-//		}
-//		
-//		return new  AsyncResult<List<SuspeitaFraudeVO>>(fraudeVOs);
-//	}
-//	public List<SuspeitaFraudeVO> getFraudeVOs() {
-//		return fraudeVOs;
-//	}
+	
+	@Async
+	public void buscarSuspeitasDeFraudesSlow(PesquisaHiveVO pesquisaHiveVO){
+		if(working.compareAndSet(false, true)) {
+			fraudeVOs = analiseFraudesDao.fraudeLocalizacao(pesquisaHiveVO);
+		
+			working.set(false);
+		}
+	}
+	public List<SuspeitaFraudeVO> getFraudeVOs() {
+		return fraudeVOs;
+	}
 
 }
