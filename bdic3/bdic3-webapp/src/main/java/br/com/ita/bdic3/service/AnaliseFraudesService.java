@@ -38,9 +38,9 @@ public class AnaliseFraudesService {
 			RelatorioFraude relatorioFraude =  new RelatorioFraude();
 			relatorioFraude.setSuspeitasFraudes(suspeitasFraudes);
 			Long id = relatorioFraudeDao.save(relatorioFraude);
-			mail.sendMail("fab.ajm@gmail.com", "Análise de Fraude", "Código do relatorio: "+id);
+			mail.sendMail("projetobdic3@gmail.com", "Análise de Fraude", "Código do relatorio: "+id);
 		}catch(Exception e){
-			mail.sendMail("fab.ajm@gmail.com", "Análise de Fraude ERRO", "Erro ao gerar relatorio" + e.getMessage() );
+			mail.sendMail("projetobdic3@gmail.com", "Análise de Fraude ERRO", "Erro ao gerar relatorio" + e.getMessage() );
 		}
 		
 		return suspeitasFraudes;
