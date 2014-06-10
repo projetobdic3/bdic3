@@ -20,7 +20,7 @@ cliID <- as.integer ( args [ 1 ] )
 rm ( args )
 
 # seleciona as transações do cliente
-strQuery <- sprintf ( "select tra_id, tra_tipo, tra_total, tra_data, tra_hora, etb_id, cli_id, loc_id from transacao where cli_id = %d", cliID )
+strQuery <- sprintf ( "select tra_id, tra_tipo, tra_total, etb_id, cli_id, loc_id from transacao where cli_id = %d", cliID )
 # strQuery
 
 result <- sqlQuery ( conn, strQuery )
@@ -55,25 +55,7 @@ abline ( v=upper_limit, col = "red" )
 # boxplot ( result$tra_total, main="Boxplot dos valores das transações (outliers em destaque)", ylab="Valor das transações" )
 
 # trata a data/hora da transação
-dtparts <- t ( as.data.frame ( strsplit ( as.character ( result$tra_data ), " " )))
-
-row.names ( dtparts ) <- NULL
-
-thedatatimes <- chron ( dates=dtparts[,1], format=c('d/m/y'))
-
-# plota o gráfico das transações em função da data
-png ( "/home/cloudera/git/bdic3/bdic3/bdic3-webapp/src/main/webapp/transacoes.png" )
-xyplot ( result$tra_total ~ thedatatimes, xlab="Data", 
-         ylab="Valor da Transação", main="Transações por dia no mês",
-         panel = function ( x, y ) {
-         panel.xyplot ( x, y )
-         panel.abline ( mean_value, col = "blue" )
-         panel.abline ( upper_limit, col = "red" )
-       },)
-
 # seleciona as transações suspeitas
-suspect_transactions <- result [ result$tra_total > upper_limit, ]
 
 # exibe as transações suspeitas
 sprintf ( "Transações suspeitas (maiores que %f)", upper_limit )
-print ( suspect_transactions )
