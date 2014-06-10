@@ -38,6 +38,7 @@
     <util:js value="/resources/vendor/js/modernizr-2.6.2.js" />
 
     <%-- https://developer.apple.com/library/ios/#documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html --%>
+    <link rel="transacoes" href="${base}/transacoes.png"/>
     <link rel="apple-touch-icon" href="${base}/apple-touch-icon.png"/>
     <link rel="apple-touch-icon-precomposed" href="${base}/apple-touch-icon-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="${base}/apple-touch-icon-57x57-precomposed.png"/>

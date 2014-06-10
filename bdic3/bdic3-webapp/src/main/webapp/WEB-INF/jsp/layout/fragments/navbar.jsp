@@ -30,7 +30,7 @@ This is the dynamic remake of http://getbootstrap.com/components/#navbar
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
 	
-       <c:forEach var="item" items="home,about,product,transacoes,contestacao/contestacao1,mapaHistorico,mapaRealtime,hive/form,hive/relatorio">
+       <c:forEach var="item" items="home,about,product,transacoes,contestacao/contestacao1,mapaHistorico,mapaRealtime,hive/form,hive/relatorio,estatistica">
                 <spring:message code="navbar.${item}.title" var="itemTitle"/>
                 <c:choose>
                     <c:when test="${item eq selectedView}">
