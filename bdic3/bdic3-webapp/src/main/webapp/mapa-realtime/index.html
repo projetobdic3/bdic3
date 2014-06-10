@@ -79,6 +79,11 @@
             }
             inserirFraudeAleatoria();
           });
+          
+
+          setInterval(function() {
+        	  inserirFraudeAleatoria()
+          }, 5000);
         }
         
         function inserirFraudeAleatoria(){
@@ -86,15 +91,47 @@
         	var latidude = getRandomArbitrary(-23, -5);
         	var longitude = getRandomArbitrary(-55, -40);
         	
+        	
+        	var nomes = ["CLAUDEMIR ALANA",
+        	             "ANGEL FLORACI",
+        	             "DAMIANA DOVAL",
+        	             "NUNO JONICLEI",
+        	             "YUMI SEVERINO",
+        	             "ULISSES FLAVIA",
+        	             "QUITERIO LILIAM",  
+        	             "DOMILSON JONILDO",
+        	             "JOS AFRNIO",
+        	             "JARDEL DOURIVALDO",
+        	             "SILVIA RAUL",
+        	             "AUGUSTO HELDER",
+        	             "MARIZETE ADRIANE",  
+        	             "ETEVALDO ENIO",
+        	             "LUZIMAR SEBASTIAO", 
+        	             "EROS ODONTINO",
+        	             "WANDER JAIRO",
+        	             "ARMANDO ELEANDRO",
+        	             "AMANDA ALECIO",
+        	             "SVIO DORGIVAL"];
+        	var tipos_fraudes = ["AUTO-FRAUDE", "FRAUDE AMIGA", "ESTELIONATO"];
+        	var deteccoes = ["DENUNCIA", "AUDITORIA", "DATA MINING"];
+        	var tipos_transacoes = ["E-COMMERCE", "LOJA FISICA", "TELE VENDAS"];
+        	
+        	var randNomes = Math.floor(getRandomArbitrary(0, nomes.length));
+        	var randTiposFraudes = Math.floor(getRandomArbitrary(0, 2.99));
+        	var randDeteccoes = Math.floor(getRandomArbitrary(0, 2.99));
+        	var randTiposTransacoes = Math.floor(getRandomArbitrary(0, 2.99));
+        	
+        	var valores = getRandomArbitrary(0, 20000)
+        	
         	var attributes = { 
         	  Latitude: latidude,
          	  Longitude: longitude,
-   		      Nome: "Manoel Pereira de Mello", 
-   		      Tipo_Fraude: "ESTELIONATO", 
-   		      Deteccao: "DENUNCIA",
+   		      Nome: nomes[randNomes], 
+   		      Tipo_Fraude: tipos_fraudes[randTiposFraudes], 
+   		      Deteccao: deteccoes[randDeteccoes],
    		      Data_Deteccao: "18/06/2014",
-   		      Tipo_Transacao: "E-COMMERCE",
-   		      Valor: "7227.79"
+   		      Tipo_Transacao: tipos_transacoes[randTiposTransacoes],
+   		      Valor: valores
    		    };
 			
         	inserirFraudeMapa(attributes);
@@ -114,10 +151,11 @@
    		    map.graphics.add(graphic);
 
    		 	map.infoWindow.hide();
+   		 	map.infoWindow.setContent(graphic.getContent());
+			map.infoWindow.show(point);
 			map.centerAndZoom(point, 8);
 			
-			map.infoWindow.setContent(graphic.getContent());
-			map.infoWindow.show(point);
+			
 
 
         }
@@ -129,7 +167,7 @@
   
   <body>
     
-    <div id="info">
+    <div id="info" style="visibility: hidden">
       <button id="Point">Inserir Fraude Aleatória</button>
     </div>
 
