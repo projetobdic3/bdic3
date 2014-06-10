@@ -35,6 +35,9 @@
         display: block;
       }
     </style>
+    
+    <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+
 
     <script src="http://js.arcgis.com/3.9/"></script>
     <script>
@@ -80,10 +83,24 @@
             inserirFraudeAleatoria();
           });
           
-
+			/*
           setInterval(function() {
         	  inserirFraudeAleatoria()
-          }, 5000);
+          }, 5000);*/
+          
+       // Enable pusher logging - don't include this in production
+  	    Pusher.log = function(message) {
+  	      if (window.console && window.console.log) {
+  	        window.console.log(message);
+  	      }
+  	    };
+  	
+  	    var pusher = new Pusher('bb07ac5c1f93b081f6f7');
+  	    var channel = pusher.subscribe('test_channel');
+  	    channel.bind('my_event', function(data) {
+  	    	console.log(data);
+  	    	inserirFraudeMapa(data);
+  	    });
         }
         
         function inserirFraudeAleatoria(){
@@ -143,7 +160,7 @@
         
 		function inserirFraudeMapa(attributes){
         	
-        	var point = new Point([attributes.Longitude,attributes.Latitude],new SpatialReference({ wkid:4326 }));
+        	var point = new Point([parseFloat(attributes.Longitude),parseFloat(attributes.Latitude)],new SpatialReference({ wkid:4326 }));
 
         	var infoTemplate = new InfoTemplate("Fraude", "<tr>Nome: <td>${Nome}</td></tr><br><tr>Tipo Fraude: <td>${Tipo_Fraude}</td></tr><br><tr>Detecção: <td>${Deteccao}</td></tr><br><tr>Data Detecção:<td>${Data_Deteccao}</td></tr><br><tr>Tipo Transacao: <td>${Tipo_Transacao}</td></tr><br><tr>Valor: <td>${Valor}</td></tr>");
  		      

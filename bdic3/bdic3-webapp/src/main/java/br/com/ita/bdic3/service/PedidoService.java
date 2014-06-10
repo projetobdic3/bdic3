@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.ita.bdic3.dao.MidiaDao;
 import br.com.ita.bdic3.dao.PedidoDao;
@@ -24,6 +26,7 @@ import br.com.ita.bdic3.entity.Transacao;
 import br.com.ita.bdic3.enums.TransacaoTipo;
 import br.com.ita.bdic3.exception.APIException;
 import br.com.ita.bdic3.fixture.LocalidadeFixture;
+import br.com.ita.bdic3.util.Pusher;
 import br.com.ita.bdic3.vo.CidadeVO;
 import br.com.ita.bdic3.vo.PedidoVO;
 
@@ -160,5 +163,4 @@ public class PedidoService {
 			return;
 		}
 	}
-
 }
