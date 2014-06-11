@@ -1,5 +1,7 @@
 package br.com.ita.bdic3.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +29,60 @@ public class Fraude {
 	@Column(name = "fra_forma_deteccao")
 	private String formaDeteccao;
 
+	@Column(name = "fra_data_deteccao")
+	private Date dataDeteccao;
+	
 	// bi-directional many-to-one association to Localidade
 	@ManyToOne
 	@JoinColumn(name = "tra_id")
 	private Transacao transacao;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getFormaDeteccao() {
+		return formaDeteccao;
+	}
+
+	public void setFormaDeteccao(String formaDeteccao) {
+		this.formaDeteccao = formaDeteccao;
+	}
+
+	public Transacao getTransacao() {
+		return transacao;
+	}
+
+	public void setTransacao(Transacao transacao) {
+		this.transacao = transacao;
+	}
+
+	public void setData(Date dataDeteccao) {
+		this.dataDeteccao = dataDeteccao;
+	}
+	
+	public Date getData(){
+		return this.dataDeteccao;
+	}
 
 }
