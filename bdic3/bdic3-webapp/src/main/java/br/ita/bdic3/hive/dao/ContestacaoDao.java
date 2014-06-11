@@ -13,11 +13,11 @@ public class ContestacaoDao {
 
 	ConexaoHive con = new ConexaoHive();
 
-	public boolean findTransacaoByValorOrData(ContestacaoVO contestacaoVO) {
+	public Long findTransacaoByValorOrData(ContestacaoVO contestacaoVO) {
 		try {
 			Statement stmt = con.getConnection().createStatement();
 
-			String sql = "SELECT tra_data, tra_total " 
+			String sql = "SELECT tra_id, tra_data, tra_total " 
 					+ "FROM transacao "
 					+ "WHERE tra_data = '" + contestacaoVO.getDataTransacao() + "' " 
 					+ "AND tra_total = " + contestacaoVO.getValorTransacao() + " " 
@@ -26,12 +26,12 @@ public class ContestacaoDao {
 			ResultSet rs = stmt.executeQuery(sql);
 
 			if (rs.next()) {
-				return true;
+				return rs.getLong("tra_id");
 			} else {
-				return false;
+				return 0L;
 			}
 		} catch (SQLException e) {
-			return false;
+			return -1L;
 		}
 	}
 	

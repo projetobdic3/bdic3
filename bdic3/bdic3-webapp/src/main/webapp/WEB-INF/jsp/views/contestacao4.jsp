@@ -6,36 +6,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="util" tagdir="/WEB-INF/tags/util"%>
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld"%>
 
 <%-- Emppty dust.js template --%>
 
-<h1>Contestacao - 4a Etapa</h1>
+<h1>Exibição dos Dados</h1>
 
 <c:if test="${not empty mensagemErro}">
-	<h3>${mensagemErro}</h3>
+	<div class="alert alert-danger">${mensagemErro}</div>
 </c:if>
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<td>CPF</td>
-			<td>Nome</td>
-			<td>Valor</td>
-			<td>Data</td>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach var="contestacao" items="${contestacoes}">
-			<tr>
-				<td>${contestacao.cpfCliente}</td>
-				<td>${contestacao.nomeCliente}</td>
-				<td>${contestacao.valorTransacao}</td>
-				<td>${contestacao.dataTransacao}</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
+<div class="alert alert-success">Fraude Confirmada com Sucesso!</div>
