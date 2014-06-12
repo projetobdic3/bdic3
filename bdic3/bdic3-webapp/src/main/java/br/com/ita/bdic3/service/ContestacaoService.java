@@ -3,6 +3,8 @@ package br.com.ita.bdic3.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,7 @@ import br.com.ita.bdic3.dao.ClienteDao;
 import br.com.ita.bdic3.dao.FraudeDao;
 import br.com.ita.bdic3.entity.Cliente;
 import br.com.ita.bdic3.entity.Fraude;
+import br.com.ita.bdic3.entity.FraudeTipo;
 import br.com.ita.bdic3.entity.Transacao;
 import br.com.ita.bdic3.vo.ContestacaoVO;
 import br.ita.bdic3.hive.dao.ContestacaoDao;
@@ -50,7 +53,17 @@ public class ContestacaoService {
 
 		Fraude f = new Fraude();
 		f.setNome("CONTESTACAO");
-		f.setTipo(contestacaoVO.getFraudeTipo());
+		
+		String tipo = contestacaoVO.getFraudeTipo();
+		
+		if(tipo.equals(FraudeTipo.ESTELIONATO.toString())) {
+			f.setTipo(FraudeTipo.ESTELIONATO);
+		} else if (tipo.equals(FraudeTipo.AUTO_FRAUDE.toString())) {
+			f.setTipo(FraudeTipo.AUTO_FRAUDE);
+		} else if(tipo.equals(FraudeTipo.FRAUDE_AMIGA.toString())) {
+			f.setTipo(FraudeTipo.FRAUDE_AMIGA);
+		}
+		
 		f.setTransacao(t);
 		f.setFormaDeteccao("DENUNCIA");
 		f.setData(new Date(System.currentTimeMillis()));
