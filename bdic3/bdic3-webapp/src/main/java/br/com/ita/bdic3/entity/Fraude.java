@@ -1,7 +1,11 @@
 package br.com.ita.bdic3.entity;
 
+<<<<<<< HEAD
+import javax.persistence.CascadeType;
+=======
 import java.util.Date;
 
+>>>>>>> 474b93dd59ff4d42480607badf2562b9e058774d
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,10 +33,14 @@ public class Fraude {
 	@Column(name = "fra_forma_deteccao")
 	private String formaDeteccao;
 
+<<<<<<< HEAD
+	@ManyToOne(cascade = {CascadeType.ALL})
+=======
 	@Column(name = "fra_data_deteccao")
 	private Date dataDeteccao;
 	
 	@ManyToOne
+>>>>>>> 474b93dd59ff4d42480607badf2562b9e058774d
 	@JoinColumn(name = "tra_id")
 	private Transacao transacao;
 

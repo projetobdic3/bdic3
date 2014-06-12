@@ -24,12 +24,12 @@ public class FraudeService {
 	
 	public void notificarFraude(Pedido pedido) {
 		salvarFraude(pedido, FraudeTipo.BOXSPLOT);
-		mail.sendMail("paulovffr@gmail.com", "Fraude", "Fraude");
+		mail.sendMail(Mail.PROJETOBDIC3_EMAIL, "Fraude", "Fraude");
 	}
 	
 	public void notificarSuspeitaDeFraude(Pedido pedido) {
 		salvarFraude(pedido, FraudeTipo.BOXSPLOT);
-		mail.sendMail("paulovffr@gmail.com", "Suspeita de Fraude", "Suspeita de Fraude");
+		mail.sendMail(Mail.PROJETOBDIC3_EMAIL, "Suspeita de Fraude", "Suspeita de Fraude");
 	}
 	
 	public Fraude salvarFraude(Pedido pedido, FraudeTipo tipo) {
