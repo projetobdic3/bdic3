@@ -20,7 +20,7 @@ cliID <- as.integer ( args [ 1 ] )
 rm ( args )
 
 # seleciona as transações do cliente
-strQuery <- sprintf ( "select tra_id, tra_tipo, tra_total, tra_data_hora, etb_id, cli_id, loc_id from transacao where cli_id = %d", cliID )
+strQuery <- sprintf ( "select tra_id, tra_tipo, tra_total, tra_data_hora, cli_id, loc_id from transacao where cli_id = %d", cliID )
 # strQuery
 
 result <- sqlQuery ( conn, strQuery )
