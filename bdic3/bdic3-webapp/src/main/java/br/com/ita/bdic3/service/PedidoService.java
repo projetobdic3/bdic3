@@ -132,7 +132,7 @@ public class PedidoService {
 
 	public void salvarPedido(Pedido pedido) throws APIException {
 		validar(pedido);
-		pedido.setTransacao(criarTransacao(pedido));
+		//pedido.setTransacao(criarTransacao(pedido));
 		pedidoDao.save(pedido);
 	}
 	
@@ -167,11 +167,13 @@ public class PedidoService {
 		int valorFraude = valorUpperLimit.multiply(BigDecimal.TEN).compareTo(valorTotal);
 		
 		if (valorFraude == 0 || valorFraude == 1) {
+			System.out.println("Fraude");
 			fraudeService.notificarFraude(pedido);
 			return;
 		}
 		
 		if (valorUpperLimit.compareTo(valorTotal) == -1) {
+			System.out.println("Suspeita de Fraude");
 			fraudeService.notificarSuspeitaDeFraude(pedido);
 			return;
 		}

@@ -1,11 +1,14 @@
 package br.com.ita.bdic3.entity;
 
+
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import br.com.ita.bdic3.entity.Produto;
 
 //@Entity
 //@Table(name = "PEDIDO_HAS_PRODUTO")

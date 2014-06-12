@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.ita.bdic3.entity.Midia;
+import br.com.ita.bdic3.dao.GenericDao;
 
 /**
  * @author Paulo Vitor Faria Fortes Rezende
