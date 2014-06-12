@@ -18,25 +18,31 @@
 <c:if test="${not empty mensagemErro}">
 	<h3>${mensagemErro}</h3>
 </c:if>
-<form:form id="validacaoForm" action="/bdic3/hive/pesquisar" modelAttribute="pesquisaHiveVO" method="POST">
+<form:form id="validacaoForm" action="/bdic3/hive/p" modelAttribute="pesquisaHive" method="POST">
   <div class="form-group">
-    <label for="valor">Valor</label>
-    <form:input path="valor" cssClass="form-control"  placeholder="Entre com o valor R$" />
+    <label for="valorInicial">Valor de</label>
+    <form:input path="valorInicial" cssClass="form-control"  placeholder="Entre com o valor  R$" />
+     <label for="valorFinal">Até</label>
+    <form:input path="valorFinal" cssClass="form-control"  placeholder="Entre com o valor  R$" />
   </div>
   <div class="form-group">
     <label for="dataInicial">Data Incial</label>
     <form:input path="dataInicial" cssClass="form-control"   placeholder="dd/mm/yyyy" />
-  </div>
-   <div class="form-group">
     <label for="dataFinal">Data Final</label>
     <form:input path="dataFinal" cssClass="form-control" placeholder="dd/mm/yyyy" />
   </div>
   <div class="form-group">
     <form:select path="localidade" cssClass="form-control">
-    <form:option value="NONE" label="--- Select ---"/>
+    <form:option value="" label="--- Select ---"/>
   		<form:options items="${localidades}" /> 
 	</form:select> 
   </div>
  
-  <button type="submit" class="btn btn-primary">Enviar</button>
+  <button type="button" class="btn btn-primary" onclick="envia();">Enviar</button> 
 </form:form>
+<script>
+function envia(){
+	$.ajax({type:'POST', url: '/bdic3/hive/pesquisar', data: $('#validacaoForm').serialize()});
+	alert("Solicitacao enviada com sucesso");
+}
+</script>

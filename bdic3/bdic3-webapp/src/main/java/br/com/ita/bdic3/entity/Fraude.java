@@ -24,7 +24,7 @@ public class Fraude {
 	private String nome;
 
 	@Column(name = "fra_tipo")
-	private String tipo;
+	private FraudeTipo tipo;
 
 	@Column(name = "fra_forma_deteccao")
 	private String formaDeteccao;
@@ -32,7 +32,6 @@ public class Fraude {
 	@Column(name = "fra_data_deteccao")
 	private Date dataDeteccao;
 	
-	// bi-directional many-to-one association to Localidade
 	@ManyToOne
 	@JoinColumn(name = "tra_id")
 	private Transacao transacao;
@@ -53,11 +52,11 @@ public class Fraude {
 		this.nome = nome;
 	}
 
-	public String getTipo() {
+	public FraudeTipo getFraudeTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setFraudeTipo(FraudeTipo tipo) {
 		this.tipo = tipo;
 	}
 
@@ -83,6 +82,14 @@ public class Fraude {
 	
 	public Date getData(){
 		return this.dataDeteccao;
+	}
+
+	public FraudeTipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(FraudeTipo tipo) {
+		this.tipo = tipo;
 	}
 
 }

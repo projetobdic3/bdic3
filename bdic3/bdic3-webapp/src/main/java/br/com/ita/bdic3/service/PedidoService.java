@@ -7,10 +7,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.ita.bdic3.dao.MidiaDao;
 import br.com.ita.bdic3.dao.PedidoDao;
 import br.com.ita.bdic3.dao.ProdutoDao;
+import br.com.ita.bdic3.dao.TransacaoDao;
 import br.com.ita.bdic3.entity.Cliente;
 import br.com.ita.bdic3.entity.FormaPagamento;
 import br.com.ita.bdic3.entity.Localidade;
@@ -19,7 +22,12 @@ import br.com.ita.bdic3.entity.Pagamento;
 import br.com.ita.bdic3.entity.Pedido;
 import br.com.ita.bdic3.entity.PedidoHasProduto;
 import br.com.ita.bdic3.entity.Produto;
+import br.com.ita.bdic3.entity.Transacao;
+import br.com.ita.bdic3.enums.TransacaoTipo;
 import br.com.ita.bdic3.exception.APIException;
+import br.com.ita.bdic3.fixture.LocalidadeFixture;
+import br.com.ita.bdic3.util.Pusher;
+import br.com.ita.bdic3.vo.CidadeVO;
 import br.com.ita.bdic3.vo.PedidoVO;
 
 @Component
@@ -33,6 +41,12 @@ public class PedidoService {
 	
 	@Autowired
 	private ProdutoDao produtoDao;
+	
+	@Autowired
+	private TransacaoDao transacaoDao;
+	
+	@Autowired
+	private FraudeService fraudeService;
 	
 	public void save(Pedido Pedido) {
 		pedidoDao.save(Pedido);
@@ -82,10 +96,12 @@ public class PedidoService {
 		
 		Cliente cliente = new Cliente(pedidoVO.getIdCliente());
 		
+		CidadeVO cidade = LocalidadeFixture.getCidadePorNome(pedidoVO.getCidade());
+		
 		Pagamento pagamento = new Pagamento();
 		pagamento.setDt(dataAtual);
 		pagamento.setFormaPagamento(FormaPagamento.valueOf(pedidoVO.getFormaPagamento()));
-		pagamento.setLocalidade(new Localidade(pedidoVO.getLatitude(), pedidoVO.getLongitude()));
+		pagamento.setLocalidade(new Localidade(cidade.getLatitude(), cidade.getLongitude()));
 		pagamento.setParcelas(pedidoVO.getQuantidadeParcelas());
 		pagamento.setValorPagamento(pedido.getValorTotal());
 		
@@ -101,22 +117,50 @@ public class PedidoService {
 		pedido.setData(dataAtual);
 		pedido.setPagamento(pagamento);
 		
-		
 		return pedido;
 	}
 
 	public void salvarPedido(Pedido pedido) throws APIException {
-		validarPedido(pedido);
+		validar(pedido);
+		pedido.setTransacao(criarTransacao(pedido));
 		pedidoDao.save(pedido);
 	}
 	
-	private void validarPedido(Pedido pedido) throws APIException {
+	private Transacao criarTransacao(Pedido pedido) {
+		Transacao transacao = new Transacao();
+//		transacao.setData(pedido.getData());
+//		transacao.setHora(pedido.getData());
+		transacao.setTotal(pedido.getValorTotal());
+		transacao.setTransacaoTipo(TransacaoTipo.COMPRA);
+		return transacao;
+	}
+	
+	private void validar(Pedido pedido) throws APIException {
+		Midia midia = midiaDao.findById(pedido.getPagamento().getMidia().getId());
 		BigDecimal valorTotal = pedido.getValorTotal();
 		
-		Midia midia = midiaDao.findById(pedido.getPagamento().getMidia().getId());
-		
-		if (midia != null && midia.getValorMaximo().compareTo(valorTotal) == -1) {
+		validarLimiteMidia(valorTotal, midia.getValorMaximo());
+		validarFraude(valorTotal, midia.getUpperLimit(), pedido);
+	}
+
+	private void validarLimiteMidia(BigDecimal valorTotal, BigDecimal valorLimiteMidia) {
+		if (valorLimiteMidia.compareTo(valorTotal) == -1) {
 			throw new APIException("A compra excedeu o limite máximo");
+		}
+	}
+	
+	private void validarFraude(BigDecimal valorTotal, BigDecimal valorUpperLimit, Pedido pedido) {
+		
+		int valorFraude = valorUpperLimit.multiply(BigDecimal.TEN).compareTo(valorTotal);
+		
+		if (valorFraude == 0 || valorFraude == 1) {
+			fraudeService.notificarFraude(pedido);
+			return;
+		}
+		
+		if (valorUpperLimit.compareTo(valorTotal) == -1) {
+			fraudeService.notificarSuspeitaDeFraude(pedido);
+			return;
 		}
 	}
 }

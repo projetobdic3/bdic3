@@ -35,6 +35,9 @@
         display: block;
       }
     </style>
+    
+    <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+
 
     <script src="http://js.arcgis.com/3.9/"></script>
     <script>
@@ -79,6 +82,25 @@
             }
             inserirFraudeAleatoria();
           });
+          
+			/*
+          setInterval(function() {
+        	  inserirFraudeAleatoria()
+          }, 5000);*/
+          
+       // Enable pusher logging - don't include this in production
+  	    Pusher.log = function(message) {
+  	      if (window.console && window.console.log) {
+  	        window.console.log(message);
+  	      }
+  	    };
+  	
+  	    var pusher = new Pusher('bb07ac5c1f93b081f6f7');
+  	    var channel = pusher.subscribe('test_channel');
+  	    channel.bind('my_event', function(data) {
+  	    	console.log(data);
+  	    	inserirFraudeMapa(data);
+  	    });
         }
         
         function inserirFraudeAleatoria(){
@@ -86,15 +108,47 @@
         	var latidude = getRandomArbitrary(-23, -5);
         	var longitude = getRandomArbitrary(-55, -40);
         	
+        	
+        	var nomes = ["CLAUDEMIR ALANA",
+        	             "ANGEL FLORACI",
+        	             "DAMIANA DOVAL",
+        	             "NUNO JONICLEI",
+        	             "YUMI SEVERINO",
+        	             "ULISSES FLAVIA",
+        	             "QUITERIO LILIAM",  
+        	             "DOMILSON JONILDO",
+        	             "JOS AFRNIO",
+        	             "JARDEL DOURIVALDO",
+        	             "SILVIA RAUL",
+        	             "AUGUSTO HELDER",
+        	             "MARIZETE ADRIANE",  
+        	             "ETEVALDO ENIO",
+        	             "LUZIMAR SEBASTIAO", 
+        	             "EROS ODONTINO",
+        	             "WANDER JAIRO",
+        	             "ARMANDO ELEANDRO",
+        	             "AMANDA ALECIO",
+        	             "SVIO DORGIVAL"];
+        	var tipos_fraudes = ["AUTO-FRAUDE", "FRAUDE AMIGA", "ESTELIONATO"];
+        	var deteccoes = ["DENUNCIA", "AUDITORIA", "DATA MINING"];
+        	var tipos_transacoes = ["E-COMMERCE", "LOJA FISICA", "TELE VENDAS"];
+        	
+        	var randNomes = Math.floor(getRandomArbitrary(0, nomes.length));
+        	var randTiposFraudes = Math.floor(getRandomArbitrary(0, 2.99));
+        	var randDeteccoes = Math.floor(getRandomArbitrary(0, 2.99));
+        	var randTiposTransacoes = Math.floor(getRandomArbitrary(0, 2.99));
+        	
+        	var valores = getRandomArbitrary(0, 20000)
+        	
         	var attributes = { 
         	  Latitude: latidude,
          	  Longitude: longitude,
-   		      Nome: "Manoel Pereira de Mello", 
-   		      Tipo_Fraude: "ESTELIONATO", 
-   		      Deteccao: "DENUNCIA",
+   		      Nome: nomes[randNomes], 
+   		      Tipo_Fraude: tipos_fraudes[randTiposFraudes], 
+   		      Deteccao: deteccoes[randDeteccoes],
    		      Data_Deteccao: "18/06/2014",
-   		      Tipo_Transacao: "E-COMMERCE",
-   		      Valor: "7227.79"
+   		      Tipo_Transacao: tipos_transacoes[randTiposTransacoes],
+   		      Valor: valores
    		    };
 			
         	inserirFraudeMapa(attributes);
@@ -106,7 +160,7 @@
         
 		function inserirFraudeMapa(attributes){
         	
-        	var point = new Point([attributes.Longitude,attributes.Latitude],new SpatialReference({ wkid:4326 }));
+        	var point = new Point([parseFloat(attributes.Longitude),parseFloat(attributes.Latitude)],new SpatialReference({ wkid:4326 }));
 
         	var infoTemplate = new InfoTemplate("Fraude", "<tr>Nome: <td>${Nome}</td></tr><br><tr>Tipo Fraude: <td>${Tipo_Fraude}</td></tr><br><tr>Detecção: <td>${Deteccao}</td></tr><br><tr>Data Detecção:<td>${Data_Deteccao}</td></tr><br><tr>Tipo Transacao: <td>${Tipo_Transacao}</td></tr><br><tr>Valor: <td>${Valor}</td></tr>");
  		      
@@ -114,10 +168,11 @@
    		    map.graphics.add(graphic);
 
    		 	map.infoWindow.hide();
+   		 	map.infoWindow.setContent(graphic.getContent());
+			map.infoWindow.show(point);
 			map.centerAndZoom(point, 8);
 			
-			map.infoWindow.setContent(graphic.getContent());
-			map.infoWindow.show(point);
+			
 
 
         }
@@ -129,7 +184,7 @@
   
   <body>
     
-    <div id="info">
+    <div id="info" style="visibility: hidden">
       <button id="Point">Inserir Fraude Aleatória</button>
     </div>
 

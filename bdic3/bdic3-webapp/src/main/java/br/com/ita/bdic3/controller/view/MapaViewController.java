@@ -1,14 +1,11 @@
 package br.com.ita.bdic3.controller.view;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.ita.bdic3.service.ContestacaoService;
-import br.com.ita.bdic3.vo.ContestacaoVO;
+import br.com.ita.bdic3.util.Pusher;
 
 @Controller
 @RequestMapping()
@@ -27,6 +24,19 @@ public class MapaViewController {
 	public String mapaRealtime(Model model) {
 		return VIEW_MAPA_REALTIME;		
 	}
+	
+	@RequestMapping(value = "/lancaFraude", method = RequestMethod.GET)
+	public String lancaFraude() throws Exception {
+		//TODO Método temporário para mostrar o funcionamento do Pusher
+		String jsonData = "{\"Latitude\":\"10\", \"Longitude\":\"10\","+
+		                  "\"Nome\":\"Manoel Pereira de Mello\", \"Tipo_Fraude\":\"ESTELIONATO\","+
+		                  "\"Deteccao\":\"AUTOMATICA\", \"Data_Deteccao\":\"18/06/2014\","+
+		                  "\"Tipo_Transacao\":\"CARTAO\", \"Valor\":\"1000.50\""+
+		                  "}"; 
+		Pusher.triggerPush("test_channel", "my_event", jsonData);
+		
+		return null;		
+	}
 
 	/*@RequestMapping(method = RequestMethod.POST)
 	public String validarCliente(@ModelAttribute("contestacaoVO") ContestacaoVO contestacaoVO, Model model) {
@@ -44,6 +54,4 @@ public class MapaViewController {
 	// model.addAttribute("pedidoVO", new PedidoVO());
 	// model.addAttribute("produto", produto);
 	// return VIEW_COMPRA;
-	// }
-
 }

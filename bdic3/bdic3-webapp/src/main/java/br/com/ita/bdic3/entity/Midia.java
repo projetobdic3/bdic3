@@ -46,6 +46,9 @@ public class Midia {
 
 	@Column(name = "mid_codigoseguranca")
 	private String codigoSeguranca;
+	
+	@Column(name = "mid_valorlim")
+	private BigDecimal upperLimit;
 
 	@OneToOne
 	@JoinColumn(name="cli_id", insertable = false, updatable = false)
@@ -141,6 +144,14 @@ public class Midia {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public BigDecimal getUpperLimit() {
+		return upperLimit;
+	}
+
+	public void setUpperLimit(BigDecimal upperLimit) {
+		this.upperLimit = upperLimit;
 	}
 	
 }

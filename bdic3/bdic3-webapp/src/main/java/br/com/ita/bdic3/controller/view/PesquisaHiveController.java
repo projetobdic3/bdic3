@@ -1,56 +1,95 @@
 package br.com.ita.bdic3.controller.view;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.ita.bdic3.exception.APIException;
-import br.com.ita.bdic3.hive.dao.AnaliseFraudesDao;
+import br.com.ita.bdic3.dao.RelatorioFraudeDao;
+import br.com.ita.bdic3.entity.RelatorioFraude;
+import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
 import br.com.ita.bdic3.hive.dao.PesquisaHiveDao;
+import br.com.ita.bdic3.service.AnaliseFraudesService;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
-import br.com.ita.bdic3.vo.SuspeitaFraudeVO;
 
 
 @Controller
 @RequestMapping("/hive")
 public class PesquisaHiveController {
+	
 	private static final String VIEW_FORM = "view.pesquisaHive";
+	private static final String VIEW_RESULTADO = "view.resultadoSuspeitasFraudes";
+	private static final String VIEW_RELATORIO = "view.relatorioHive";
 	
 	@Autowired
-	private AnaliseFraudesDao analiseFraudesDao;
+	private AnaliseFraudesService analiseFraudesService;
 	
 	@Autowired
 	private PesquisaHiveDao pesquisaHiveDao;
 	
-	@RequestMapping(value = "/pesquisar/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody String pesquisar(@PathVariable Long id) throws APIException {
-		/*try {
-			//pesquisaHiveTestDao.testConectar();
-		} catch (SQLException e) {
-			return "erro";
-		}*/
-		return "ok";
-	}
+	@Autowired
+	private RelatorioFraudeDao relatorioFraudeDao;
+	
+	
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
 	public String form(Model model){
 		PesquisaHiveVO pesquisaHiveVO = new PesquisaHiveVO();
 		List<String> localidades = pesquisaHiveDao.buscarLocalidades();
-		model.addAttribute("pesquisaHiveVO", pesquisaHiveVO);
+		model.addAttribute("pesquisaHive", pesquisaHiveVO);
 		model.addAttribute("localidades", localidades);
 		return VIEW_FORM;
 	}
-	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
+	//@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
 	public String pesquisarFraudes(Model model, PesquisaHiveVO pesquisaHiveVO){
-		List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesDao.fraudeLocalizacao();
-		model.addAttribute("suspeitaFraude", suspeitasFraudes);
+		try{
+			List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
+			model.addAttribute("suspeitaFraude", suspeitasFraudes);
+		}catch(Exception e){
+			model.addAttribute("pesquisaHive", pesquisaHiveVO);
+			model.addAttribute("localidades", pesquisaHiveDao.buscarLocalidades());
+			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
+			return VIEW_FORM;
+		}
+		return VIEW_RESULTADO;
+	}
+	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
+	public String pesquisarFraudesSlow(Model model, PesquisaHiveVO pesquisaHiveVO){
+		try{
+			 analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
+			//model.addAttribute("suspeitaFraude", suspeitasFraudes);
+		}catch(Exception e){
+			e.printStackTrace();
+			model.addAttribute("pesquisaHive", pesquisaHiveVO);
+			model.addAttribute("localidades", pesquisaHiveDao.buscarLocalidades());
+			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
+			return VIEW_FORM;
+		}
+		return VIEW_RESULTADO;
+	}
+	@RequestMapping(value = "/relatorio", method = RequestMethod.GET)
+	public String formRelatorio(){
 		
-		return "view.resultadoSuspeitasFraudes";
+		return VIEW_RELATORIO;
+	}
+	@RequestMapping(value = "/pesquisarRelatorio", method = RequestMethod.POST)
+	public String pesquisarRelatorio(Model model,@RequestParam("id") Long id){
+		try{
+			 
+			RelatorioFraude relatorio = relatorioFraudeDao.findById(id);
+			model.addAttribute("suspeitaFraude", relatorio.getSuspeitasFraudes());
+		}catch(Exception e){
+			e.printStackTrace();
+			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
+			return "";
+		}
+		return VIEW_RESULTADO;
 	}
 
+	
 }
