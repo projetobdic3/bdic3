@@ -1,5 +1,7 @@
 package br.com.ita.bdic3.service;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +9,7 @@ import br.com.ita.bdic3.dao.FraudeDao;
 import br.com.ita.bdic3.entity.Fraude;
 import br.com.ita.bdic3.entity.FraudeTipo;
 import br.com.ita.bdic3.entity.Pedido;
+import br.com.ita.bdic3.util.DateUtil;
 import br.com.ita.bdic3.util.Mail;
 import br.com.ita.bdic3.util.Pusher;
 
@@ -38,17 +41,18 @@ public class FraudeService {
 		fraude.setFormaDeteccao("VALIDACAO");
 		
 		fraudeDao.save(fraude);
-		
+		notificaFraudeMapa(pedido, fraude);
 		return fraude;
 	}
 	
 	// Notifica a aplicação de mapas sobre a fraude identificada usando o serviço Pusher
-	public void notificaFraudeMapa(Fraude fraude) throws Exception {
+	public void notificaFraudeMapa(Pedido pedido, Fraude fraude) {
 		//TODO Utilizar o objeto Fraude para montar o Json da Fraude, que será enviado ao cliente, conforme exemplo abaixo
-		String jsonData = "{\"Latitude\":\"10\", \"Longitude\":\"10\","+
-		                  "\"Nome\":\"Manoel Pereira de Mello\", \"Tipo_Fraude\":\"ESTELIONATO\","+
-		                  "\"Deteccao\":\"AUTOMATICA\", \"Data_Deteccao\":\"18/06/2014\","+
-		                  "\"Tipo_Transacao\":\"CARTAO\", \"Data_Deteccao\":\"10.5\""+
+		
+		String jsonData = "{\"Latitude\":\""+pedido.getPagamento().getLocalidade().getLatitude()+"\", \"Longitude\":\""+pedido.getPagamento().getLocalidade().getLongitude()+"\","+
+		                  "\"Nome\":\""+pedido.getCliente().getNome()+"\", \"Tipo_Fraude\":\""+fraude.getTipo().name()+"\","+
+		                  "\"Deteccao\":\""+fraude.getFormaDeteccao()+"\", \"Data_Deteccao\":\""+DateUtil.calendarToString(Calendar.getInstance())+"\","+
+		                  "\"Tipo_Transacao\":\""+pedido.getTransacao().getTransacaoTipo().name()+"\", \"Data_Deteccao\":\"10.5\""+
 		                  "}"; 
 		Pusher.triggerPush("test_channel", "my_event", jsonData);	
 	}
