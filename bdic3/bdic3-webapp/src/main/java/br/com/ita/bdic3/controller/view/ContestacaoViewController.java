@@ -44,40 +44,28 @@ public class ContestacaoViewController {
 
 	@RequestMapping(value = "/contestacao3", method = RequestMethod.POST)
 	public String validarTransacao(@ModelAttribute("contestacaoVO") ContestacaoVO contestacaoVO, Model model) {
-		 if (contestacaoService.validarTransacao(contestacaoVO)) {
-//		if (true) {
+		Long tra_id = contestacaoService.validarTransacao(contestacaoVO);
+		
+		System.out.println(tra_id);
+		
+		if (tra_id > 0) {
+			contestacaoVO.setTraId(tra_id);
 			return VIEW_CONTESTACAO3;
-		} else {
+		} else if(tra_id == 0) {
 			model.addAttribute("mensagemErro", "Transacao Inexistente");
+			return VIEW_CONTESTACAO2;
+		} else {
+			model.addAttribute("mensagemErro", "Erro ao Consultar");
 			return VIEW_CONTESTACAO2;
 		}
 	}
 
 	@RequestMapping(value = "/contestacao4", method = RequestMethod.POST)
 	public String filtrar(@ModelAttribute("contestacaoVO") ContestacaoVO contestacaoVO, Model model) {
-		List<ContestacaoVO> contestacoes = contestacaoService.filtrar(contestacaoVO);
-
-		if (contestacoes != null) {
-			JOptionPane.showMessageDialog(null, contestacoes.size());			
-		}
+ 
+		boolean retorno = contestacaoService.cadastrarFraude(contestacaoVO);
 		
-		if(contestacoes == null) {
-			model.addAttribute("mensagemErro", "Erro ao Filtrar");
-			return VIEW_CONTESTACAO3;
-		} else if (contestacoes.size() <= 0){
-			model.addAttribute("mensagemErro", "Nao obteve resultados");
-			return VIEW_CONTESTACAO3;
-		} else  { // (contestacoes.size() > 0)
-			model.addAttribute("contestacoes", contestacoes);
-			return VIEW_CONTESTACAO4;
-		} 
+		return VIEW_CONTESTACAO4;
 	}
-	// @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	// public String products(@PathVariable("id") String id, Model model) {
-	// Produto produto = produtoService.findById(Long.parseLong(id));
-	// model.addAttribute("pedidoVO", new PedidoVO());
-	// model.addAttribute("produto", produto);
-	// return VIEW_COMPRA;
-	// }
 
 }

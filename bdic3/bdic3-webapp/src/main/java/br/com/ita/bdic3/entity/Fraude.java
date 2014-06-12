@@ -1,6 +1,11 @@
 package br.com.ita.bdic3.entity;
 
+<<<<<<< HEAD
 import javax.persistence.CascadeType;
+=======
+import java.util.Date;
+
+>>>>>>> 474b93dd59ff4d42480607badf2562b9e058774d
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +33,14 @@ public class Fraude {
 	@Column(name = "fra_forma_deteccao")
 	private String formaDeteccao;
 
+<<<<<<< HEAD
 	@ManyToOne(cascade = {CascadeType.ALL})
+=======
+	@Column(name = "fra_data_deteccao")
+	private Date dataDeteccao;
+	
+	@ManyToOne
+>>>>>>> 474b93dd59ff4d42480607badf2562b9e058774d
 	@JoinColumn(name = "tra_id")
 	private Transacao transacao;
 
@@ -48,11 +60,11 @@ public class Fraude {
 		this.nome = nome;
 	}
 
-	public FraudeTipo getTipo() {
+	public FraudeTipo getFraudeTipo() {
 		return tipo;
 	}
 
-	public void setTipo(FraudeTipo tipo) {
+	public void setFraudeTipo(FraudeTipo tipo) {
 		this.tipo = tipo;
 	}
 
@@ -71,4 +83,21 @@ public class Fraude {
 	public void setTransacao(Transacao transacao) {
 		this.transacao = transacao;
 	}
+
+	public void setData(Date dataDeteccao) {
+		this.dataDeteccao = dataDeteccao;
+	}
+	
+	public Date getData(){
+		return this.dataDeteccao;
+	}
+
+	public FraudeTipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(FraudeTipo tipo) {
+		this.tipo = tipo;
+	}
+
 }

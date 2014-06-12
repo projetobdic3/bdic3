@@ -29,6 +29,7 @@ This is the dynamic remake of http://getbootstrap.com/components/#navbar
     <%-- Collect the nav links, forms, and other content for toggling --%>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
+<<<<<<< HEAD
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 	       		<c:forEach var="item" items="product,transacoes,contestacao/contestacao1,mapaHistorico,mapaRealtime">
 	                <spring:message code="navbar.${item}.title" var="itemTitle"/>
@@ -55,6 +56,20 @@ This is the dynamic remake of http://getbootstrap.com/components/#navbar
 	                </c:choose>
 	            </c:forEach>
 	        </sec:authorize>
+=======
+	
+       <c:forEach var="item" items="home,about,product,transacoes,contestacao/contestacao1,mapaHistorico,mapaRealtime,hive/form,hive/relatorio,estatistica">
+                <spring:message code="navbar.${item}.title" var="itemTitle"/>
+                <c:choose>
+                    <c:when test="${item eq selectedView}">
+                        <li class="active"><a href="<spring:url value="/${item}" />">${itemTitle}</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="<spring:url value="/${item}" />">${itemTitle}</a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+>>>>>>> 474b93dd59ff4d42480607badf2562b9e058774d
         </ul>
         <%-- 
         <c:set var="autenticado" value="${false}"/>

@@ -11,7 +11,7 @@ import org.joda.time.format.DateTimeFormatter;
 public class DateUtil {
 
 	public static final SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
-	public static final SimpleDateFormat FORMATO_DATA_BANCAO = new SimpleDateFormat("yyyy-MM-dd");
+	public static final SimpleDateFormat FORMATO_DATA_BANCAO = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	
 	public static String dateToHive(String data){
@@ -21,9 +21,12 @@ public class DateUtil {
 		return data != null? FORMATO_DATA_BANCAO.format(data.getTime()) : null;
 	}
 	public static Calendar stringToCalendar(String data){
+		return stringToCalendar(data, FORMATO_DATA);
+	}
+	public static Calendar stringToCalendar(String data, SimpleDateFormat formato){
 		try {
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(FORMATO_DATA.parse(data));
+			cal.setTime(formato.parse(data));
 			return cal;
 			
 		}catch (ParseException e) {			
@@ -33,5 +36,8 @@ public class DateUtil {
 	public static String datateTimeToString(DateTime data){
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
 		return formatter.print(data.getMillis());
+	}
+	public static String calendarToString(Calendar data){
+		return FORMATO_DATA.format(data.getTime());
 	}
 }

@@ -11,10 +11,10 @@ import org.joda.time.Hours;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
 import br.com.ita.bdic3.factory.ConnectionFactoryHive;
 import br.com.ita.bdic3.util.Haversine;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
-import br.com.ita.bdic3.vo.SuspeitaFraudeVO;
 
 @Component
 public class AnaliseFraudesDao {
@@ -31,6 +31,12 @@ public class AnaliseFraudesDao {
 		try{
 		ResultSet rs = getResultSet(connection, pesquisaHiveVO);
 		
+		if(pesquisaHiveVO.hasLocalidade()){
+			while (rs.next()) {
+				transacoesSuspeitas.add(new SuspeitaFraudeVO(rs));
+			}
+			return transacoesSuspeitas;
+		}
 
 		SuspeitaFraudeVO atual = null;
 		SuspeitaFraudeVO proxima = null;
@@ -61,15 +67,15 @@ public class AnaliseFraudesDao {
 
 			// calcula o periodo de horas entre duas transacoes
 			Integer horasEntreTransacoes = Hours.hoursBetween(
-					proxima.getTra_data_hora(), atual.getTra_data_hora())
+					proxima.getTra_data_hora_DateTime(), atual.getTra_data_hora_DateTime())
 					.getHours();
 
 			// verifica se uma transacao e uma suspeita de fraude
 			Boolean suspeita = horasEntreTransacoes * kmPorHoraAceitavel < distanciaEntreCoordenadas;
 
-			System.out.println(atual + ", " + proxima + ", "
-					+ distanciaEntreCoordenadas + ", " + horasEntreTransacoes
-					+ ", " + suspeita);
+//			System.out.println(atual + ", " + proxima + ", "
+//					+ distanciaEntreCoordenadas + ", " + horasEntreTransacoes
+//					+ ", " + suspeita);
 
 			// adiciona a uma lista, todos os registros que podem ser uma fraude
 			if (suspeita) {
@@ -115,11 +121,11 @@ public class AnaliseFraudesDao {
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasDataInical()){
-			sqlLocalizacao += separador + "t.tra_data_hora >=  '" + pesquisaHiveVO.getDataIncialConvertida() + "'";
+			sqlLocalizacao += separador + "t.tra_data_hora >=  unix_timestamp('" + pesquisaHiveVO.getDataIncialConvertida() + "')";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasDataFinal()){
-			sqlLocalizacao += separador + "t.tra_data_hora <= '" + pesquisaHiveVO.getDataFinalConvertida() + "'";
+			sqlLocalizacao += separador + "t.tra_data_hora <= unix_timestamp('" + pesquisaHiveVO.getDataFinalConvertida() + "')";
 			separador = " AND ";
 		}
 		if(pesquisaHiveVO.hasLocalidade()){

@@ -49,3 +49,10 @@
 </div>
 </c:if>
 
+
+<script>
+	
+	$.post('/bdic3/hive/pesquisar');
+	
+</script>
+

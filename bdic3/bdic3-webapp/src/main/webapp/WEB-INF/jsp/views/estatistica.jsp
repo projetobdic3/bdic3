@@ -10,6 +10,13 @@
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld" %>
 
 
-<p>
-	<h2>Operação Realizada com Sucesso.</h2>
-</p>
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<title>JSP Page</title> 
+</head> 
+<body> 
+<h1>Histograma de compras do cliente</h1> 
+<img alt="transacoes" src="transacoes.png">
+</body> 
+</html> 

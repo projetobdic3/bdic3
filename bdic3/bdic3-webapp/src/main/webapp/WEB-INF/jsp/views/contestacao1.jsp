@@ -13,18 +13,33 @@
 
 <%-- Emppty dust.js template --%>
 
-<h1>Contestacao - 1a Etapa</h1>
+<h1>Confirmação de Identidade</h1>
 
 <c:if test="${not empty mensagemErro}">
-	<h3>${mensagemErro}</h3>
+	<div class="alert alert-danger">${mensagemErro}</div>
 </c:if>
 
-<form:form id="validacaoForm" action="/bdic3/contestacao/contestacao2" modelAttribute="contestacaoVO" method="POST">
-	<label for="nomeCliente">Nome do Cliente</label>
-	<form:input path="nomeCliente" />
-	<br>
-	<label for="cpfCliente">CPF do Cliente</label>
-	<form:input path="cpfCliente" />
-	<br>
-	<button type="submit" class="btn btn-primary">Validar Cliente</button>
+<form:form 
+	id="validacaoForm" 
+	action="/bdic3/contestacao/contestacao2"
+	modelAttribute="contestacaoVO" 
+	method="POST" 
+	class="form-horizontal"
+	role="form">
+
+	<div class="form-group">
+		<label for="nomeCliente" class="col-sm-2 control-label">Nome do Cliente</label>
+		<div class="col-sm-10"><form:input path="nomeCliente" class="form-control"	placeholder="Nome do Cliente" /></div>
+	</div>
+
+	<div class="form-group">
+		<label for="cpfCliente" class="col-sm-2 control-label">CPF do Cliente</label>
+		<div class="col-sm-10"><form:input path="cpfCliente" class="form-control"	placeholder="CPF do Cliente" /></div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">Confirmar Identidade</button>
+		</div>
+	</div>
 </form:form>

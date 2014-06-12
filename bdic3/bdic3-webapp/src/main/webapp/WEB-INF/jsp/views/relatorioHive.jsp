@@ -9,7 +9,11 @@
 <%@ taglib prefix="util" tagdir="/WEB-INF/tags/util" %>
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld" %>
 
-
-<p>
-	<h2>Operação Realizada com Sucesso.</h2>
-</p>
+<%-- Emppty dust.js template --%>
+<form id="validacaoForm" action="/bdic3/hive/pesquisarRelatorio"  method="POST">
+ <div class="form-group">
+    <label for="valorInicial">Codigo do relatorio:</label>
+    <input type="text" id="id" name="id" class="form-control"  placeholder="Entre com o valor  R$" />
+  </div>
+   <button type="submit" class="btn btn-primary" ">Enviar</button>
+</form>

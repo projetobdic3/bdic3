@@ -11,6 +11,7 @@
     <http pattern="/crossdomain.xml" security="none"/>
     <http pattern="/favicon.ico" security="none"/>
     <http pattern="/apple-touch-*.png" security="none"/>
+    <http pattern="/transacoes.png" security="none"/>
 
     <http pattern="/resources/**" security="none"/>
     <http pattern="/template/**" security="none"/>
