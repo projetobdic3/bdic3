@@ -11,7 +11,7 @@ import org.joda.time.Hours;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
+import br.com.ita.bdic3.entity.SuspeitaFraude;
 import br.com.ita.bdic3.factory.ConnectionFactoryHive;
 import br.com.ita.bdic3.util.Haversine;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
@@ -24,8 +24,8 @@ public class AnaliseFraudesDao {
 	
 	static Integer kmPorHoraAceitavel = 1000;
 
-	public List<SuspeitaFraudeVO> fraudeLocalizacao(PesquisaHiveVO pesquisaHiveVO) {
-		List<SuspeitaFraudeVO> transacoesSuspeitas = new ArrayList<SuspeitaFraudeVO>();
+	public List<SuspeitaFraude> fraudeLocalizacao(PesquisaHiveVO pesquisaHiveVO) {
+		List<SuspeitaFraude> transacoesSuspeitas = new ArrayList<SuspeitaFraude>();
 		Connection connection = connectionFactoryHive.getConnection();
 		
 		try{
@@ -33,23 +33,23 @@ public class AnaliseFraudesDao {
 		
 		if(pesquisaHiveVO.hasLocalidade()){
 			while (rs.next()) {
-				transacoesSuspeitas.add(new SuspeitaFraudeVO(rs));
+				transacoesSuspeitas.add(new SuspeitaFraude(rs));
 			}
 			return transacoesSuspeitas;
 		}
 
-		SuspeitaFraudeVO atual = null;
-		SuspeitaFraudeVO proxima = null;
+		SuspeitaFraude atual = null;
+		SuspeitaFraude proxima = null;
 
 		if (rs.next()) {
-			atual = new SuspeitaFraudeVO(rs);
+			atual = new SuspeitaFraude(rs);
 		}
 
 		int transacao = 0;
 		int transacaoSuspeita = 0;
 		while (rs.next()) {
 			transacao++;
-			proxima = new SuspeitaFraudeVO(rs);
+			proxima = new SuspeitaFraude(rs);
 
 			// pula para a proxima iteracao,
 			// caso as transacoes sejam referentes a clientes distintos

@@ -14,10 +14,10 @@
 
 
 
-<c:if test="${empty suspeitaFraude}">
+<c:if test="${empty suspeitasFraude}">
 	<h2>Nenhum resultado encontrado!</h2>
 </c:if>
-<c:if test="${not empty suspeitaFraude}">
+<c:if test="${not empty suspeitasFraude}">
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">Possiveis Fraudes</div>
@@ -34,7 +34,7 @@
   	</tr>
   </thead>
   <tbody>
-  <c:forEach var="suspeitaFraude" items="${suspeitaFraude}">
+  <c:forEach var="suspeitaFraude" items="${suspeitasFraude}">
 	  <tr>
 		  <td>${suspeitaFraude.cli_id}</td>
 		  <td>${suspeitaFraude.loc_latitude}</td>
@@ -49,10 +49,4 @@
 </div>
 </c:if>
 
-
-<script>
-	
-	$.post('/bdic3/hive/pesquisar');
-	
-</script>
 

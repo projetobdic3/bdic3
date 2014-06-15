@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
+import br.com.ita.bdic3.entity.SuspeitaFraude;
 import br.com.ita.bdic3.factory.ConnectionFactoryHive;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
 
@@ -17,7 +17,7 @@ public class AnaliseFraudesDaoTest {
 	public void test() throws SQLException {
 		AnaliseFraudesDao analiseFraudesDao = new AnaliseFraudesDao();
 		analiseFraudesDao.setConnectionFactoryHive(new ConnectionFactoryHive());
-		List<SuspeitaFraudeVO> transacoesSuspeitas = analiseFraudesDao.fraudeLocalizacao(new PesquisaHiveVO());;
+		List<SuspeitaFraude> transacoesSuspeitas = analiseFraudesDao.fraudeLocalizacao(new PesquisaHiveVO());;
 		System.out.println(transacoesSuspeitas.toString());
 	}
 

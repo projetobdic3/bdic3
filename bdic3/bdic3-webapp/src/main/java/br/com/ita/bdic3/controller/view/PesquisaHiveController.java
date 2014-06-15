@@ -1,10 +1,8 @@
 package br.com.ita.bdic3.controller.view;
 
 import java.util.List;
-import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.ita.bdic3.dao.RelatorioFraudeDao;
 import br.com.ita.bdic3.entity.RelatorioFraude;
-import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
 import br.com.ita.bdic3.hive.dao.PesquisaHiveDao;
 import br.com.ita.bdic3.service.AnaliseFraudesService;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
@@ -45,44 +42,23 @@ public class PesquisaHiveController {
 		model.addAttribute("localidades", localidades);
 		return VIEW_FORM;
 	}
-	//@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
-	public String pesquisarFraudes(Model model, PesquisaHiveVO pesquisaHiveVO){
-		try{
-			List<SuspeitaFraudeVO> suspeitasFraudes = analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
-			model.addAttribute("suspeitaFraude", suspeitasFraudes);
-		}catch(Exception e){
-			model.addAttribute("pesquisaHive", pesquisaHiveVO);
-			model.addAttribute("localidades", pesquisaHiveDao.buscarLocalidades());
-			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
-			return VIEW_FORM;
-		}
-		return VIEW_RESULTADO;
-	}
+	
 	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
-	public String pesquisarFraudesSlow(Model model, PesquisaHiveVO pesquisaHiveVO){
-		try{
-			 analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
-			//model.addAttribute("suspeitaFraude", suspeitasFraudes);
-		}catch(Exception e){
-			e.printStackTrace();
-			model.addAttribute("pesquisaHive", pesquisaHiveVO);
-			model.addAttribute("localidades", pesquisaHiveDao.buscarLocalidades());
-			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
-			return VIEW_FORM;
-		}
-		return VIEW_RESULTADO;
+	public void pesquisarFraudesSlow(Model model, PesquisaHiveVO pesquisaHiveVO){
+			analiseFraudesService.buscarSuspeitasDeFraudes(pesquisaHiveVO);
 	}
+	
 	@RequestMapping(value = "/relatorio", method = RequestMethod.GET)
 	public String formRelatorio(){
-		
 		return VIEW_RELATORIO;
 	}
+	
 	@RequestMapping(value = "/pesquisarRelatorio", method = RequestMethod.POST)
 	public String pesquisarRelatorio(Model model,@RequestParam("id") Long id){
 		try{
 			 
 			RelatorioFraude relatorio = relatorioFraudeDao.findById(id);
-			model.addAttribute("suspeitaFraude", relatorio.getSuspeitasFraudes());
+			model.addAttribute("suspeitasFraude", relatorio.getSuspeitasFraudes());
 		}catch(Exception e){
 			e.printStackTrace();
 			model.addAttribute("mensagemErro", "Dados Invalidos!"+e.getMessage());
