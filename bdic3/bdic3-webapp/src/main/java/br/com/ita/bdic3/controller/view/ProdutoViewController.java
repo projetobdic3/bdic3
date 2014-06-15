@@ -60,7 +60,8 @@ public class ProdutoViewController {
 			pedidoService.efetuarCompra(pedidoVO);
 			return VIEW_SUCESSO;
 		} catch (Exception e) {
-			model.addAttribute("erro", e.getMessage());
+			e.printStackTrace();
+			model.addAttribute("erro", "Não foi possível efetuar o Pedido.");
 			return VIEW_COMPRA;
 		}
 	}

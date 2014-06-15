@@ -8,12 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mail {
 	
-	private static final String PROJETOBDIC3_EMAIL = "projetobdic3@gmail.com";
+	public static final String PROJETOBDIC3_EMAIL = "projetobdic3@gmail.com";
 	
 	@Autowired
 	private MailSender mailSender;
-	
-	
 	 
 	public void setMailSender(MailSender mailSender) {
 		this.mailSender = mailSender;
@@ -27,7 +25,12 @@ public class Mail {
 		message.setTo(to);
 		message.setSubject(subject);
 		message.setText(msg);
-		mailSender.send(message);	
+		
+		try {
+			mailSender.send(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	 public static void main( String[] args ) {

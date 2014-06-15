@@ -46,6 +46,12 @@ public class Transacao implements Serializable {
 	@Column(name = "tra_validade")
 	private Calendar validade;
 	
+	@Column(name = "tra_data")
+	private Calendar data;
+	
+	@Column(name = "tra_hora")
+	private Calendar hora;
+	
 	@Column(name = "tra_url_pagamento")
 	private String urlPagamento;
 	
@@ -118,4 +124,33 @@ public class Transacao implements Serializable {
 	public DateTime getTra_data_hora() {
 		return data_hora;
 	}
+
+	public DateTime getData_hora() {
+		return data_hora;
+	}
+
+	public void setData_hora(DateTime data_hora) {
+		this.data_hora = data_hora;
+	}
+
+	public Calendar getData() {
+		return data;
+	}
+
+	public void setData(Calendar data) {
+		this.data = data;
+	}
+
+	public Calendar getHora() {
+		return hora;
+	}
+
+	public void setHora(Calendar hora) {
+		this.hora = hora;
+	}
+
+	public int getQuantidadeParcelas() {
+		return quantidadeParcelas;
+	}
+	
 }

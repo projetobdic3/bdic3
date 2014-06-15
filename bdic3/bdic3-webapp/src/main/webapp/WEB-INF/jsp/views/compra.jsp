@@ -10,7 +10,7 @@
 <%@ taglib prefix="tb" uri="/WEB-INF/taglib/taglib.tld" %>
 
 <c:if test="${not empty erro}">
-	<h1>${erro}</h1>
+	<span>${erro}</span>
 </c:if>
 
 <form:form id="pedidoForm" action="/bdic3/product/comprar" modelAttribute="pedidoVO" method="POST">

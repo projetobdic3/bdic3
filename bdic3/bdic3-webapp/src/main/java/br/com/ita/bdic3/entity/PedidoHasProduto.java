@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.ita.bdic3.entity.Produto;
+
 @Entity
 @Table(name="pedido_has_produto")
 public class PedidoHasProduto {

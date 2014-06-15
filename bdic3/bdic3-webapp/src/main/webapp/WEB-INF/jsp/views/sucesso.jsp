@@ -11,5 +11,5 @@
 
 
 <p>
-	<h2>Compra efetuada com sucesso.</h2>
+	<h2>Operação Realizada com Sucesso.</h2>
 </p>

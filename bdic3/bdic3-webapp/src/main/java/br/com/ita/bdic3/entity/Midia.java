@@ -54,10 +54,6 @@ public class Midia {
 	@JoinColumn(name="cli_id", insertable = false, updatable = false)
 	private Cliente cliente;
 
-	// @OneToOne(mappedBy = "odc_id")
-	// private OperadoraCartao operadoraCartao;
-
-
 	public Long getId() {
 		return id;
 	}

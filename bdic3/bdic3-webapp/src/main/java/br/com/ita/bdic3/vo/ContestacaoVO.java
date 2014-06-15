@@ -11,6 +11,8 @@ public class ContestacaoVO {
 	private Double valorFinal;
 	private String dataInicial;
 	private String dataFinal;
+	private Long traId;
+	private String fraudeTipo;
 
 	public Long getIdContestacao() {
 		return idContestacao;
@@ -82,6 +84,22 @@ public class ContestacaoVO {
 
 	public void setDataFinal(String dataFinal) {
 		this.dataFinal = dataFinal;
+	}
+
+	public void setTraId(Long traId) {
+		this.traId = traId;
+	}
+	
+	public Long getTraId(){
+		return this.traId;
+	}
+
+	public String getFraudeTipo() {
+		return fraudeTipo;
+	}
+
+	public void setFraudeTipo(String fraudeTipo) {
+		this.fraudeTipo = fraudeTipo;
 	}
 
 }

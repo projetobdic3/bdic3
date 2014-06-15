@@ -13,24 +13,45 @@
 
 <%-- Emppty dust.js template --%>
 
-<h1>Contestacao - 2a Etapa</h1>
+<h1>Contestação</h1>
 
 <c:if test="${not empty mensagemErro}">
-	<h3>${mensagemErro}</h3>
+	<div class="alert alert-danger">${mensagemErro}</div>
 </c:if>
 
-<form:form id="validacaoForm" action="/bdic3/contestacao/contestacao3" modelAttribute="contestacaoVO" method="POST">
-	Nome do Cliente: ${contestacaoVO.nomeCliente}
-	<form:hidden path="nomeCliente" value="${contestacaoVO.nomeCliente}" />
-	<br>
-	CPF do Cliente: ${contestacaoVO.cpfCliente}
-	<form:hidden path="cpfCliente" value="${contestacaoVO.cpfCliente}" />
-	<br>
-	<label for="valorTransacao">Valor da Transacao</label>
-	<form:input path="valorTransacao" />
-	<br>
-	<label for="dataTransacao">Data da Transacao</label>
-	<form:input path="dataTransacao" />
-	<br>
-	<button type="submit" class="btn btn-primary">Validar Transacao</button>
+<form:form 
+	id="validacaoForm" 
+	action="/bdic3/contestacao/contestacao3"
+	modelAttribute="contestacaoVO" 
+	method="POST" 
+	class="form-horizontal"
+	role="form">
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Nome do Cliente</label>
+    	<div class="col-sm-10"><p class="form-control-static">${contestacaoVO.nomeCliente}</p></div>
+		<form:hidden path="nomeCliente" value="${contestacaoVO.nomeCliente}" />
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">CPF do Cliente</label>
+    	<div class="col-sm-10"><p class="form-control-static">${contestacaoVO.cpfCliente}</p></div>
+		<form:hidden path="cpfCliente" value="${contestacaoVO.cpfCliente}" />
+	</div>
+
+	<div class="form-group">
+		<label for="valorTransacao" class="col-sm-2 control-label">Valor da Transação</label>
+		<div class="col-sm-10"><form:input path="valorTransacao" class="form-control"	placeholder="Valor da Transação" /></div>
+	</div>
+
+	<div class="form-group">
+		<label for="dataTransacao" class="col-sm-2 control-label">Data da Transação</label>
+		<div class="col-sm-10"><form:input path="dataTransacao" class="form-control" placeholder="Data da Transação" /></div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">Buscar Transação</button>
+		</div>
+	</div>
 </form:form>

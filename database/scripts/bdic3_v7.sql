@@ -251,10 +251,16 @@
   		ped_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	  	ped_dt VARCHAR(50) NULL,
 	  	cli_id INT NULL,
+        tra_id INT NULL,
 	  	INDEX FK_PEDIDO_CLIENTE (cli_id ASC),
 	  	CONSTRAINT FK_PEDIDO_CLIENTE
 	    	FOREIGN KEY (cli_id)
 	    	REFERENCES cliente (cli_id)
+	    	ON DELETE NO ACTION
+	    	ON UPDATE NO ACTION
+        CONSTRAINT FK_PEDIDO_TRANSACAO
+	    	FOREIGN KEY (tra_id)
+	    	REFERENCES transacao (tra_id)
 	    	ON DELETE NO ACTION
 	    	ON UPDATE NO ACTION
 	) 	ENGINE = InnoDB;

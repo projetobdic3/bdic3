@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.ita.bdic3.dao.ClienteDao;
 import br.com.ita.bdic3.dao.MidiaDao;
 import br.com.ita.bdic3.dao.PedidoDao;
 import br.com.ita.bdic3.dao.ProdutoDao;
@@ -44,6 +45,9 @@ public class PedidoService {
 	
 	@Autowired
 	private TransacaoDao transacaoDao;
+	
+	@Autowired
+	private ClienteDao clienteDao;
 	
 	@Autowired
 	private FraudeService fraudeService;
@@ -92,9 +96,15 @@ public class PedidoService {
 		produtoHas.setProduto(produto);
 		produtoHas.setPreco(produto.getPrecoNormal());
 		produtoHas.setQuantidade(pedidoVO.getQuantidade());
+		produtos.add(produtoHas);
+		
 		pedido.setProdutos(produtos);
 		
-		Cliente cliente = new Cliente(pedidoVO.getIdCliente());
+		Cliente cliente = clienteDao.findById(pedidoVO.getIdCliente());
+		
+		if (cliente == null) {
+			throw new Exception("Cliente não encontrado");
+		}
 		
 		CidadeVO cidade = LocalidadeFixture.getCidadePorNome(pedidoVO.getCidade());
 		
@@ -122,14 +132,15 @@ public class PedidoService {
 
 	public void salvarPedido(Pedido pedido) throws APIException {
 		validar(pedido);
-		pedido.setTransacao(criarTransacao(pedido));
+		//pedido.setTransacao(criarTransacao(pedido));
 		pedidoDao.save(pedido);
 	}
 	
 	private Transacao criarTransacao(Pedido pedido) {
 		Transacao transacao = new Transacao();
-//		transacao.setData(pedido.getData());
-//		transacao.setHora(pedido.getData());
+		transacao.setData(pedido.getData());
+		transacao.setHora(pedido.getData());
+		transacao.setTotal(pedido.getValorTotal());
 		transacao.setTotal(pedido.getValorTotal());
 		transacao.setTransacaoTipo(TransacaoTipo.COMPRA);
 		return transacao;
@@ -139,8 +150,10 @@ public class PedidoService {
 		Midia midia = midiaDao.findById(pedido.getPagamento().getMidia().getId());
 		BigDecimal valorTotal = pedido.getValorTotal();
 		
+		Cliente cliente = clienteDao.findById(pedido.getCliente().getId());
+		
 		validarLimiteMidia(valorTotal, midia.getValorMaximo());
-		validarFraude(valorTotal, midia.getUpperLimit(), pedido);
+		validarFraude(valorTotal, cliente.getUpperLimit(), pedido);
 	}
 
 	private void validarLimiteMidia(BigDecimal valorTotal, BigDecimal valorLimiteMidia) {
@@ -154,11 +167,13 @@ public class PedidoService {
 		int valorFraude = valorUpperLimit.multiply(BigDecimal.TEN).compareTo(valorTotal);
 		
 		if (valorFraude == 0 || valorFraude == 1) {
+			System.out.println("Fraude");
 			fraudeService.notificarFraude(pedido);
 			return;
 		}
 		
 		if (valorUpperLimit.compareTo(valorTotal) == -1) {
+			System.out.println("Suspeita de Fraude");
 			fraudeService.notificarSuspeitaDeFraude(pedido);
 			return;
 		}

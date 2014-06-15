@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.ita.bdic3.entity.FormaPagamento;
 @Entity
 @Table(name = "pagamento")
 public class Pagamento {

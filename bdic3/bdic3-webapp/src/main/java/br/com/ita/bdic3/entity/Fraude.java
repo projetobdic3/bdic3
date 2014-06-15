@@ -1,5 +1,7 @@
 package br.com.ita.bdic3.entity;
 
+import javax.persistence.CascadeType;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +29,11 @@ public class Fraude {
 	@Column(name = "fra_forma_deteccao")
 	private String formaDeteccao;
 
-	@ManyToOne
+
+	@Column(name = "fra_data_deteccao")
+	private Date dataDeteccao;
+	
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "tra_id")
 	private Transacao transacao;
 
@@ -47,11 +53,11 @@ public class Fraude {
 		this.nome = nome;
 	}
 
-	public FraudeTipo getTipo() {
+	public FraudeTipo getFraudeTipo() {
 		return tipo;
 	}
 
-	public void setTipo(FraudeTipo tipo) {
+	public void setFraudeTipo(FraudeTipo tipo) {
 		this.tipo = tipo;
 	}
 
@@ -70,4 +76,21 @@ public class Fraude {
 	public void setTransacao(Transacao transacao) {
 		this.transacao = transacao;
 	}
+
+	public void setData(Date dataDeteccao) {
+		this.dataDeteccao = dataDeteccao;
+	}
+	
+	public Date getData(){
+		return this.dataDeteccao;
+	}
+
+	public FraudeTipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(FraudeTipo tipo) {
+		this.tipo = tipo;
+	}
+
 }
