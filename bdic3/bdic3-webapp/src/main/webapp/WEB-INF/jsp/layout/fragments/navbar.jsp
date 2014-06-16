@@ -33,7 +33,7 @@ This is the dynamic remake of http://getbootstrap.com/components/#navbar
 		<ul class="nav navbar-nav">
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 				<c:forEach var="item"
-					items="home,about,product,transacoes,contestacao/contestacao1,mapaHistorico,mapaRealtime,hive/form,hive/relatorio,estatistica">
+					items="product,transacoes,contestacao/contestacao1,mapaHistorico,mapaRealtime,hive/form,hive/relatorio,estatistica">
 					<spring:message code="navbar.${item}.title" var="itemTitle" />
 					<c:choose>
 						<c:when test="${item eq selectedView}">
