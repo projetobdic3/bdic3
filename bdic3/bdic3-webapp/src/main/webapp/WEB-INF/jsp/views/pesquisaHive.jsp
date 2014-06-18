@@ -13,7 +13,7 @@
 
 <%-- Emppty dust.js template --%>
 
-<h1>Pesquisa Hive</h1>
+<h1>Solicitar relatorio de suspeita de fraude</h1>
 
 <c:if test="${not empty mensagemErro}">
 	<h3>${mensagemErro}</h3>
