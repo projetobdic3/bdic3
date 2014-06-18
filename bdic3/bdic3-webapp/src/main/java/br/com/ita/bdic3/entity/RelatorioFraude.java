@@ -21,7 +21,7 @@ public class RelatorioFraude {
 	private Long id;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "relatorioFraude",fetch=FetchType.EAGER)
-	private List<SuspeitaFraudeVO> suspeitasFraudes;
+	private List<SuspeitaFraude> suspeitasFraudes;
 
 	public Long getId() {
 		return id;
@@ -31,12 +31,12 @@ public class RelatorioFraude {
 		this.id = id;
 	}
 
-	public List<SuspeitaFraudeVO> getSuspeitasFraudes() {
+	public List<SuspeitaFraude> getSuspeitasFraudes() {
 		return suspeitasFraudes;
 	}
 
-	public void setSuspeitasFraudes(List<SuspeitaFraudeVO> suspeitasFraudes) {
-		for (SuspeitaFraudeVO suspeitaFraudeVO : suspeitasFraudes) {
+	public void setSuspeitasFraudes(List<SuspeitaFraude> suspeitasFraudes) {
+		for (SuspeitaFraude suspeitaFraudeVO : suspeitasFraudes) {
 			suspeitaFraudeVO.setRelatorioFraude(this);
 		}
 		this.suspeitasFraudes = suspeitasFraudes;

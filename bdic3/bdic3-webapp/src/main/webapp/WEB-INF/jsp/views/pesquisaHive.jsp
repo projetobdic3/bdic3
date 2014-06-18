@@ -13,12 +13,12 @@
 
 <%-- Emppty dust.js template --%>
 
-<h1>Pesquisa Hive</h1>
+<h1>Solicitar relatorio de suspeita de fraude</h1>
 
 <c:if test="${not empty mensagemErro}">
 	<h3>${mensagemErro}</h3>
 </c:if>
-<form:form id="validacaoForm" action="/bdic3/hive/p" modelAttribute="pesquisaHive" method="POST">
+<form:form id="formPesquisa" action="/bdic3/hive/p" modelAttribute="pesquisaHive" method="POST">
   <div class="form-group">
     <label for="valorInicial">Valor de</label>
     <form:input path="valorInicial" cssClass="form-control"  placeholder="Entre com o valor  R$" />
@@ -42,7 +42,7 @@
 </form:form>
 <script>
 function envia(){
-	$.ajax({type:'POST', url: '/bdic3/hive/pesquisar', data: $('#validacaoForm').serialize()});
+	$.ajax({type:'POST', url: '/bdic3/hive/pesquisar', data: $('#formPesquisa').serialize()});
 	alert("Solicitacao enviada com sucesso");
 }
 </script>

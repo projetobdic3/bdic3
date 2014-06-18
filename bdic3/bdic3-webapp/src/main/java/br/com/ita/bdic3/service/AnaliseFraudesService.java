@@ -2,17 +2,15 @@ package br.com.ita.bdic3.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import br.com.ita.bdic3.dao.RelatorioFraudeDao;
 import br.com.ita.bdic3.entity.RelatorioFraude;
-import br.com.ita.bdic3.entity.SuspeitaFraudeVO;
+import br.com.ita.bdic3.entity.SuspeitaFraude;
 import br.com.ita.bdic3.hive.dao.AnaliseFraudesDao;
 import br.com.ita.bdic3.util.Mail;
 import br.com.ita.bdic3.vo.PesquisaHiveVO;
@@ -28,11 +26,11 @@ public class AnaliseFraudesService {
 	
 	@Autowired
 	private Mail mail;
-	private List<SuspeitaFraudeVO>  fraudeVOs;
+	private List<SuspeitaFraude>  fraudeVOs;
 	AtomicBoolean working = new AtomicBoolean(false);
 	
-	public List<SuspeitaFraudeVO> buscarSuspeitasDeFraudes(PesquisaHiveVO pesquisaHiveVO){
-		List<SuspeitaFraudeVO> suspeitasFraudes = new ArrayList<SuspeitaFraudeVO>();
+	public void buscarSuspeitasDeFraudes(PesquisaHiveVO pesquisaHiveVO){
+		List<SuspeitaFraude> suspeitasFraudes = new ArrayList<SuspeitaFraude>();
 		try{
 			suspeitasFraudes = analiseFraudesDao.fraudeLocalizacao(pesquisaHiveVO);
 			RelatorioFraude relatorioFraude =  new RelatorioFraude();
@@ -42,8 +40,6 @@ public class AnaliseFraudesService {
 		}catch(Exception e){
 			mail.sendMail("projetobdic3@gmail.com", "Análise de Fraude ERRO", "Erro ao gerar relatorio" + e.getMessage() );
 		}
-		
-		return suspeitasFraudes;
 	}
 	
 	@Async
@@ -54,7 +50,7 @@ public class AnaliseFraudesService {
 			working.set(false);
 		}
 	}
-	public List<SuspeitaFraudeVO> getFraudeVOs() {
+	public List<SuspeitaFraude> getFraudeVOs() {
 		return fraudeVOs;
 	}
 

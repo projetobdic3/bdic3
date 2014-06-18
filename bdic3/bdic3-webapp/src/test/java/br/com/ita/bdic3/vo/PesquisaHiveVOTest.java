@@ -16,7 +16,7 @@ public class PesquisaHiveVOTest {
 	@Test
 	public void deveRetornarDataInicialCorreta(){
 		pesquisaHiveVO.setDataInicial("01/02/2013");
-		assertEquals("2013-02-01", pesquisaHiveVO.getDataIncialConvertida());
+		assertEquals("2013-02-01 00:00:00", pesquisaHiveVO.getDataIncialConvertida());
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void deveRetornarErroAoConverterDataInicial(){
@@ -26,7 +26,7 @@ public class PesquisaHiveVOTest {
 	@Test
 	public void deveRetornarDataFinallCorreta(){
 		pesquisaHiveVO.setDataFinal("09/04/2013");
-		assertEquals("2013-04-09", pesquisaHiveVO.getDataFinalConvertida());
+		assertEquals("2013-04-09 00:00:00", pesquisaHiveVO.getDataFinalConvertida());
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void deveRetornarErroAoConverterDataFinall(){
